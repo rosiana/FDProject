@@ -24,11 +24,12 @@ public class Main {
     public static void main (String args[]) throws IOException {
         int pagenum = crawler.getPageNum("lpse.itb.ac.id");
         String[] kodelelang = crawler.getKodeLelang("lpse.itb.ac.id", pagenum);
-        float[] periodelelang = t1.getAllPeriodeLelang(kodelelang);
-        float[] meanselisihtahap = t1.getAllMeanSelisihTahap(kodelelang);
-        int[] outlierp = t1.getOutlierPeriode(kodelelang);
-        int[] outliers = t1.getOutlierSelisih(kodelelang);
-        t1.emptyT1();
-        t1.dbInsertT1(kodelelang,periodelelang,meanselisihtahap,outlierp,outliers);
+        crawler.Crawl();
+        //float[] periodelelang = t1.getAllPeriodeLelang(kodelelang);
+        //float[] meanselisihtahap = t1.getAllMeanSelisihTahap(kodelelang);
+        //int[] outlierp = t1.getOutlierPeriode(kodelelang);
+        //int[] outliers = t1.getOutlierSelisih(kodelelang);
+        //t1.emptyT1();
+        //t1.dbInsertT1(kodelelang,periodelelang,meanselisihtahap,outlierp,outliers);
     }
 }

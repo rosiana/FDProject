@@ -150,10 +150,10 @@ public class Crawler {
     			infolelang[i][2] = "1"; 
     		}
     		
-    		infolelang[i][3] = (agency.text()).replace(",",""); 
-    		infolelang[i][4] = (pagu.text().replaceAll("[^\\d,]", "")).replace(",00", "");
-    		infolelang[i][5] = (hps.text().replaceAll("[^\\d,]", "")).replace(",00", "");
-    		infolelang[i][6] = (peserta.text()).replace(" peserta [Detil...]", ""); 
+    		infolelang[i][3] = (agency.text()).replace(",","");
+            infolelang[i][4] = ((pagu.text()).replace(",00","").replace(".","")).replace(",",".");
+    		infolelang[i][5] = ((hps.text()).replace(",00","").replace(".","")).replace(",",".");
+            infolelang[i][6] = (peserta.text()).replace(" peserta [Detil...]", "");
     	}
     	return infolelang;
     }
@@ -626,6 +626,7 @@ public class Crawler {
 				}
 				break;
 			case 5:
+				/*
 				Elements entripeserta5 = doc.select("td.horizLineTop");
 				for (int i = 0; i < baris.size()-1; i++) {
 					if (i == 0) {
@@ -647,6 +648,7 @@ public class Crawler {
 						pesertalelang[i][4] = "0";
 					}
 				}
+				*/
 				break;
 			default:
             	Elements entripesertad = doc.select("td.horizLineTop");
@@ -1045,7 +1047,7 @@ public class Crawler {
         }
 	}
 
-	public static void Crawler() throws IOException {
+	public static void Crawl() throws IOException {
     	String url = "";
     	Scanner reader = new Scanner(System.in);
     	System.out.println("Enter 1/2/3: ");
@@ -1074,14 +1076,14 @@ public class Crawler {
 		}
 		String[][] infolelang = getInfoLelang(url,kodelelang);
 		//tulisInfoLelang(infolelang);
-		emptyInfoLelang();
-		dbTulisInfoLelang(infolelang);
+		//emptyInfoLelang();
+		//dbTulisInfoLelang(infolelang);
 		int[] jumlahpeserta = getAllJumlahPeserta(kodelelang,infolelang);
-		int[] jumlahtahap = getAllJumlahTahap(url, kodelelang);
+		//int[] jumlahtahap = getAllJumlahTahap(url, kodelelang);
 		emptyPesertaLelang();
 		getAllPesertaLelang(url,kodelelang,jumlahpeserta);
-		emptyTahapLelang();
-		getAllTahapLelang(url,kodelelang,jumlahtahap);
+		//emptyTahapLelang();
+		//getAllTahapLelang(url,kodelelang,jumlahtahap);
 		System.out.println("Selesai");
 	} 
 }

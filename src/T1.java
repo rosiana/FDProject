@@ -35,7 +35,7 @@ public class T1 {
 
             Timestamp mulai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " order by  idxtahap asc limit 1";
+            String query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " order by  id asc limit 1";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -81,7 +81,7 @@ public class T1 {
 
             Timestamp sampai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  sampai from  tahap where  lelangnum = " + kodelelang + " order by  idxtahap desc limit 1";
+            String query = "select  sampai from  tahap where  lelangnum = " + kodelelang + " order by  id desc limit 1";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -146,7 +146,7 @@ public class T1 {
             statement = connect.createStatement();
 
             int numtahap = 0;
-            String query = "select count(idxtahap) from  tahap as  numtahap where  lelangnum = " + kodelelang;
+            String query = "select count(id) from  tahap as  numtahap where  lelangnum = " + kodelelang;
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name

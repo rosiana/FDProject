@@ -1,9 +1,6 @@
 /**
- * Created by Rosiana on 5/3/2016.
+ * Created by Rosiana on 7/3/2016.
  */
-
-import org.json.simple.JSONObject;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +11,7 @@ import java.util.Properties;
 
 import java.sql.*;
 
-public class T1 {
+public class T5 {
 
     //mysql cred
     static final String myDriver = "org.gjt.mm.mysql.Driver";
@@ -22,7 +19,7 @@ public class T1 {
     static final String user = "root";
     static final String pass = "";
 
-    public static String getMulaiPeriodeLelang(int kodelelang) throws IOException {
+    public static String getMulaiMasaSanggah(int kodelelang) throws IOException {
         String stringmulai = "";
         Connection connect = null;
         Statement statement = null;
@@ -37,7 +34,7 @@ public class T1 {
 
             Timestamp mulai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " order by  id asc limit 1";
+            String query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " and  tahap = \"Masa Sanggah Hasil Lelang\"";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -68,7 +65,7 @@ public class T1 {
         return stringmulai;
     }
 
-    public static String getSampaiPeriodeLelang(int kodelelang) throws IOException {
+    public static String getSampaiMasaSanggah(int kodelelang) throws IOException {
         String stringsampai = "";
         Connection connect = null;
         Statement statement = null;
@@ -83,7 +80,7 @@ public class T1 {
 
             Timestamp sampai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  sampai from  tahap where  lelangnum = " + kodelelang + " order by  id desc limit 1";
+            String query = "select  sampai from  tahap where  lelangnum = " + kodelelang + " and  tahap = \"Masa Sanggah Hasil Lelang\"";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -114,115 +111,22 @@ public class T1 {
         return stringsampai;
     }
 
-    public static float[] getAllPeriodeLelang(String[] kodelelang) throws IOException {
+    public static float[] getAllPeriodeMasaSanggah(String[] kodelelang) throws IOException {
         float[] periode = new float[kodelelang.length];
         for (int i = 0; i < kodelelang.length; i++) {
             int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
-            System.out.println(lelangnum);
-            String mulai = getMulaiPeriodeLelang(lelangnum);
-            String sampai = getSampaiPeriodeLelang(lelangnum);
+            String mulai = getMulaiMasaSanggah(lelangnum);
+            String sampai = getSampaiMasaSanggah(lelangnum);
             periode[i] = getPeriode(mulai,sampai);
         }
         return periode;
     }
 
-    public static float[] getAllMeanSelisihTahap(String[] kodelelang) throws IOException {
-        float[] ptahap = new float[kodelelang.length];
-        for (int i = 0; i < kodelelang.length; i++) {
-            int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
-            System.out.println("lelangnum: " + lelangnum);
-            ptahap[i] = getMeanSelisihTahap(lelangnum);
-        }
-        return ptahap;
-    }
-
-    public static float getMeanSelisihTahap(int kodelelang) throws IOException {
-        float mean = 0;
-        Connection connect = null;
-        Statement statement = null;
-        try {
-            Class.forName(myDriver);
-            Properties props = new Properties();
-            props.put("user", user);
-            props.put("password", pass);
-            props.put("autoReconnect", "true");
-            connect = DriverManager.getConnection(myUrl, props);
-            statement = connect.createStatement();
-
-            int numtahap = 0;
-            String query = "select count(id) from  tahap as  numtahap where  lelangnum = " + kodelelang;
-            ResultSet result = statement.executeQuery(query);
-            while (result.next()) {
-                //Retrieve by column name
-                numtahap = result.getInt(1);
-            }
-            result.close();
-
-            String[] smulai = new String[numtahap-1];
-            int mintahap = numtahap - 1;
-            query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " limit " + mintahap;
-            result = statement.executeQuery(query);
-            int i = 0;
-            while (result.next()) {
-                //Retrieve by column name
-                Timestamp mulai = new Timestamp(0000,00,00,00,00,00,000000000);
-                mulai = result.getTimestamp(1);
-                smulai[i] = String.valueOf(mulai);
-                System.out.println("smulai: " + smulai[i]);
-                i++;
-            }
-            result.close();
-
-            String[] ssampai = new String[numtahap-1];
-            query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " limit 50 offset 1";
-            result = statement.executeQuery(query);
-            i = 0;
-            while (result.next()) {
-                //Retrieve by column name
-                Timestamp sampai = new Timestamp(0000,00,00,00,00,00,000000000);
-                sampai = result.getTimestamp(1);
-                ssampai[i] = String.valueOf(sampai);
-                System.out.println("ssampai: " + ssampai[i]);
-                i++;
-            }
-            result.close();
-
-            for (int j = 0; j < numtahap-1; j++) {
-                float x = getPeriode(smulai[j],ssampai[j]);
-                mean += x;
-            }
-            mean = mean/numtahap;
-        } catch(SQLException se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-        } catch(Exception e){
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (statement != null)
-                    connect.close();
-            } catch (SQLException se) {
-            }// do nothing
-            try {
-                if (connect != null)
-                    connect.close();
-            } catch(SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }
-        return mean;
-    }
-
     public static float getPeriode(String mulai, String sampai) throws IOException {
         float periode = 0;
         mulai = mulai.replace(".0", "");
-        System.out.println("mulai: " + mulai);
         String datemulai = ((mulai).substring(0, mulai.length()-8).replace(" ","")).replace("-", "");
         String timemulai = ((mulai).substring(mulai.length()-8).replace(":", "")).replace(" ","");
-        System.out.println("datemulai: " + datemulai);
-        System.out.println("timemulai: " + timemulai);
         int yyyymulai = Integer.valueOf(datemulai.substring(0,datemulai.length()-4));
         int mmmulai = Integer.valueOf(datemulai.substring(4, datemulai.length()-2));
         int yyyymulaitemp = Integer.valueOf(datemulai.substring(0, datemulai.length()-4));
@@ -359,58 +263,29 @@ public class T1 {
         return periode;
     }
 
-    public static int[] getOutlierPeriode (String[] kodelelang) throws IOException {
+    public static int[] getOutlierPeriodeMasaSanggah (String[] kodelelang) throws IOException {
         int[] outlierp = new int[kodelelang.length];
         for (int i = 0; i < outlierp.length; i++) {
             outlierp[i] = 0;
         }
         float[] data = new float[kodelelang.length];
-        data = getAllPeriodeLelang(kodelelang);
-        float lfence = getLowerFence(kodelelang, "periodelelang");
-        float ufence = getUpperFence(kodelelang, "periodelelang");
+        data = getAllPeriodeMasaSanggah(kodelelang);
+        float lfence = getLowerFence(kodelelang);
         for (int j = 0; j < data.length; j++) {
             if (data[j] < lfence) {
                 outlierp[j] = 1;
             }
             else {
-                if (data[j] > ufence) {
-                    outlierp[j] = 2;
-                }
+                outlierp[j] = 0;
             }
         }
         return outlierp;
     }
 
-    public static int[] getOutlierSelisih (String[] kodelelang) throws IOException {
-        int[] outliers = new int[kodelelang.length];
-        for (int i = 0; i < outliers.length; i++) {
-            outliers[i] = 0;
-        }
-        float[] data = new float[kodelelang.length];
-        data = getAllMeanSelisihTahap(kodelelang);
-        float lfence = getLowerFence(kodelelang, "meanselisihtahap");
-        float ufence = getUpperFence(kodelelang, "meanselisihtahap");
-        for (int j = 0; j < data.length; j++) {
-            if (data[j] < lfence) {
-                outliers[j] = 1;
-            }
-            else {
-                if (data[j] > ufence) {
-                    outliers[j] = 2;
-                }
-            }
-        }
-        return outliers;
-    }
-
-    public static void dbInsertT1(String[] kodelelang) throws IOException {
+    public static void dbInsertT5(String[] kodelelang) throws IOException {
         //mysql
-        float[] periodelelang = getAllPeriodeLelang(kodelelang);
-        float[] meanselisihtahap = getAllMeanSelisihTahap(kodelelang);
-        float[] tempperiode = periodelelang;
-        float[] tempmean = meanselisihtahap;
-        int[] outlierp = getOutlierPeriode(kodelelang);
-        int[] outliers = getOutlierSelisih(kodelelang);
+        float[] periodemasasanggah = getAllPeriodeMasaSanggah(kodelelang);
+        int[] outlierm = getOutlierPeriodeMasaSanggah(kodelelang);
         Connection connect = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -421,23 +296,16 @@ public class T1 {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("insert into  t1 values (?, ?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  t5 values (?, ?, ?)");
             for (int i = 0; i < kodelelang.length; i++) {
                 int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
                 preparedStatement.setInt(1, lelangnum);
-                preparedStatement.setFloat(2, tempperiode[i]);
-                preparedStatement.setFloat(3, tempmean[i]);
-                if (outlierp[i] == 0) {
-                    preparedStatement.setObject(4, null);
+                preparedStatement.setFloat(2, periodemasasanggah[i]);
+                if (outlierm[i] == 0) {
+                    preparedStatement.setObject(3, null);
                 }
                 else {
-                    preparedStatement.setInt(4, outlierp[i]);
-                }
-                if (outliers[i] == 0) {
-                    preparedStatement.setObject(5, null);
-                }
-                else {
-                    preparedStatement.setInt(5, outliers[i]);
+                    preparedStatement.setInt(3, outlierm[i]);
                 }
                 preparedStatement.addBatch();
             }
@@ -465,7 +333,7 @@ public class T1 {
         }
     }
 
-    public static void emptyT1() throws IOException {
+    public static void emptyT5() throws IOException {
         Connection connect = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -476,7 +344,7 @@ public class T1 {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("delete from  t1");
+            preparedStatement = connect.prepareStatement("delete from  t5");
 
             preparedStatement.executeUpdate();
         }
@@ -502,9 +370,9 @@ public class T1 {
         }
     }
 
-    public static float getLowerFence(String[] kodelelang, String by) throws IOException {
+    public static float getLowerFence(String[] kodelelang) throws IOException {
         float lfence = 0;
-        float[] sorted = sort(kodelelang, by);
+        float[] sorted = sort(kodelelang);
         float q1 = 0;
         float q3 = 0;
         float iqr = 0;
@@ -533,7 +401,7 @@ public class T1 {
         }
         iqr = q3 - q1;
         lfence = q1 - 3/2*iqr;
-        System.out.println("lfence " + by);
+        System.out.println("lfence");
         System.out.println("jum " + sorted.length);
         for (int i = 0; i < sorted.length; i++) {
             System.out.println(sorted[i]);
@@ -545,57 +413,9 @@ public class T1 {
         return lfence;
     }
 
-    public static float getUpperFence(String[] kodelelang, String by) throws IOException {
-        float ufence = 0;
-        float[] sorted = sort(kodelelang, by);
-        float q1 = 0;
-        float q3 = 0;
-        float iqr = 0;
-        int x = sorted.length;
-        int y = sorted.length % 4;
-        switch (y) {
-            case 0:
-                q1 = (sorted[x/4] + sorted[x/4 + 1]) / 2;
-                q3 = (sorted[3*x/4] + sorted[3*x/4 + 1]) / 2;
-                break;
-            case 1:
-                q1 = (sorted[x/4] + sorted[x/4 + 1]) / 2;
-                q3 = (sorted[3*x/4 + 1] + sorted[3*x/4 + 2]) / 2;
-                break;
-            case 2:
-                q1 = sorted[x/4 + 1];
-                q3 = sorted[3*x/4 + 1];
-                break;
-            case 3:
-                q1 = sorted[x/4 + 1];
-                q3 = sorted[3*x/4 + 1];
-                break;
-            default:
-                q1 = 0;
-                q3 = 0;
-        }
-        iqr = q3 - q1;
-        ufence = q3 + 3/2*iqr;
-        System.out.println("ufence " + by);
-        System.out.println("jum " + sorted.length);
-        for (int i = 0; i < sorted.length; i++) {
-            System.out.println(sorted[i]);
-        }
-        System.out.println("q1 " + q1);
-        System.out.println("q3 " + q3);
-        System.out.println("iqr " + iqr);
-        System.out.println("up " + ufence);
-        return ufence;
-    }
-
-    public static float[] sort(String[] kodelelang, String by) throws IOException {
+    public static float[] sort(String[] kodelelang) throws IOException {
         float[] sort = new float[kodelelang.length];
-        if (by == "periodelelang") {
-            sort = getAllPeriodeLelang(kodelelang);
-        }
-        else {
-            sort = getAllMeanSelisihTahap(kodelelang);
-        }
+        sort = getAllPeriodeMasaSanggah(kodelelang);
         //sort
         boolean swapped = true;
         int j = 0;
@@ -614,59 +434,6 @@ public class T1 {
         }
         return sort;
     }
-
-    /*
-    public static void getJSONT1() throws IOException{
-
-        JSONObject obj = new JSONObject();
-        String jsonstring = "";
-        Connection connect = null;
-        Statement statement = null;
-        try {
-            Class.forName(myDriver);
-            Properties props = new Properties();
-            props.put("user", user);
-            props.put("password", pass);
-            props.put("autoReconnect", "true");
-            connect = DriverManager.getConnection(myUrl, props);
-            statement = connect.createStatement();
-
-            String query = "select * from  t1";
-            ResultSet result = statement.executeQuery(query);
-            FileWriter writer = new FileWriter("json/t1.json");
-            jsonstring += "{\"t1\":[";
-            while (result.next()) {
-                //Retrieve by column name
-                jsonstring += "{";
-                jsonstring += "\"id\":\"" + result.getInt(1) + "\",";
-                jsonstring += "\"pagu\":" + result.getBigDecimal(5);
-                jsonstring += "},";
-            }
-            writer.append("]}");
-
-            result.close();
-            writer.flush();
-            writer.close();
-        } catch(SQLException se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-        } catch(Exception e){
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (statement != null)
-                    connect.close();
-            } catch (SQLException se) {
-            }// do nothing
-            try {
-                if (connect != null)
-                    connect.close();
-            } catch(SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }
-    }
-    */
 }
+
+

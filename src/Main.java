@@ -2,9 +2,7 @@
  * Created by Rosiana on 5/3/2016.
  */
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.Scanner;
@@ -19,17 +17,29 @@ import java.sql.*;
 
 public class Main {
     static Crawler crawler = new Crawler();
-    static T1 t1 = new T1();
+    static T2a t2a = new T2a();
 
     public static void main (String args[]) throws IOException {
-        int pagenum = crawler.getPageNum("lpse.itb.ac.id");
-        String[] kodelelang = crawler.getKodeLelang("lpse.itb.ac.id", pagenum);
-        crawler.Crawl();
-        //float[] periodelelang = t1.getAllPeriodeLelang(kodelelang);
-        //float[] meanselisihtahap = t1.getAllMeanSelisihTahap(kodelelang);
-        //int[] outlierp = t1.getOutlierPeriode(kodelelang);
-        //int[] outliers = t1.getOutlierSelisih(kodelelang);
-        //t1.emptyT1();
-        //t1.dbInsertT1(kodelelang,periodelelang,meanselisihtahap,outlierp,outliers);
+
+        /*
+        FileInputStream fstream = new FileInputStream("kodelelang");
+        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+
+        String[] kodelelang = new String[2352];
+        String strLine;
+        int i = 0;
+
+        //Read File Line By Line
+        while ((strLine = br.readLine()) != null) {
+            kodelelang[i] = strLine;
+            i++;
+        }
+        */
+        String[] peserta = t2a.getPesertaList2();
+        //float[][] matrix = t2a.isiMatrix2(peserta);
+        //t2a.getJSONT2a(matrix,peserta);
+        for (int i = 0; i < peserta.length; i++) {
+            System.out.println(peserta[i]);
+        }
     }
 }

@@ -9,7 +9,6 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>MDS Scatterplot Example</title>
     <style>
         body {
             font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -39,6 +38,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
-<script src="js/mdsa.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+<script src="js/mds.js"></script>
+<script type="text/javascript" src="js/jquery.tipsy.js"></script>
+<link href="css/tipsy.css" rel="stylesheet" type="text/css" />
 </body>
 </html>

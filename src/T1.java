@@ -37,7 +37,7 @@ public class T1 {
 
             Timestamp mulai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " order by  id asc limit 1";
+            String query = "select  mulai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " order by  id asc limit 1";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -83,7 +83,7 @@ public class T1 {
 
             Timestamp sampai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  sampai from  tahap where  lelangnum = " + kodelelang + " order by  id desc limit 1";
+            String query = "select  sampai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " order by  id desc limit 1";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -150,7 +150,7 @@ public class T1 {
             statement = connect.createStatement();
 
             int numtahap = 0;
-            String query = "select count(id) from  tahap as  numtahap where  lelangnum = " + kodelelang;
+            String query = "select count(id) from  kemenkeu_tahap as  numtahap where  lelangnum = " + kodelelang;
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -160,7 +160,7 @@ public class T1 {
 
             String[] smulai = new String[numtahap-1];
             int mintahap = numtahap - 1;
-            query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " limit " + mintahap;
+            query = "select  mulai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " limit " + mintahap;
             result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {
@@ -174,7 +174,7 @@ public class T1 {
             result.close();
 
             String[] ssampai = new String[numtahap-1];
-            query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " limit 50 offset 1";
+            query = "select  mulai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " limit 50 offset 1";
             result = statement.executeQuery(query);
             i = 0;
             while (result.next()) {
@@ -421,7 +421,7 @@ public class T1 {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("insert into  t1 values (?, ?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  kemenkeu_t1 values (?, ?, ?, ?, ?)");
             for (int i = 0; i < kodelelang.length; i++) {
                 int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
                 preparedStatement.setInt(1, lelangnum);
@@ -615,8 +615,10 @@ public class T1 {
         return sort;
     }
 
-    /*
-    public static void getJSONT1() throws IOException{
+    public static void getJSONT1Periode(String[] kodelelang) throws IOException{
+
+        float lfence = getLowerFence(kodelelang, "periodelelang");
+        float ufence = getUpperFence(kodelelang, "periodelelang");
 
         JSONObject obj = new JSONObject();
         String jsonstring = "";
@@ -631,18 +633,50 @@ public class T1 {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select * from  t1";
+            String query = "select  kemenkeu_lelang.id,  kemenkeu_lelang.nama,  kemenkeu_lelang.status,  kemenkeu_lelang.agency,  kemenkeu_lelang.pagu,  kemenkeu_lelang.hps,  kemenkeu_lelang.penawaranmenang,  kemenkeu_lelang.pemenang,  kemenkeu_t1.periodelelang,  kemenkeu_t1.outlierperiode from  kemenkeu_lelang join  kemenkeu_t1 on kemenkeu_lelang.id = kemenkeu_t1.lelangnum";
             ResultSet result = statement.executeQuery(query);
-            FileWriter writer = new FileWriter("json/t1.json");
-            jsonstring += "{\"t1\":[";
+            FileWriter writer = new FileWriter("web/json/kemenkeu_t1periode.json");
+            jsonstring += "[";
+            int i = 0;
             while (result.next()) {
                 //Retrieve by column name
                 jsonstring += "{";
-                jsonstring += "\"id\":\"" + result.getInt(1) + "\",";
-                jsonstring += "\"pagu\":" + result.getBigDecimal(5);
+                jsonstring += "\"id\":" + result.getInt(1) + ",";
+                jsonstring += "\"namalelang\":\"" + result.getString(2) + "\",";
+                int status = result.getInt(3);
+                if (status == 0) {
+                    jsonstring += "\"status\":\"Lelang sudah selesai\",";
+                }
+                else {
+                    jsonstring += "\"status\":\"Lelang belum selesai\",";
+                }
+                jsonstring += "\"agency\":\"" + result.getString(4) + "\",";
+                jsonstring += "\"pagu\":" + result.getString(5) + ",";
+                jsonstring += "\"hps\":" + result.getString(6) + ",";
+                jsonstring += "\"penawaranmenang\":" + result.getString(7) + ",";
+                jsonstring += "\"namapemenang\":\"" + result.getString(8) + "\",";
+                jsonstring += "\"periodelelang\":" + result.getFloat(9) + ",";
+                int outlier = result.getInt(10);
+                if (outlier == 1) {
+                    jsonstring += "\"keterangan\":\"Periode lelang lebih singkat dari batas normal\",";
+                }
+                else {
+                    if (outlier == 2) {
+                        jsonstring += "\"keterangan\":\"Periode lelang lebih lama dari batas normal\",";
+                    }
+                    else {
+                        jsonstring += "\"keterangan\":\"Periode lelang pada batas aman\",";
+                    }
+                }
+                jsonstring += "\"outlierbawah\":" + lfence + ",";
+                jsonstring += "\"outlieratas\":" + ufence;
                 jsonstring += "},";
+                i++;
             }
-            writer.append("]}");
+            jsonstring += ("]");
+            jsonstring.replace("},]", "}]");
+
+            writer.append(jsonstring);
 
             result.close();
             writer.flush();
@@ -668,5 +702,92 @@ public class T1 {
             }//end finally try
         }
     }
-    */
+
+    public static void getJSONT1MeanSelisih(String[] kodelelang) throws IOException{
+
+        float lfence = getLowerFence(kodelelang, "meanselisih");
+        float ufence = getUpperFence(kodelelang, "meanselisih");
+
+        JSONObject obj = new JSONObject();
+        String jsonstring = "";
+        Connection connect = null;
+        Statement statement = null;
+        try {
+            Class.forName(myDriver);
+            Properties props = new Properties();
+            props.put("user", user);
+            props.put("password", pass);
+            props.put("autoReconnect", "true");
+            connect = DriverManager.getConnection(myUrl, props);
+            statement = connect.createStatement();
+
+            String query = "select  kemenkeu_lelang.id,  kemenkeu_lelang.nama,  kemenkeu_lelang.status,  kemenkeu_lelang.agency,  kemenkeu_lelang.pagu,  kemenkeu_lelang.hps,  kemenkeu_lelang.penawaranmenang,  kemenkeu_lelang.pemenang,  kemenkeu_t1.meanselisihtahap,  kemenkeu_t1.outlierselisih from  kemenkeu_lelang join  kemenkeu_t1 on kemenkeu_lelang.id = kemenkeu_t1.lelangnum";
+            ResultSet result = statement.executeQuery(query);
+            FileWriter writer = new FileWriter("web/json/kemenkeu_t1meanselisih.json");
+            jsonstring += "[";
+            int i = 0;
+            while (result.next()) {
+                //Retrieve by column name
+                jsonstring += "{";
+                jsonstring += "\"id\":" + result.getInt(1) + ",";
+                jsonstring += "\"namalelang\":\"" + result.getString(2) + "\",";
+                int status = result.getInt(3);
+                if (status == 0) {
+                    jsonstring += "\"status\":\"Lelang sudah selesai\",";
+                }
+                else {
+                    jsonstring += "\"status\":\"Lelang belum selesai\",";
+                }
+                jsonstring += "\"agency\":\"" + result.getString(4) + "\",";
+                jsonstring += "\"pagu\":" + result.getString(5) + ",";
+                jsonstring += "\"hps\":" + result.getString(6) + ",";
+                jsonstring += "\"penawaranmenang\":" + result.getString(7) + ",";
+                jsonstring += "\"namapemenang\":\"" + result.getString(8) + "\",";
+                jsonstring += "\"meanselisihtahap\":" + result.getFloat(9) + ",";
+                int outlier = result.getInt(10);
+                if (outlier == 1) {
+                    jsonstring += "\"keterangan\":\"Rata-rata jeda tahapan lelang lebih singkat dari batas normal\",";
+                }
+                else {
+                    if (outlier == 2) {
+                        jsonstring += "\"keterangan\":\"Rata-rata jeda tahapan lelang lebih lama dari batas normal\",";
+                    }
+                    else {
+                        jsonstring += "\"keterangan\":\"Rata-rata jeda tahapan lelang pada batas aman\",";
+                    }
+                }
+                jsonstring += "\"outlierbawah\":" + lfence + ",";
+                jsonstring += "\"outlieratas\":" + ufence;
+                jsonstring += "},";
+                i++;
+            }
+            jsonstring += ("]");
+            jsonstring.replace("},]", "}]");
+
+            writer.append(jsonstring);
+
+            result.close();
+            writer.flush();
+            writer.close();
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (statement != null)
+                    connect.close();
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (connect != null)
+                    connect.close();
+            } catch(SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }
+    }
 }

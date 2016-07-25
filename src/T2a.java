@@ -265,7 +265,7 @@ public class T2a {
 
     public static String[] getPesertaList2() throws IOException {
         int[] arrlelang = new int[20];
-        String[] pesertaall = new String[500];
+        String[] pesertaall = new String[700];
         arrlelang[0] = 23564014;
         arrlelang[1] = 24683014;
         arrlelang[2] = 25048014;
@@ -356,13 +356,13 @@ public class T2a {
             }
             result.close();
 
-            query = "select distinct  nama from  peserta limit 500";
+            query = "select distinct  nama from  peserta order by rand() limit 700";
             result = statement.executeQuery(query);
             for (int l = 0; l < peserta.length; l++) {
                 pesertaall[l] = peserta[l];
             }
 
-            String[] pesertatemp = new String[500];
+            String[] pesertatemp = new String[700];
             int p = 0;
             while (result.next()) {
                 pesertatemp[p] = result.getString(1);

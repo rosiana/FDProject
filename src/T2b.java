@@ -37,7 +37,7 @@ public class T2b {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select count(id) from  lelang as  numlelang where  penawaranmenang > 0 and penawaranmenang <= hps";
+            String query = "select count(id) from  kemenkeu_lelang as  numlelang where  penawaranmenang > 0 and penawaranmenang <= hps";
             ResultSet result = statement.executeQuery(query);
             int numlelang = 0;
             while (result.next()) {
@@ -46,7 +46,7 @@ public class T2b {
             result.close();
             hps = new String[numlelang][2];
 
-            query = "select  id,  hps from  lelang where  penawaranmenang > 0 and penawaranmenang <= hps";
+            query = "select  id,  hps from  kemenkeu_lelang where  penawaranmenang > 0 and penawaranmenang <= hps";
             result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {
@@ -93,7 +93,7 @@ public class T2b {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select count(id) from  lelang as  numlelang where  penawaranmenang > 0 and penawaranmenang <= hps";
+            String query = "select count(id) from  kemenkeu_lelang as  numlelang where  penawaranmenang > 0 and penawaranmenang <= hps";
             ResultSet result = statement.executeQuery(query);
             int numlelang = 0;
             while (result.next()) {
@@ -102,7 +102,7 @@ public class T2b {
             result.close();
             hargamenang = new float[numlelang];
 
-            query = "select  penawaranmenang from  lelang where  penawaranmenang > 0 and penawaranmenang <= hps";
+            query = "select  penawaranmenang from  kemenkeu_lelang where  penawaranmenang > 0 and penawaranmenang <= hps";
             result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {
@@ -274,7 +274,7 @@ public class T2b {
         String[][] hps = getAllHPS();
         float[] mph = menangPerHPS(hps, menang);
         float[] mphtemp = mph;
-        float[] outlier = getOutlierMPH2(mph);
+        float[] outlier = getOutlierMPH(mph);
 
         Connection connect = null;
         PreparedStatement preparedStatement = null;
@@ -286,7 +286,7 @@ public class T2b {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("insert into  t2b values (?, ?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  kemenkeu_t2b values (?, ?, ?, ?, ?)");
             for (int i = 0; i < mph.length; i++) {
                 int lelangnum = Integer.parseInt(hps[i][0]);
                 preparedStatement.setInt(1, lelangnum);
@@ -327,8 +327,9 @@ public class T2b {
         }
     }
 
-    public static void getJSONT2b() throws IOException{
+    public static void getJSONT2b(float[] mph) throws IOException{
 
+        float ufence = getUpperFence(mph);
         JSONObject obj = new JSONObject();
         String jsonstring = "";
         Connection connect = null;
@@ -342,10 +343,11 @@ public class T2b {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select  lelang.id,  lelang.nama,  lelang.status,  lelang.agency,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t2b.menangperhps,  t2b.outlierhps from  lelang join  t2b on lelang.id = t2b.lelangnum";
+            String query = "select  lelang.id,  lelang.nama,  lelang.status,  lelang.agency,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t2b.menangperhps,  t2b.outlierhps from  kemenkeu_lelang join  kemenkeu_t2b on kemenkeu_lelang.id = kemenkeu_t2b.lelangnum";
             ResultSet result = statement.executeQuery(query);
             FileWriter writer = new FileWriter("web/json/t2b.json");
             jsonstring += "[";
+            int i = 0;
             while (result.next()) {
                 //Retrieve by column name
                 jsonstring += "{";
@@ -369,9 +371,11 @@ public class T2b {
                     jsonstring += "\"keterangan\":\"Perbandingan harga penawaran dan HPS melampaui batas normal\",";
                 }
                 else {
-                    jsonstring += "\"keterangan\":\"Perbandingan harga penawaran dan HPS pada batas aman\"";
+                    jsonstring += "\"keterangan\":\"Perbandingan harga penawaran dan HPS pada batas aman\",";
                 }
+                jsonstring += "\"outlier\":" + ufence;
                 jsonstring += "},";
+                i++;
             }
             jsonstring += ("]");
             jsonstring.replace(",]", "]");

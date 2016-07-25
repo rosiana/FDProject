@@ -1,6 +1,8 @@
 /**
  * Created by Rosiana on 7/3/2016.
  */
+import org.json.simple.JSONObject;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,7 +36,7 @@ public class T4 {
 
             Timestamp mulai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " and  tahap = \"Penetapan Pemenang\"";
+            String query = "select  mulai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " and  tahap = \"Penetapan Pemenang\"";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -80,7 +82,7 @@ public class T4 {
 
             Timestamp sampai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  sampai from  tahap where  lelangnum = " + kodelelang + " and  tahap = \"Penetapan Pemenang\"";
+            String query = "select  sampai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " and  tahap = \"Penetapan Pemenang\"";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -298,7 +300,7 @@ public class T4 {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("insert into  t4 values (?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  kemenkeu_t4 values (?, ?, ?)");
             for (int i = 0; i < kodelelang.length; i++) {
                 int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
                 preparedStatement.setInt(1, lelangnum);
@@ -435,6 +437,86 @@ public class T4 {
             }
         }
         return sort;
+    }
+
+    public static void getJSONT4(String[] kodelelang) throws IOException{
+
+        float ufence = getUpperFence(kodelelang);
+        JSONObject obj = new JSONObject();
+        String jsonstring = "";
+        Connection connect = null;
+        Statement statement = null;
+        try {
+            Class.forName(myDriver);
+            Properties props = new Properties();
+            props.put("user", user);
+            props.put("password", pass);
+            props.put("autoReconnect", "true");
+            connect = DriverManager.getConnection(myUrl, props);
+            statement = connect.createStatement();
+
+            String query = "select  lelang.id,  lelang.nama,  lelang.status,  lelang.agency,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t4.periodepenetapanpemenang,  t4.outlierpenetapanpemenang from  kemenkeu_lelang join  kemenkeu_t4 on kemenkeu_lelang.id = kemenkeu_t4.lelangnum";
+            ResultSet result = statement.executeQuery(query);
+            FileWriter writer = new FileWriter("web/json/t4.json");
+            jsonstring += "[";
+            int i = 0;
+            while (result.next()) {
+                //Retrieve by column name
+                jsonstring += "{";
+                jsonstring += "\"id\":" + result.getInt(1) + ",";
+                jsonstring += "\"namalelang\":\"" + result.getString(2) + "\",";
+                int status = result.getInt(3);
+                if (status == 0) {
+                    jsonstring += "\"status\":\"Lelang sudah selesai\",";
+                }
+                else {
+                    jsonstring += "\"status\":\"Lelang belum selesai\",";
+                }
+                jsonstring += "\"agency\":\"" + result.getString(4) + "\",";
+                jsonstring += "\"pagu\":" + result.getString(5) + ",";
+                jsonstring += "\"hps\":" + result.getString(6) + ",";
+                jsonstring += "\"penawaranmenang\":" + result.getString(7) + ",";
+                jsonstring += "\"namapemenang\":\"" + result.getString(8) + "\",";
+                jsonstring += "\"periodepenetapanpemenang\":" + result.getFloat(9) + ",";
+                int outlier = result.getInt(10);
+                if (outlier == 1) {
+                    jsonstring += "\"keterangan\":\"Periode penetapan pemenang lebih lama dari batas normal\",";
+                }
+                else {
+                    jsonstring += "\"keterangan\":\"Periode penetapan pemenang pada batas aman\",";
+                }
+                jsonstring += "\"outlier\":" + ufence;
+                jsonstring += "},";
+                i++;
+            }
+            jsonstring += ("]");
+            jsonstring.replace(",]", "]");
+
+            writer.append(jsonstring);
+
+            result.close();
+            writer.flush();
+            writer.close();
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (statement != null)
+                    connect.close();
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (connect != null)
+                    connect.close();
+            } catch(SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }
     }
 }
 

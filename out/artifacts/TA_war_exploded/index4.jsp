@@ -13,36 +13,51 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var dataPoints = [];
+            var dataPoints1 = [];
+            var dataPoints2 = [];
 
             var chart = new CanvasJS.Chart("chartContainer",
                     {
                         title: {
-                            text: "T2b"
+                            text: "T4"
                         },
                         zoomEnabled: true,
                         panEnabled:true,
-                        data: [
+                        data:
+                        [
                             {
+                                fillOpacity:.5,
+                                markerSize: 5,
                                 type: "scatter",
                                 toolTipContent: "<strong>{label}</strong><br/><strong>{namalelang}</strong> <br/> Agency: {agency}<br/> Pagu: Rp.{pagu}<br/> HPS: Rp.{hps} <br/> Harga Penawaran: Rp.{penawaranmenang}<br/> Pemenang: {namapemenang}<br/> Status: {status}<br/><br/>{keterangan}",
                                 dataPoints: []
-                            }]
+                            },
+                            {
+                                color: "Red",
+                                type: "line",
+                                toolTipContent: "Upper fence: {y}",
+                                dataPoints: []
+                            }
+
+                        ]
                     });
 
             // Ajax request for getting JSON data
             //Replace data.php with your JSON API's url
 
-            $.getJSON("json/t2b.json", function (data) {
+            $.getJSON("json/t4.json", function (data) {
 
                 for (var i = 0; i < data.length; i++) {
 
-                    dataPoints.push({ label: data[i].id, y: data[i].menangperhps, namalelang: data[i].namalelang, agency: data[i].agency, pagu: data[i].pagu, hps: data[i].hps, penawaranmenang: data[i].penawaranmenang, namapemenang: data[i].namapemenang, status: data[i].status, keterangan: data[i].keterangan });
+                    dataPoints1.push({ label: data[i].id, y: data[i].periodepenetapanpemenang, namalelang: data[i].namalelang, agency: data[i].agency, pagu: data[i].pagu, hps: data[i].hps, penawaranmenang: data[i].penawaranmenang, namapemenang: data[i].namapemenang, status: data[i].status, keterangan: data[i].keterangan });
+                    dataPoints2.push({ label: data[i].id, y: data[i].outlier });
                 }
 
-                chart.options.data[0].dataPoints = dataPoints;
+                chart.options.data[0].dataPoints = dataPoints1;
+                chart.options.data[1].dataPoints = dataPoints2;
                 chart.render();
             });
+
         });
     </script>
 </head>

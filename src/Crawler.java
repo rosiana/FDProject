@@ -223,21 +223,21 @@ public class Crawler {
 
 	//ambil info lelang dari semua link
 	public static void getInfoLelangS() throws IOException {
-		FileInputStream fstream = new FileInputStream("kodelelang1");
+		FileInputStream fstream = new FileInputStream("kodelelang_kemenkeu1");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
 		String strLine;
 
-		FileWriter writer = new FileWriter("infolelang1.csv");
+		FileWriter writer = new FileWriter("infolelang_kemenkeu1.csv");
 
 		//Read File Line By Line
 		while ((strLine = br.readLine()) != null) {
 			int adapemenang = Integer.parseInt(strLine.substring(0,1));
 			if (adapemenang == 0 || adapemenang == 4 || adapemenang == 5) {
 				String link = strLine.substring(2);
-				Document doc = Jsoup.connect("http://lpse.jabarprov.go.id/eproc/lelang/view/" + link).get();
+				Document doc = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/view/" + link).get();
 				Elements baris = doc.select("td.horizLine");
-				Document doc2 = Jsoup.connect("http://lpse.jabarprov.go.id/eproc/lelang/pemenang/" + link).get();
+				Document doc2 = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/pemenang/" + link).get();
 				Elements judul = doc2.select("td.TitleLeft");
 				String pemenang = "";
 				String penawaran = "";
@@ -291,7 +291,7 @@ public class Crawler {
 			}
 			else {
 				String link = strLine.substring(2);
-				Document doc = Jsoup.connect("http://lpse.jabarprov.go.id/eproc/lelang/view/" + link).get();
+				Document doc = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/view/" + link).get();
 				Elements baris = doc.select("td.horizLine");
 				Element kode = baris.get(0);
 				Element nama = baris.get(1);
@@ -342,19 +342,19 @@ public class Crawler {
 
 	//ambil info lelang dari semua link
 	public static void getAllJumlahPesertaS() throws IOException {
-		FileInputStream fstream = new FileInputStream("kodelelang1");
+		FileInputStream fstream = new FileInputStream("kodelelang_kemenkeu1");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
 		String strLine;
 
-		FileWriter writer = new FileWriter("jumlahpeserta1");
+		FileWriter writer = new FileWriter("jumlahpeserta_kemenkeu1");
 
 		//Read File Line By Line
 		while ((strLine = br.readLine()) != null) {
 			String link = strLine.substring(2);
-			Document doc = Jsoup.connect("http://lpse.jabarprov.go.id/eproc/lelang/view/" + link).get();
+			Document doc = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/view/" + link).get();
 			Elements baris = doc.select("td.horizLine");
-			Element peserta = baris.get(baris.size()-2);
+			Element peserta = baris.get(baris.size()-1);
 			writer.append(peserta.text());
 			writer.append("\n");
 			System.out.println(link);
@@ -896,7 +896,7 @@ public class Crawler {
 			props.put("autoReconnect", "true");
 			connect = DriverManager.getConnection(myUrl, props);
 
-			preparedStatement = connect.prepareStatement("insert into  peserta values (?, ?, ?)");
+			preparedStatement = connect.prepareStatement("insert into  peserta_kemenkeu values (?, ?, ?)");
 
 			for (int i = 0; i < pesertalelang.length; i++) {
 				preparedStatement.setInt(1, jumprev + i + 1);
@@ -955,17 +955,17 @@ public class Crawler {
     }
 
 	public static void getAllPesertaLelangS(String url) throws IOException {
-		FileInputStream fstream = new FileInputStream("jumlahpeserta1");
+		FileInputStream fstream = new FileInputStream("jumlahpeserta_kemenkeu1");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-		FileInputStream fstream2 = new FileInputStream("kodelelang1");
+		FileInputStream fstream2 = new FileInputStream("kodelelang_kemenkeu1");
 		BufferedReader br2 = new BufferedReader(new InputStreamReader(fstream2));
 
 		String strLine;
 		String strLine2;
 
-		FileWriter writer = new FileWriter("pesertalelang1.csv");
+		FileWriter writer = new FileWriter("pesertalelang_kemenkeu1.csv");
 
-		int jumprev = 65174;
+		int jumprev = 31448;
 		//Read File Line By Line
 		int i = 0;
 		while (((strLine = br.readLine()) != null) && ((strLine2 = br2.readLine()) != null)) {
@@ -999,7 +999,7 @@ public class Crawler {
 			props.put("autoReconnect", "true");
 			connect = DriverManager.getConnection(myUrl, props);
 
-			preparedStatement = connect.prepareStatement("insert into  tahap values (?, ?, ?, ?, ?)");
+			preparedStatement = connect.prepareStatement("insert into  tahap_kemenkeu values (?, ?, ?, ?, ?)");
 
 			for (int i = 0; i < tahaplelang.length; i++) {
 				preparedStatement.setInt(1, prevstep + i + 1);
@@ -1066,12 +1066,73 @@ public class Crawler {
 		return jumlahtahap;
 	}
 
+	public static int[] getAllJumlahTahapS() throws IOException {
+		String[] kodelelang = new String[1273];
+		FileInputStream fstream = new FileInputStream("kodelelang_kemenkeu");
+		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+
+		FileWriter writer = new FileWriter("jumlahtahap_kemenkeu");
+
+		String strLine;
+
+		int i = 0;
+		while ((strLine = br.readLine()) != null) {
+			kodelelang[i] = strLine;
+			i++;
+		}
+
+		int jumlahtahap[] = new int[kodelelang.length];
+		for (int j = 0; j < kodelelang.length; j++) {
+			int lelangnum = Integer.parseInt(kodelelang[j].substring(2));
+			Document doc = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/tahap/" + lelangnum).get();
+			Elements baris = doc.select("tr");
+			jumlahtahap[j] = baris.size() - 1;
+			writer.append("" + jumlahtahap[j]);
+			writer.append("\n");
+			System.out.println(lelangnum);
+		}
+		writer.flush();
+		writer.close();
+		return jumlahtahap;
+	}
+
 	//ambil tahap di semua lelang
 	public static void getAllTahapLelang(String url, String[] kodelelang, int[] jumlahtahap) throws IOException {
 		int prevstep = 0;
 		for (int i = 0; i < kodelelang.length; i++) {
 			String[][] temptahap = new String[jumlahtahap[i]][12];
 			int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
+			temptahap = getTahapLelang(url, lelangnum);
+			//tulisTahapLelang(temptahap, lelangnum);
+			dbTulisTahapLelang(temptahap, lelangnum, prevstep);
+			prevstep += temptahap.length;
+		}
+	}
+
+	//ambil tahap di semua lelang
+	public static void getAllTahapLelangS(String url) throws IOException {
+		FileInputStream fstream = new FileInputStream("kodelelang_kemenkeu1");
+		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+		FileInputStream fstream2 = new FileInputStream("jumlahtahap_kemenkeu1");
+		BufferedReader br2 = new BufferedReader(new InputStreamReader(fstream2));
+
+		String strLine;
+		String strLine2;
+
+		String[] kodelelang = new String[1273];
+		int[] jumlahtahap = new int[1273];
+
+		int i = 0;
+		while (((strLine = br.readLine()) != null) && ((strLine2 = br2.readLine()) != null)) {
+			kodelelang[i] = strLine;
+			jumlahtahap[i] = Integer.parseInt(strLine2);
+			i++;
+		}
+
+		int prevstep = 16;
+		for (int j = 0; j < kodelelang.length; j++) {
+			String[][] temptahap = new String[jumlahtahap[j]][12];
+			int lelangnum = Integer.parseInt(kodelelang[j].substring(2));
 			temptahap = getTahapLelang(url, lelangnum);
 			//tulisTahapLelang(temptahap, lelangnum);
 			dbTulisTahapLelang(temptahap, lelangnum, prevstep);
@@ -1224,7 +1285,7 @@ public class Crawler {
 	    		url = "lpse.jabarprov.go.id";
 	    		break;
     		case 2:
-    			url = "lpse.bandung.go.id";
+    			url = "lpse.kemenkeu.go.id";
     			break;
     		case 3:
     			url = "lpse.kominfo.go.id";
@@ -1234,7 +1295,7 @@ public class Crawler {
 	    		break;
     	}
     	System.out.println(url);
-    	
+
 		/*
 		int pagenum = getPageNum(url);
 		System.out.println(pagenum);
@@ -1250,13 +1311,14 @@ public class Crawler {
 		//emptyInfoLelang();
 		//dbTulisInfoLelang(infolelang);
 		//System.out.println("DBTulisLelang");
+		//getAllJumlahPesertaS();
 		//int[] jumlahpeserta = getAllJumlahPeserta(kodelelang);
-		//int[] jumlahtahap = getAllJumlahTahap(url, kodelelangf);
+		//int[] jumlahtahap = getAllJumlahTahapS();
 		//emptyPesertaLelang();
 		//getAllPesertaLelang(url,kodelelangf,jumlahpeserta);
-		getAllPesertaLelangS(url);
+		//getAllPesertaLelangS(url);
 		//emptyTahapLelang();
-		//getAllTahapLelang(url,kodelelangf,jumlahtahap);
+		getAllTahapLelangS(url);
 		System.out.println("Selesai");
 	} 
 }

@@ -25,7 +25,7 @@ public class Crawler {
     
     //hitung jumlah halaman
     public static int getPageNum(String url) throws IOException {
-    	Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/").get(); 
+    	Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/").timeout(50000).get();
     	Elements page = doc.select("div.t-data-grid-pager > a");
 		int pagenum;
 		int pagesize = page.size();
@@ -42,14 +42,14 @@ public class Crawler {
     //ambil semua kode lelang
     public static String[] getKodeLelang(String url, int pagenum) throws IOException { 
     	int linknum = 0;
-    	Document docx = Jsoup.connect("http://" + url + "/eproc/lelang.gridtable.pager/" + pagenum + "?s=5").get();
+    	Document docx = Jsoup.connect("http://" + url + "/eproc/lelang.gridtable.pager/" + pagenum + "?s=5").timeout(50000).get();
     	Elements entrilelanglast = docx.select("tr.horizLineTop");
     	linknum = entrilelanglast.size() + ((pagenum-1)*50);
 
     	String[] arrlelang = new String[linknum];
 		System.out.println("linknum: " + linknum);
     	for (int i = 1; i <= pagenum; i++) {
-    		Document doc = Jsoup.connect("http://" + url + "/eproc/lelang.gridtable.pager/" + i + "?s=5").get();
+    		Document doc = Jsoup.connect("http://" + url + "/eproc/lelang.gridtable.pager/" + i + "?s=5").timeout(50000).get();
     		Elements entrilelang = doc.select("tr.horizLineTop");
     		for (int j = 0; j < entrilelang.size(); j++) {
     			Elements linkinfolelang = doc.select("td.pkt_nama > b > a[href]");
@@ -137,15 +137,15 @@ public class Crawler {
     }
     
     //ambil info lelang dari semua link
-    public static String[][] getInfoLelang(String url, String[] arrlelang) throws IOException {
-    	String[][] infolelang = new String[arrlelang.length][9];
+    public static String[][] getInfoLelang(String url, String lpse, String[] arrlelang) throws IOException {
+    	String[][] infolelang = new String[arrlelang.length][8];
     	for (int i = 0; i < arrlelang.length; i++) {
     		int adapemenang = Integer.parseInt(arrlelang[i].substring(0,1));
 			if (adapemenang == 0 || adapemenang == 4 || adapemenang == 5) {
 				String link = arrlelang[i].substring(2);
-				Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/view/" + link).get();
+				Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/view/" + link).timeout(50000).get();
 				Elements baris = doc.select("td.horizLine");
-				Document doc2 = Jsoup.connect("http://" + url + "/eproc/lelang/pemenang/" + link).get();
+				Document doc2 = Jsoup.connect("http://" + url + "/eproc/lelang/pemenang/" + link).timeout(50000).get();
 				Elements judul = doc2.select("td.TitleLeft");
 				String pemenang = "";
 				String penawaran = "";
@@ -161,10 +161,9 @@ public class Crawler {
 				Element kode = baris.get(0);
 				Element nama = baris.get(1);
 				Element status = baris.get(3);
-				Element agency = baris.get(4);
 				Element pagu = baris.get(12);
 				Element hps = baris.get(13);
-				Element peserta = baris.get(baris.size()-2);
+				Element peserta = baris.get(baris.size()-1);
 				infolelang[i][0] = kode.text();
 				infolelang[i][1] = (nama.text()).replace(",","");
 				if (status.text().contains("selesai")) {
@@ -173,29 +172,24 @@ public class Crawler {
 				else {
 					infolelang[i][2] = "1";
 				}
-				if((agency.text()).contains(" ") == false) {
-					infolelang[i][3] = "-";
-				}
-				else {
-					infolelang[i][3] = (agency.text()).replace(",","");
-				}
-				infolelang[i][4] = (((pagu.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
-				infolelang[i][5] = (((hps.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
-				infolelang[i][6] = (((penawaran).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
-				infolelang[i][7] = pemenang;
-				infolelang[i][8] = (peserta.text()).replace(" Peserta [Detil...]", "");
+				infolelang[i][3] = (((pagu.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][4] = (((hps.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][5] = (((penawaran).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][6] = pemenang;
+				infolelang[i][7] = (peserta.text()).replace(" peserta [Detil...]", "");
+				System.out.println(infolelang[i][0] + " - " + infolelang[i][1] + " - " + infolelang[i][2] + " - " + infolelang[i][3] + " - " + infolelang[i][4] + " - " + infolelang[i][5] + " - " + infolelang[i][6] + " - " + infolelang[i][7]);
+				dbTulisInfoLelang(lpse, infolelang[i]);
 			}
 			else {
 				String link = arrlelang[i].substring(2);
-				Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/view/" + link).get();
+				Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/view/" + link).timeout(50000).get();
 				Elements baris = doc.select("td.horizLine");
 				Element kode = baris.get(0);
 				Element nama = baris.get(1);
 				Element status = baris.get(3);
-				Element agency = baris.get(4);
 				Element pagu = baris.get(12);
 				Element hps = baris.get(13);
-				Element peserta = baris.get(baris.size()-2);
+				Element peserta = baris.get(baris.size()-1);
 				infolelang[i][0] = kode.text();
 				infolelang[i][1] = (nama.text()).replace(",","");
 				if (status.text().contains("selesai")) {
@@ -204,40 +198,35 @@ public class Crawler {
 				else {
 					infolelang[i][2] = "1";
 				}
-				if((agency.text()).contains(" ") == false) {
-					infolelang[i][3] = "-";
-				}
-				else {
-					infolelang[i][3] = (agency.text()).replace(",","");
-				}
-				infolelang[i][4] = (((pagu.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
-				infolelang[i][5] = (((hps.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][3] = (((pagu.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][4] = (((hps.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][5] = "-";
 				infolelang[i][6] = "-";
-				infolelang[i][7] = "-";
-				infolelang[i][8] = (peserta.text()).replace(" Peserta [Detil...]", "");
+				infolelang[i][7] = (peserta.text()).replace(" peserta [Detil...]", "");
+				System.out.println(infolelang[i][0] + " - " + infolelang[i][1] + " - " + infolelang[i][2] + " - " + infolelang[i][3] + " - " + infolelang[i][4] + " - " + infolelang[i][5] + " - " + infolelang[i][6] + " - " + infolelang[i][7]);
+				dbTulisInfoLelang(lpse, infolelang[i]);
 			}
-			System.out.println(infolelang[i][0] + " - " + infolelang[i][1] + " - " + infolelang[i][2] + " - " + infolelang[i][3] + " - " + infolelang[i][4] + " - " + infolelang[i][5] + " - " + infolelang[i][6] + " - " + infolelang[i][7] + " - " + infolelang[i][8]);
-    	}
+		}
     	return infolelang;
     }
 
 	//ambil info lelang dari semua link
-	public static void getInfoLelangS() throws IOException {
-		FileInputStream fstream = new FileInputStream("kodelelang_kemenkeu1");
+	public static String[][] getInfoLelangS(String url, String lpse) throws IOException {
+		String[][] infolelang = new String[6772][8];
+		FileInputStream fstream = new FileInputStream("kodelelang_kemenag_nonerr1");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
 		String strLine;
 
-		FileWriter writer = new FileWriter("infolelang_kemenkeu1.csv");
-
 		//Read File Line By Line
+		int i = 0;
 		while ((strLine = br.readLine()) != null) {
 			int adapemenang = Integer.parseInt(strLine.substring(0,1));
 			if (adapemenang == 0 || adapemenang == 4 || adapemenang == 5) {
 				String link = strLine.substring(2);
-				Document doc = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/view/" + link).get();
+				Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/view/" + link).timeout(50000).get();
 				Elements baris = doc.select("td.horizLine");
-				Document doc2 = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/pemenang/" + link).get();
+				Document doc2 = Jsoup.connect("http://" + url + "/eproc/lelang/pemenang/" + link).timeout(50000).get();
 				Elements judul = doc2.select("td.TitleLeft");
 				String pemenang = "";
 				String penawaran = "";
@@ -253,111 +242,74 @@ public class Crawler {
 				Element kode = baris.get(0);
 				Element nama = baris.get(1);
 				Element status = baris.get(3);
-				Element agency = baris.get(4);
 				Element pagu = baris.get(12);
 				Element hps = baris.get(13);
-				Element peserta = baris.get(baris.size()-2);
-				System.out.println(kode.text());
-				writer.append(kode.text());
-				writer.append(",");
-				writer.append((nama.text()).replace(",",""));
-				writer.append(",");
-				writer.append((nama.text()).replace(",",""));
-				writer.append(",");
+				Element peserta = baris.get(baris.size()-1);
+				infolelang[i][0] = kode.text();
+				infolelang[i][1] = (nama.text()).replace(",","");
 				if (status.text().contains("selesai")) {
-					writer.append("0");
-					writer.append(",");
+					infolelang[i][2] = "0";
 				}
 				else {
-					writer.append("1");
-					writer.append(",");
+					infolelang[i][2] = "1";
 				}
-				if((agency.text()).contains(" ") == false) {
-					writer.append("-");
-					writer.append(",");
-				}
-				else {
-					writer.append((agency.text()).replace(",",""));
-					writer.append(",");
-				}
-				writer.append((((pagu.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", ""));
-				writer.append(",");
-				writer.append((((hps.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", ""));
-				writer.append(",");
-				writer.append((((penawaran).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", ""));
-				writer.append(",");
-				writer.append(pemenang);
-				writer.append("\n");
+				infolelang[i][3] = (((pagu.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][4] = (((hps.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][5] = (((penawaran).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][6] = pemenang;
+				infolelang[i][7] = (peserta.text()).replace(" peserta [Detil...]", "");
+				System.out.println(infolelang[i][0] + " - " + infolelang[i][1] + " - " + infolelang[i][2] + " - " + infolelang[i][3] + " - " + infolelang[i][4] + " - " + infolelang[i][5] + " - " + infolelang[i][6] + " - " + infolelang[i][7]);
+				dbTulisInfoLelang(lpse, infolelang[i]);
 			}
 			else {
 				String link = strLine.substring(2);
-				Document doc = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/view/" + link).get();
+				Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/view/" + link).timeout(50000).get();
 				Elements baris = doc.select("td.horizLine");
 				Element kode = baris.get(0);
 				Element nama = baris.get(1);
 				Element status = baris.get(3);
-				Element agency = baris.get(4);
 				Element pagu = baris.get(12);
 				Element hps = baris.get(13);
-				Element peserta = baris.get(baris.size()-2);
-				System.out.println(kode.text());
-				writer.append(kode.text());
-				writer.append(",");
-				writer.append((nama.text()).replace(",",""));
-				writer.append(",");
-				writer.append((nama.text()).replace(",",""));
-				writer.append(",");
+				Element peserta = baris.get(baris.size()-1);
+				infolelang[i][0] = kode.text();
+				infolelang[i][1] = (nama.text()).replace(",","");
 				if (status.text().contains("selesai")) {
-					writer.append("0");
-					writer.append(",");
+					infolelang[i][2] = "0";
 				}
 				else {
-					writer.append("1");
-					writer.append(",");
+					infolelang[i][2] = "1";
 				}
-				if((agency.text()).contains(" ") == false) {
-					writer.append("-");
-					writer.append(",");
-				}
-				else {
-					writer.append((agency.text()).replace(",",""));
-					writer.append(",");
-				}
-				writer.append((((pagu.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", ""));
-				writer.append(",");
-				writer.append((((hps.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", ""));
-				writer.append(",");
-				writer.append("-");
-				writer.append(",");
-				writer.append("-");
-				writer.append("\n");
+				infolelang[i][3] = (((pagu.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][4] = (((hps.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+				infolelang[i][5] = "-";
+				infolelang[i][6] = "-";
+				infolelang[i][7] = (peserta.text()).replace(" peserta [Detil...]", "");
+				System.out.println(infolelang[i][0] + " - " + infolelang[i][1] + " - " + infolelang[i][2] + " - " + infolelang[i][3] + " - " + infolelang[i][4] + " - " + infolelang[i][5] + " - " + infolelang[i][6] + " - " + infolelang[i][7]);
+				dbTulisInfoLelang(lpse, infolelang[i]);
 			}
+			i++;
 		}
-
-		//Close the input stream
-		br.close();
-		writer.flush();
-		writer.close();
+		return infolelang;
 	}
 
 	//ambil info lelang dari semua link
 	public static void getAllJumlahPesertaS() throws IOException {
-		FileInputStream fstream = new FileInputStream("kodelelang_kemenkeu1");
+		FileInputStream fstream = new FileInputStream("kodelelang_sumutprov1");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
 		String strLine;
 
-		FileWriter writer = new FileWriter("jumlahpeserta_kemenkeu1");
+		FileWriter writer = new FileWriter("jumlahpeserta_sumutprov1");
 
 		//Read File Line By Line
 		while ((strLine = br.readLine()) != null) {
 			String link = strLine.substring(2);
-			Document doc = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/view/" + link).get();
+			Document doc = Jsoup.connect("http://lpse.sumutprov.go.id/eproc/lelang/view/" + link).timeout(50000).get();
 			Elements baris = doc.select("td.horizLine");
-			Element peserta = baris.get(baris.size()-1);
+			Element peserta = baris.get(baris.size()-2);
 			writer.append(peserta.text());
 			writer.append("\n");
-			System.out.println(link);
+			System.out.println(peserta.text().replace(" peserta [Detil...]", ""));
 		}
 
 		//Close the input stream
@@ -371,7 +323,7 @@ public class Crawler {
 		int[] jumlahpeserta = new int[arrlelang.length];
 		for (int i = 0; i < arrlelang.length; i++) {
 			String link = arrlelang[i].substring(2);
-			Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/view/" + link).get();
+			Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/view/" + link).timeout(50000).get();
 			Elements baris = doc.select("td.horizLine");
 			Element peserta = baris.get(baris.size()-2);
 			jumlahpeserta[i] = Integer.parseInt((peserta.text()).replace(" Peserta [Detil...]", ""));
@@ -405,7 +357,7 @@ public class Crawler {
     }
     */
 
-    public static void dbTulisInfoLelang(String[][] infolelang) throws IOException {
+    public static void dbTulisInfoLelang(String lpse, String[] infolelang) throws IOException {
     	//mysql
         Connection connect = null;
         PreparedStatement preparedStatement = null;
@@ -417,39 +369,33 @@ public class Crawler {
 			props.put("autoReconnect", "true");
 			connect = DriverManager.getConnection(myUrl, props);
 
-			preparedStatement = connect.prepareStatement("insert into  lelang values (?, ?, ?, ?, ?, ?, ?, ?)");
+			preparedStatement = connect.prepareStatement("insert into  lelang values (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			for (int i = 0; i < infolelang.length; i++) {
-				System.out.println(infolelang[i][0]);
-				preparedStatement.setInt(1, Integer.parseInt(infolelang[i][0]));
-				System.out.println(infolelang[i][1]);
-				preparedStatement.setString(2, infolelang[i][1]);
-				System.out.println(infolelang[i][2]);
-				preparedStatement.setInt(3, Integer.parseInt(infolelang[i][2]));
-				System.out.println(infolelang[i][3]);
-				preparedStatement.setString(4, infolelang[i][3]);
-				System.out.println(infolelang[i][4]);
-				float pagu = Float.parseFloat(infolelang[i][4].replace(",", ""));
-				preparedStatement.setFloat(5, pagu);
-				System.out.println(infolelang[i][5]);
-				float hps = Float.parseFloat(infolelang[i][5].replace(",", ""));
-				preparedStatement.setFloat(6, hps);
-				System.out.println(infolelang[i][6]);
-				String penawaranstring = infolelang[i][6];
-				if (penawaranstring == "-") {
+				System.out.println(infolelang[0]);
+				preparedStatement.setInt(1, Integer.parseInt(infolelang[0]));
+				preparedStatement.setString(2, lpse);
+				preparedStatement.setInt(3, 2016);
+				preparedStatement.setString(4, infolelang[1]);
+				preparedStatement.setInt(5, Integer.parseInt(infolelang[2]));
+				float pagu = Float.parseFloat(infolelang[3].replace(",", ""));
+				preparedStatement.setFloat(6, pagu);
+				float hps = Float.parseFloat(infolelang[4].replace(",", ""));
+				preparedStatement.setFloat(7, hps);
+				String penawaranstring = infolelang[5];
+				if (penawaranstring != "-") {
 					float penawaran = Float.parseFloat(penawaranstring.replace(",", ""));
-					preparedStatement.setFloat(7, penawaran);
-				}
-				else {
-					preparedStatement.setObject(7, null);
-				}
-				System.out.println(infolelang[i][7]);
-				String pemenang = infolelang[i][7];
-				if (pemenang == "-") {
-					preparedStatement.setString(8, pemenang);
+					preparedStatement.setFloat(8, penawaran);
 				}
 				else {
 					preparedStatement.setObject(8, null);
+				}
+				String pemenang = infolelang[6];
+				if (pemenang != "-") {
+					preparedStatement.setString(9, pemenang);
+				}
+				else {
+					preparedStatement.setObject(9, null);
 				}
 
 				preparedStatement.addBatch();
@@ -480,7 +426,7 @@ public class Crawler {
 
 	//ambil tahap dari semua link
 	public static String[][] getTahapLelang(String url, int kodelelang) throws IOException {
-		Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/tahap/" + kodelelang).get();
+		Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/tahap/" + kodelelang).timeout(50000).get();
 		Elements baris = doc.select("tr");
 		String[][] tahaplelang = new String[baris.size()-1][13];
 		Elements entrinamatahap = doc.select("td.horizLine");
@@ -765,7 +711,7 @@ public class Crawler {
     
     //ambil peserta dari semua link
     public static String[] getPesertaLelang(String url, int kodelelang, int status) throws IOException {
-    	Document doc = Jsoup.connect("http://" + url + "/eproc/rekanan/lelangpeserta/" + kodelelang).get(); 
+    	Document doc = Jsoup.connect("http://" + url + "/eproc/rekanan/lelangpeserta/" + kodelelang).timeout(50000).get();
 		Elements baris = doc.select("tr");
     	String[] pesertalelang = new String[baris.size()-1];
 
@@ -779,6 +725,7 @@ public class Crawler {
 					if (i == 0) {
 						Element peserta = entripeserta0.get(1);
 						String pesertastring = peserta.text();
+						System.out.println(pesertastring);
 						pesertalelang[i] = pesertastring.substring(0, pesertastring.length()-23);
 					}
 					else {
@@ -838,20 +785,11 @@ public class Crawler {
 				}
 				break;
 			default:
-				Elements baristitle = doc.select("th.titleTop");
-				int jumlahkolom = baristitle.size();
-				Elements entripeserta = doc.select(".horizLineTop");
+				Elements entripesertad = doc.select("td.horizLine");
 				for (int i = 0; i < baris.size()-1; i++) {
-					if (i == 0) {
-						Element peserta = entripeserta.get(1);
-						String pesertastring = peserta.text();
-						pesertalelang[i] = pesertastring.substring(0, pesertastring.length()-23);
-					}
-					else {
-						Element peserta = entripeserta.get((i*jumlahkolom)+1);
-						String pesertastring = peserta.text();
-						pesertalelang[i] = pesertastring.substring(0, pesertastring.length()-23);
-					}
+					Element peserta = entripesertad.get(i);
+					String pesertastring = peserta.text();
+					pesertalelang[i] = pesertastring.substring(0, pesertastring.length());
 				}
             	break;
     	}
@@ -884,7 +822,7 @@ public class Crawler {
     }
     */
 
-	public static void dbTulisPesertaLelang(String[] pesertalelang, int kodelelang, int jumprev) throws IOException {
+	public static void dbTulisPesertaLelang(String[] pesertalelang, int kodelelang) throws IOException {
 		//mysql
         Connection connect = null;
         PreparedStatement preparedStatement = null;
@@ -896,12 +834,11 @@ public class Crawler {
 			props.put("autoReconnect", "true");
 			connect = DriverManager.getConnection(myUrl, props);
 
-			preparedStatement = connect.prepareStatement("insert into  peserta_kemenkeu values (?, ?, ?)");
+			preparedStatement = connect.prepareStatement("insert into  peserta values (?, ?)");
 
 			for (int i = 0; i < pesertalelang.length; i++) {
-				preparedStatement.setInt(1, jumprev + i + 1);
-				preparedStatement.setInt(2, kodelelang);
-				preparedStatement.setString(3, pesertalelang[i]);
+				preparedStatement.setInt(1, kodelelang);
+				preparedStatement.setString(2, pesertalelang[i]);
 				preparedStatement.addBatch();
 			}
 			preparedStatement.executeBatch();
@@ -949,23 +886,20 @@ public class Crawler {
     		int status = Integer.parseInt(kodelelang[i].substring(0,1));
     		temppeserta = getPesertaLelang(url,lelangnum,status);
     		//tulisPesertaLelang(temppeserta, lelangnum);
-			dbTulisPesertaLelang(temppeserta, lelangnum, jumprev);
+			dbTulisPesertaLelang(temppeserta, lelangnum);
 			jumprev += temppeserta.length;
     	}
     }
 
 	public static void getAllPesertaLelangS(String url) throws IOException {
-		FileInputStream fstream = new FileInputStream("jumlahpeserta_kemenkeu1");
+		FileInputStream fstream = new FileInputStream("jumlahpeserta_sumutprov1");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-		FileInputStream fstream2 = new FileInputStream("kodelelang_kemenkeu1");
+		FileInputStream fstream2 = new FileInputStream("kodelelang_sumutprov1");
 		BufferedReader br2 = new BufferedReader(new InputStreamReader(fstream2));
 
 		String strLine;
 		String strLine2;
 
-		FileWriter writer = new FileWriter("pesertalelang_kemenkeu1.csv");
-
-		int jumprev = 31448;
 		//Read File Line By Line
 		int i = 0;
 		while (((strLine = br.readLine()) != null) && ((strLine2 = br2.readLine()) != null)) {
@@ -975,19 +909,16 @@ public class Crawler {
 			int status = Integer.parseInt(strLine2.substring(0,1));
 			temppeserta = getPesertaLelang(url,lelangnum,status);
 			//tulisPesertaLelang(temppeserta, lelangnum);
-			dbTulisPesertaLelang(temppeserta, lelangnum, jumprev);
-			jumprev += temppeserta.length;
+			dbTulisPesertaLelang(temppeserta, lelangnum);
 			System.out.println(lelangnum);
 			i++;
 		}
 
 		//Close the input stream
 		br.close();
-		writer.flush();
-		writer.close();
 	}
 
-	public static void dbTulisTahapLelang(String[][] tahaplelang, int kodelelang, int prevstep) throws IOException {
+	public static void dbTulisTahapLelang(String[][] tahaplelang, int kodelelang) throws IOException {
 		//mysql
         Connection connect = null;
         PreparedStatement preparedStatement = null;
@@ -999,14 +930,13 @@ public class Crawler {
 			props.put("autoReconnect", "true");
 			connect = DriverManager.getConnection(myUrl, props);
 
-			preparedStatement = connect.prepareStatement("insert into  tahap_kemenkeu values (?, ?, ?, ?, ?)");
+			preparedStatement = connect.prepareStatement("insert into  tahap values (?, ?, ?, ?)");
 
 			for (int i = 0; i < tahaplelang.length; i++) {
-				preparedStatement.setInt(1, prevstep + i + 1);
-				preparedStatement.setInt(2, kodelelang);
-				preparedStatement.setString(3, tahaplelang[i][0]);
+				preparedStatement.setInt(1, kodelelang);
+				preparedStatement.setString(2, tahaplelang[i][0]);
 				if (tahaplelang[i][1] == "-") {
-					preparedStatement.setObject(4, null);
+					preparedStatement.setObject(3, null);
 				}
 				else {
 					Timestamp tsmulai = Timestamp.valueOf(	tahaplelang[i][1] + "-" +
@@ -1015,10 +945,10 @@ public class Crawler {
 						tahaplelang[i][4] + ":" +
 						tahaplelang[i][5] + ":" +
 						tahaplelang[i][6] + ".000000000");
-					preparedStatement.setTimestamp(4, tsmulai);
+					preparedStatement.setTimestamp(3, tsmulai);
 				}
 				if (tahaplelang[i][7] == "-") {
-					preparedStatement.setObject(5, null);
+					preparedStatement.setObject(4, null);
 				}
 				else {
 					Timestamp tssampai = Timestamp.valueOf(	tahaplelang[i][7] + "-" +
@@ -1027,7 +957,7 @@ public class Crawler {
 							tahaplelang[i][10] + ":" +
 							tahaplelang[i][11] + ":" +
 							tahaplelang[i][12] + ".000000000");
-					preparedStatement.setTimestamp(5, tssampai);
+					preparedStatement.setTimestamp(4, tssampai);
 				}
 				preparedStatement.addBatch();
 			}
@@ -1059,7 +989,7 @@ public class Crawler {
 		int jumlahtahap[] = new int[kodelelang.length];
 		for (int i = 0; i < kodelelang.length; i++) {
 			int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
-			Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/tahap/" + lelangnum).get();
+			Document doc = Jsoup.connect("http://" + url + "/eproc/lelang/tahap/" + lelangnum).timeout(50000).get();
 			Elements baris = doc.select("tr");
 			jumlahtahap[i] = baris.size() - 1;
 		}
@@ -1067,11 +997,11 @@ public class Crawler {
 	}
 
 	public static int[] getAllJumlahTahapS() throws IOException {
-		String[] kodelelang = new String[1273];
-		FileInputStream fstream = new FileInputStream("kodelelang_kemenkeu");
+		String[] kodelelang = new String[4378];
+		FileInputStream fstream = new FileInputStream("kodelelang_kemenag_nonerr");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
-		FileWriter writer = new FileWriter("jumlahtahap_kemenkeu");
+		FileWriter writer = new FileWriter("jumlahtahap_kemenag_nonerr");
 
 		String strLine;
 
@@ -1084,12 +1014,12 @@ public class Crawler {
 		int jumlahtahap[] = new int[kodelelang.length];
 		for (int j = 0; j < kodelelang.length; j++) {
 			int lelangnum = Integer.parseInt(kodelelang[j].substring(2));
-			Document doc = Jsoup.connect("http://lpse.kemenkeu.go.id/eproc/lelang/tahap/" + lelangnum).get();
+			Document doc = Jsoup.connect("http://lpse.kemenag.go.id/eproc/lelang/tahap/" + lelangnum).timeout(50000).get();
 			Elements baris = doc.select("tr");
 			jumlahtahap[j] = baris.size() - 1;
+			System.out.println(jumlahtahap[j]);
 			writer.append("" + jumlahtahap[j]);
 			writer.append("\n");
-			System.out.println(lelangnum);
 		}
 		writer.flush();
 		writer.close();
@@ -1098,29 +1028,27 @@ public class Crawler {
 
 	//ambil tahap di semua lelang
 	public static void getAllTahapLelang(String url, String[] kodelelang, int[] jumlahtahap) throws IOException {
-		int prevstep = 0;
 		for (int i = 0; i < kodelelang.length; i++) {
 			String[][] temptahap = new String[jumlahtahap[i]][12];
 			int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
 			temptahap = getTahapLelang(url, lelangnum);
 			//tulisTahapLelang(temptahap, lelangnum);
-			dbTulisTahapLelang(temptahap, lelangnum, prevstep);
-			prevstep += temptahap.length;
+			dbTulisTahapLelang(temptahap, lelangnum);
 		}
 	}
 
 	//ambil tahap di semua lelang
 	public static void getAllTahapLelangS(String url) throws IOException {
-		FileInputStream fstream = new FileInputStream("kodelelang_kemenkeu1");
+		FileInputStream fstream = new FileInputStream("kodelelang_kemenag_nonerr");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-		FileInputStream fstream2 = new FileInputStream("jumlahtahap_kemenkeu1");
+		FileInputStream fstream2 = new FileInputStream("jumlahtahap_kemenag_nonerr");
 		BufferedReader br2 = new BufferedReader(new InputStreamReader(fstream2));
 
 		String strLine;
 		String strLine2;
 
-		String[] kodelelang = new String[1273];
-		int[] jumlahtahap = new int[1273];
+		String[] kodelelang = new String[4378];
+		int[] jumlahtahap = new int[4378];
 
 		int i = 0;
 		while (((strLine = br.readLine()) != null) && ((strLine2 = br2.readLine()) != null)) {
@@ -1129,14 +1057,12 @@ public class Crawler {
 			i++;
 		}
 
-		int prevstep = 16;
 		for (int j = 0; j < kodelelang.length; j++) {
 			String[][] temptahap = new String[jumlahtahap[j]][12];
 			int lelangnum = Integer.parseInt(kodelelang[j].substring(2));
 			temptahap = getTahapLelang(url, lelangnum);
 			//tulisTahapLelang(temptahap, lelangnum);
-			dbTulisTahapLelang(temptahap, lelangnum, prevstep);
-			prevstep += temptahap.length;
+			dbTulisTahapLelang(temptahap, lelangnum);
 		}
 	}
 
@@ -1276,40 +1202,47 @@ public class Crawler {
 
 	public static void Crawl() throws IOException {
     	String url = "";
+		String lpse = "";
     	Scanner reader = new Scanner(System.in);
     	System.out.println("Enter 1/2/3: ");
     	int choice = reader.nextInt();
     	
     	switch (choice) {
 	    	case 1:
-	    		url = "lpse.jabarprov.go.id";
+	    		url = "lpse.kemenkeu.go.id";
+				lpse = "Kementerian Keuangan";
 	    		break;
     		case 2:
-    			url = "lpse.kemenkeu.go.id";
+    			url = "lpse.kemdikbud.go.id";
+				lpse = "Kementerian Pendidikan dan Kebudayaan";
     			break;
     		case 3:
-    			url = "lpse.kominfo.go.id";
+    			url = "lpse.jatengprov.go.id";
+				lpse = "Provinsi Jawa Tengah";
     			break;
+			case 4:
+				url = "lpse.sumutprov.go.id";
+				lpse = "Provinsi Sumatera Utara";
+				break;
     		default:
     			url = "lpse.itb.ac.id";
 	    		break;
     	}
     	System.out.println(url);
 
-		/*
 		int pagenum = getPageNum(url);
 		System.out.println(pagenum);
+
+		/*
 		String[] kodelelang = getKodeLelang(url,pagenum);
+
 		for (int i = 0; i < kodelelang.length; i++) {
 			System.out.println(kodelelang[i]);
 		}
 		*/
-		//getInfoLelangS();
-		//String[] kodelelangf = filterYear(kodelelang);
-		//String[][] infolelang = getInfoLelang(url,kodelelangf);
-		//tulisInfoLelang(infolelang);
+
+		String[][] infolelang = getInfoLelangS(url,lpse);
 		//emptyInfoLelang();
-		//dbTulisInfoLelang(infolelang);
 		//System.out.println("DBTulisLelang");
 		//getAllJumlahPesertaS();
 		//int[] jumlahpeserta = getAllJumlahPeserta(kodelelang);
@@ -1318,7 +1251,7 @@ public class Crawler {
 		//getAllPesertaLelang(url,kodelelangf,jumlahpeserta);
 		//getAllPesertaLelangS(url);
 		//emptyTahapLelang();
-		getAllTahapLelangS(url);
+		//getAllTahapLelangS(url);
 		System.out.println("Selesai");
 	} 
 }

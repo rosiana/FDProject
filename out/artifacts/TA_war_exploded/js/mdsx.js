@@ -87,17 +87,19 @@
             .enter()
             .append("g");
 
-        var maxRadius = 150;
+        var maxRadius = 100;
+
         nodes.append("circle")
             .attr("r", pointRadius)
             .attr("cx", function(d, i) { return xScale(xPos[i]); })
             .attr("cy", function(d, i) { return yScale(yPos[i]); })
             //new
-            .attr("r", function(d, i) {if (radius[i] <= maxRadius) return radius[i]/5; else return maxRadius; })
+            .attr("r", function(d, i) {if (radius[i] <= maxRadius) return radius[i]/3; else return maxRadius; })
             .style("fill", function() {return "hsl(" + Math.random() * 360 + ",100%,50%)" })
             .style("fill-opacity", 0.5)
-            .attr("z-index", function(d, i) {return i; })
-            .style("stroke", function() {return "transparent"; });
+            .style("stroke", function() {return "transparent"; })
+            .on("mouseover", function() {d3.select(this).style("fill-opacity", 1) })
+            .on("mouseout", function() {d3.select(this).style("fill-opacity", 0.5) });
 
         /*
         nodes.append("text")

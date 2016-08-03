@@ -37,7 +37,7 @@ public class T1 {
 
             Timestamp mulai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  mulai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " order by  id asc limit 1";
+            String query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " order by  lelangnum asc limit 1";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -83,7 +83,7 @@ public class T1 {
 
             Timestamp sampai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  sampai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " order by  id desc limit 1";
+            String query = "select  sampai from  tahap where  lelangnum = " + kodelelang + " order by  lelangnum desc limit 1";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -114,10 +114,10 @@ public class T1 {
         return stringsampai;
     }
 
-    public static float[] getAllPeriodeLelang(String[] kodelelang) throws IOException {
+    public static float[] getAllPeriodeLelang(int[] kodelelang) throws IOException {
         float[] periode = new float[kodelelang.length];
         for (int i = 0; i < kodelelang.length; i++) {
-            int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
+            int lelangnum = kodelelang[i];
             System.out.println(lelangnum);
             String mulai = getMulaiPeriodeLelang(lelangnum);
             String sampai = getSampaiPeriodeLelang(lelangnum);
@@ -126,10 +126,10 @@ public class T1 {
         return periode;
     }
 
-    public static float[] getAllMeanSelisihTahap(String[] kodelelang) throws IOException {
+    public static float[] getAllMeanSelisihTahap(int[] kodelelang) throws IOException {
         float[] ptahap = new float[kodelelang.length];
         for (int i = 0; i < kodelelang.length; i++) {
-            int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
+            int lelangnum = kodelelang[i];
             System.out.println("lelangnum: " + lelangnum);
             ptahap[i] = getMeanSelisihTahap(lelangnum);
         }
@@ -150,7 +150,7 @@ public class T1 {
             statement = connect.createStatement();
 
             int numtahap = 0;
-            String query = "select count(id) from  kemenkeu_tahap as  numtahap where  lelangnum = " + kodelelang;
+            String query = "select count(lelangnum) from  tahap as  numtahap where  lelangnum = " + kodelelang;
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -160,7 +160,7 @@ public class T1 {
 
             String[] smulai = new String[numtahap-1];
             int mintahap = numtahap - 1;
-            query = "select  mulai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " limit " + mintahap;
+            query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " limit " + mintahap;
             result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {
@@ -174,7 +174,7 @@ public class T1 {
             result.close();
 
             String[] ssampai = new String[numtahap-1];
-            query = "select  mulai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " limit 50 offset 1";
+            query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " limit 50 offset 1";
             result = statement.executeQuery(query);
             i = 0;
             while (result.next()) {
@@ -359,58 +359,12 @@ public class T1 {
         return periode;
     }
 
-    public static int[] getOutlierPeriode (String[] kodelelang) throws IOException {
-        int[] outlierp = new int[kodelelang.length];
-        for (int i = 0; i < outlierp.length; i++) {
-            outlierp[i] = 0;
-        }
-        float[] data = new float[kodelelang.length];
-        data = getAllPeriodeLelang(kodelelang);
-        float lfence = getLowerFence(kodelelang, "periodelelang");
-        float ufence = getUpperFence(kodelelang, "periodelelang");
-        for (int j = 0; j < data.length; j++) {
-            if (data[j] < lfence) {
-                outlierp[j] = 1;
-            }
-            else {
-                if (data[j] > ufence) {
-                    outlierp[j] = 2;
-                }
-            }
-        }
-        return outlierp;
-    }
-
-    public static int[] getOutlierSelisih (String[] kodelelang) throws IOException {
-        int[] outliers = new int[kodelelang.length];
-        for (int i = 0; i < outliers.length; i++) {
-            outliers[i] = 0;
-        }
-        float[] data = new float[kodelelang.length];
-        data = getAllMeanSelisihTahap(kodelelang);
-        float lfence = getLowerFence(kodelelang, "meanselisihtahap");
-        float ufence = getUpperFence(kodelelang, "meanselisihtahap");
-        for (int j = 0; j < data.length; j++) {
-            if (data[j] < lfence) {
-                outliers[j] = 1;
-            }
-            else {
-                if (data[j] > ufence) {
-                    outliers[j] = 2;
-                }
-            }
-        }
-        return outliers;
-    }
-
-    public static void dbInsertT1(String[] kodelelang) throws IOException {
+    public static void dbInsertT1(int[] kodelelang) throws IOException {
         //mysql
         float[] periodelelang = getAllPeriodeLelang(kodelelang);
         float[] meanselisihtahap = getAllMeanSelisihTahap(kodelelang);
         float[] tempperiode = periodelelang;
         float[] tempmean = meanselisihtahap;
-        int[] outlierp = getOutlierPeriode(kodelelang);
-        int[] outliers = getOutlierSelisih(kodelelang);
         Connection connect = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -421,24 +375,12 @@ public class T1 {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("insert into  kemenkeu_t1 values (?, ?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  t1 values (?, ?, ?)");
             for (int i = 0; i < kodelelang.length; i++) {
-                int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
+                int lelangnum = kodelelang[i];
                 preparedStatement.setInt(1, lelangnum);
                 preparedStatement.setFloat(2, tempperiode[i]);
                 preparedStatement.setFloat(3, tempmean[i]);
-                if (outlierp[i] == 0) {
-                    preparedStatement.setObject(4, null);
-                }
-                else {
-                    preparedStatement.setInt(4, outlierp[i]);
-                }
-                if (outliers[i] == 0) {
-                    preparedStatement.setObject(5, null);
-                }
-                else {
-                    preparedStatement.setInt(5, outliers[i]);
-                }
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
@@ -502,7 +444,7 @@ public class T1 {
         }
     }
 
-    public static float getLowerFence(String[] kodelelang, String by) throws IOException {
+    public static float getLowerFence(int[] kodelelang, String by) throws IOException {
         float lfence = 0;
         float[] sorted = sort(kodelelang, by);
         float q1 = 0;
@@ -545,7 +487,7 @@ public class T1 {
         return lfence;
     }
 
-    public static float getUpperFence(String[] kodelelang, String by) throws IOException {
+    public static float getUpperFence(int[] kodelelang, String by) throws IOException {
         float ufence = 0;
         float[] sorted = sort(kodelelang, by);
         float q1 = 0;
@@ -588,7 +530,7 @@ public class T1 {
         return ufence;
     }
 
-    public static float[] sort(String[] kodelelang, String by) throws IOException {
+    public static float[] sort(int[] kodelelang, String by) throws IOException {
         float[] sort = new float[kodelelang.length];
         if (by == "periodelelang") {
             sort = getAllPeriodeLelang(kodelelang);
@@ -615,10 +557,7 @@ public class T1 {
         return sort;
     }
 
-    public static void getJSONT1Periode(String[] kodelelang) throws IOException{
-
-        float lfence = getLowerFence(kodelelang, "periodelelang");
-        float ufence = getUpperFence(kodelelang, "periodelelang");
+    public static void getJSONT1Periode(int[] kodelelang) throws IOException{
 
         JSONObject obj = new JSONObject();
         String jsonstring = "";
@@ -633,44 +572,30 @@ public class T1 {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select  kemenkeu_lelang.id,  kemenkeu_lelang.nama,  kemenkeu_lelang.status,  kemenkeu_lelang.agency,  kemenkeu_lelang.pagu,  kemenkeu_lelang.hps,  kemenkeu_lelang.penawaranmenang,  kemenkeu_lelang.pemenang,  kemenkeu_t1.periodelelang,  kemenkeu_t1.outlierperiode from  kemenkeu_lelang join  kemenkeu_t1 on kemenkeu_lelang.id = kemenkeu_t1.lelangnum";
+            String query = "select  lelang.id,  lelang.lpse,  lelang.tahun,  lelang.nama,  lelang.status,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t1.periodelelang from  lelang join  t1 on lelang.id = t1.lelangnum";
             ResultSet result = statement.executeQuery(query);
-            FileWriter writer = new FileWriter("web/json/kemenkeu_t1periode.json");
+            FileWriter writer = new FileWriter("web/json/new/kemenkeu_all_t1periode.json");
             jsonstring += "[";
             int i = 0;
             while (result.next()) {
                 //Retrieve by column name
                 jsonstring += "{";
                 jsonstring += "\"id\":" + result.getInt(1) + ",";
-                jsonstring += "\"namalelang\":\"" + result.getString(2) + "\",";
-                int status = result.getInt(3);
+                jsonstring += "\"lpse\":\"" + result.getString(2) + "\",";
+                jsonstring += "\"tahun\":" + result.getInt(3) + ",";
+                jsonstring += "\"namalelang\":\"" + result.getString(4) + "\",";
+                int status = result.getInt(5);
                 if (status == 0) {
                     jsonstring += "\"status\":\"Lelang sudah selesai\",";
                 }
                 else {
                     jsonstring += "\"status\":\"Lelang belum selesai\",";
                 }
-                jsonstring += "\"agency\":\"" + result.getString(4) + "\",";
-                jsonstring += "\"pagu\":" + result.getString(5) + ",";
-                jsonstring += "\"hps\":" + result.getString(6) + ",";
-                jsonstring += "\"penawaranmenang\":" + result.getString(7) + ",";
-                jsonstring += "\"namapemenang\":\"" + result.getString(8) + "\",";
-                jsonstring += "\"periodelelang\":" + result.getFloat(9) + ",";
-                int outlier = result.getInt(10);
-                if (outlier == 1) {
-                    jsonstring += "\"keterangan\":\"Periode lelang lebih singkat dari batas normal\",";
-                }
-                else {
-                    if (outlier == 2) {
-                        jsonstring += "\"keterangan\":\"Periode lelang lebih lama dari batas normal\",";
-                    }
-                    else {
-                        jsonstring += "\"keterangan\":\"Periode lelang pada batas aman\",";
-                    }
-                }
-                jsonstring += "\"outlierbawah\":" + lfence + ",";
-                jsonstring += "\"outlieratas\":" + ufence;
-                jsonstring += "},";
+                jsonstring += "\"pagu\":" + result.getString(6) + ",";
+                jsonstring += "\"hps\":" + result.getString(7) + ",";
+                jsonstring += "\"penawaranmenang\":" + result.getString(8) + ",";
+                jsonstring += "\"namapemenang\":\"" + result.getString(9) + "\",";
+                jsonstring += "\"periodelelang\":" + result.getFloat(10) + "}";
                 i++;
             }
             jsonstring += ("]");
@@ -703,10 +628,7 @@ public class T1 {
         }
     }
 
-    public static void getJSONT1MeanSelisih(String[] kodelelang) throws IOException{
-
-        float lfence = getLowerFence(kodelelang, "meanselisih");
-        float ufence = getUpperFence(kodelelang, "meanselisih");
+    public static void getJSONT1MeanSelisih(int[] kodelelang) throws IOException{
 
         JSONObject obj = new JSONObject();
         String jsonstring = "";
@@ -721,44 +643,30 @@ public class T1 {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select  kemenkeu_lelang.id,  kemenkeu_lelang.nama,  kemenkeu_lelang.status,  kemenkeu_lelang.agency,  kemenkeu_lelang.pagu,  kemenkeu_lelang.hps,  kemenkeu_lelang.penawaranmenang,  kemenkeu_lelang.pemenang,  kemenkeu_t1.meanselisihtahap,  kemenkeu_t1.outlierselisih from  kemenkeu_lelang join  kemenkeu_t1 on kemenkeu_lelang.id = kemenkeu_t1.lelangnum";
+            String query = "select  lelang.id,  lelang.lpse,  lelang.tahun,  lelang.nama,  lelang.status,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t1.meanselisihtahap from  lelang join  t1 on lelang.id = t1.lelangnum";
             ResultSet result = statement.executeQuery(query);
-            FileWriter writer = new FileWriter("web/json/kemenkeu_t1meanselisih.json");
+            FileWriter writer = new FileWriter("web/json/new/kemenkeu_all_t1meanselisih.json");
             jsonstring += "[";
             int i = 0;
             while (result.next()) {
                 //Retrieve by column name
                 jsonstring += "{";
                 jsonstring += "\"id\":" + result.getInt(1) + ",";
-                jsonstring += "\"namalelang\":\"" + result.getString(2) + "\",";
-                int status = result.getInt(3);
+                jsonstring += "\"lpse\":\"" + result.getString(2) + "\",";
+                jsonstring += "\"tahun\":" + result.getInt(3) + ",";
+                jsonstring += "\"namalelang\":\"" + result.getString(4) + "\",";
+                int status = result.getInt(5);
                 if (status == 0) {
                     jsonstring += "\"status\":\"Lelang sudah selesai\",";
                 }
                 else {
                     jsonstring += "\"status\":\"Lelang belum selesai\",";
                 }
-                jsonstring += "\"agency\":\"" + result.getString(4) + "\",";
-                jsonstring += "\"pagu\":" + result.getString(5) + ",";
-                jsonstring += "\"hps\":" + result.getString(6) + ",";
-                jsonstring += "\"penawaranmenang\":" + result.getString(7) + ",";
-                jsonstring += "\"namapemenang\":\"" + result.getString(8) + "\",";
-                jsonstring += "\"meanselisihtahap\":" + result.getFloat(9) + ",";
-                int outlier = result.getInt(10);
-                if (outlier == 1) {
-                    jsonstring += "\"keterangan\":\"Rata-rata jeda tahapan lelang lebih singkat dari batas normal\",";
-                }
-                else {
-                    if (outlier == 2) {
-                        jsonstring += "\"keterangan\":\"Rata-rata jeda tahapan lelang lebih lama dari batas normal\",";
-                    }
-                    else {
-                        jsonstring += "\"keterangan\":\"Rata-rata jeda tahapan lelang pada batas aman\",";
-                    }
-                }
-                jsonstring += "\"outlierbawah\":" + lfence + ",";
-                jsonstring += "\"outlieratas\":" + ufence;
-                jsonstring += "},";
+                jsonstring += "\"pagu\":" + result.getString(6) + ",";
+                jsonstring += "\"hps\":" + result.getString(7) + ",";
+                jsonstring += "\"penawaranmenang\":" + result.getString(8) + ",";
+                jsonstring += "\"namapemenang\":\"" + result.getString(9) + "\",";
+                jsonstring += "\"meanselisihtahap\":" + result.getFloat(10) + "}";
                 i++;
             }
             jsonstring += ("]");

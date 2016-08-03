@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link rel="shortcut icon" href="">
     <meta charset="utf-8">
     <style>
         body {
@@ -30,6 +31,11 @@
             stroke: #1f77b4;
             fill : #1f77b4;
         }
+        button {
+            position: absolute;
+            right: 30px;
+            top: 30px;
+        }
     </style>
 </head>
 
@@ -39,7 +45,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
-<script src="js/mds.js"></script>
+<script src="js/mdsx.js"></script>
 <script type="text/javascript" src="js/jquery.tipsy.js"></script>
 <link href="css/tipsy.css" rel="stylesheet" type="text/css" />
 </body>

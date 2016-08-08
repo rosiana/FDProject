@@ -212,8 +212,8 @@ public class Crawler {
 
 	//ambil info lelang dari semua link
 	public static String[][] getInfoLelangS(String url, String lpse) throws IOException {
-		String[][] infolelang = new String[6772][8];
-		FileInputStream fstream = new FileInputStream("kodelelang_kemenag_nonerr1");
+		String[][] infolelang = new String[3519][8];
+		FileInputStream fstream = new FileInputStream("kodelelang_jogjaprov1");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
 		String strLine;
@@ -292,24 +292,92 @@ public class Crawler {
 		return infolelang;
 	}
 
-	//ambil info lelang dari semua link
-	public static void getAllJumlahPesertaS() throws IOException {
-		FileInputStream fstream = new FileInputStream("kodelelang_sumutprov1");
+	public static String[][] getInfoLelangErr(String url, String lpse) throws IOException {
+		String[][] infolelang = new String[959][8];
+		FileInputStream fstream = new FileInputStream("kodelelang_jogjaprov_err");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
 		String strLine;
 
-		FileWriter writer = new FileWriter("jumlahpeserta_sumutprov1");
+		//Read File Line By Line
+		int i = 0;
+		while ((strLine = br.readLine()) != null) {
+			int adapemenang = Integer.parseInt(strLine.substring(0,1));
+			String link = strLine.substring(2);
+			Document doc2 = Jsoup.connect("http://" + url + "/eproc/lelang/pemenang/" + link).timeout(50000).get();
+			Elements baris = doc2.select("td.horizLine");
+			String pemenang = "";
+			String penawaran = "";
+			if (baris.size() == 10){
+				pemenang = (baris.get(6)).text();
+				penawaran = (baris.get(9)).text();
+			}
+			else {
+				pemenang = "-";
+				penawaran = "-";
+			}
+			Element nama = baris.get(0);
+			Element pagu = baris.get(4);
+			Element hps = baris.get(5);
+			infolelang[i][0] = link;
+			infolelang[i][1] = (nama.text()).replace(",","");
+			infolelang[i][2] = "0";
+			infolelang[i][3] = (((pagu.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+			infolelang[i][4] = (((hps.text()).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+			infolelang[i][5] = (((penawaran).replace(",00","").replace(".","")).replace(",",".")).replace("Rp ", "");
+			infolelang[i][6] = pemenang;
+			int c = baris.size()-10;
+			infolelang[i][7] = "" + c;
+			System.out.println(infolelang[i][0] + " - " + infolelang[i][1] + " - " + infolelang[i][2] + " - " + infolelang[i][3] + " - " + infolelang[i][4] + " - " + infolelang[i][5] + " - " + infolelang[i][6] + " - " + infolelang[i][7]);
+			dbTulisInfoLelang(lpse, infolelang[i]);
+			i++;
+		}
+		return infolelang;
+	}
+
+	//ambil info lelang dari semua link
+	public static void getAllJumlahPesertaS() throws IOException {
+		FileInputStream fstream = new FileInputStream("kodelelang_jogjaprov_nonerr");
+		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+
+		String strLine;
+
+		FileWriter writer = new FileWriter("jumlahpeserta_jogjaprov_nonerr");
 
 		//Read File Line By Line
 		while ((strLine = br.readLine()) != null) {
 			String link = strLine.substring(2);
-			Document doc = Jsoup.connect("http://lpse.sumutprov.go.id/eproc/lelang/view/" + link).timeout(50000).get();
+			Document doc = Jsoup.connect("http://lpse.jogjaprov.go.id/eproc/lelang/view/" + link).timeout(50000).get();
 			Elements baris = doc.select("td.horizLine");
 			Element peserta = baris.get(baris.size()-2);
 			writer.append(peserta.text());
 			writer.append("\n");
-			System.out.println(peserta.text().replace(" peserta [Detil...]", ""));
+			System.out.println(peserta.text().replace(" Peserta [Detil...]", ""));
+		}
+
+		//Close the input stream
+		br.close();
+		writer.flush();
+		writer.close();
+	}
+
+	public static void getAllJumlahPesertaErr() throws IOException {
+		FileInputStream fstream = new FileInputStream("kodelelang_jogjaprov_err");
+		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+
+		String strLine;
+
+		FileWriter writer = new FileWriter("jumlahpeserta_jogjaprov_err");
+
+		//Read File Line By Line
+		while ((strLine = br.readLine()) != null) {
+			String link = strLine.substring(2);
+			Document doc = Jsoup.connect("http://lpse.jogjaprov.go.id/eproc/lelang/pemenang/" + link).timeout(50000).get();
+			Elements baris = doc.select("table.border > tbody > tr");
+			int x = baris.size() - 1;
+			writer.append("" + x);
+			writer.append("\n");
+			System.out.println(baris.size());
 		}
 
 		//Close the input stream
@@ -892,9 +960,9 @@ public class Crawler {
     }
 
 	public static void getAllPesertaLelangS(String url) throws IOException {
-		FileInputStream fstream = new FileInputStream("jumlahpeserta_sumutprov1");
+		FileInputStream fstream = new FileInputStream("jumlahpeserta_jogjaprov_err");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-		FileInputStream fstream2 = new FileInputStream("kodelelang_sumutprov1");
+		FileInputStream fstream2 = new FileInputStream("kodelelang_jogjaprov_err");
 		BufferedReader br2 = new BufferedReader(new InputStreamReader(fstream2));
 
 		String strLine;
@@ -997,11 +1065,11 @@ public class Crawler {
 	}
 
 	public static int[] getAllJumlahTahapS() throws IOException {
-		String[] kodelelang = new String[4378];
-		FileInputStream fstream = new FileInputStream("kodelelang_kemenag_nonerr");
+		String[] kodelelang = new String[4852];
+		FileInputStream fstream = new FileInputStream("kodelelang_jogjaprov_nonerr");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
 
-		FileWriter writer = new FileWriter("jumlahtahap_kemenag_nonerr");
+		FileWriter writer = new FileWriter("jumlahtahap_jogjaprov_nonerr");
 
 		String strLine;
 
@@ -1014,7 +1082,7 @@ public class Crawler {
 		int jumlahtahap[] = new int[kodelelang.length];
 		for (int j = 0; j < kodelelang.length; j++) {
 			int lelangnum = Integer.parseInt(kodelelang[j].substring(2));
-			Document doc = Jsoup.connect("http://lpse.kemenag.go.id/eproc/lelang/tahap/" + lelangnum).timeout(50000).get();
+			Document doc = Jsoup.connect("http://lpse.jogjaprov.go.id/eproc/lelang/tahap/" + lelangnum).timeout(50000).get();
 			Elements baris = doc.select("tr");
 			jumlahtahap[j] = baris.size() - 1;
 			System.out.println(jumlahtahap[j]);
@@ -1039,16 +1107,16 @@ public class Crawler {
 
 	//ambil tahap di semua lelang
 	public static void getAllTahapLelangS(String url) throws IOException {
-		FileInputStream fstream = new FileInputStream("kodelelang_kemenag_nonerr");
+		FileInputStream fstream = new FileInputStream("kodelelang_jogjaprov_nonerr");
 		BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-		FileInputStream fstream2 = new FileInputStream("jumlahtahap_kemenag_nonerr");
+		FileInputStream fstream2 = new FileInputStream("jumlahtahap_jogjaprov_nonerr");
 		BufferedReader br2 = new BufferedReader(new InputStreamReader(fstream2));
 
 		String strLine;
 		String strLine2;
 
-		String[] kodelelang = new String[4378];
-		int[] jumlahtahap = new int[4378];
+		String[] kodelelang = new String[3216];
+		int[] jumlahtahap = new int[3216];
 
 		int i = 0;
 		while (((strLine = br.readLine()) != null) && ((strLine2 = br2.readLine()) != null)) {

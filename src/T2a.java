@@ -1,12 +1,8 @@
 import org.json.simple.JSONObject;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
-import java.util.Properties;
-
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 /**
  * Created by Rosiana on 7/11/2016.
@@ -33,14 +29,19 @@ public class T2a {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select distinct  nama from  peserta limit 20";
+            String query = "select count(id) from  lelang as numpeserta";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
-                //Retrieve by column name
-                numpeserta++;
+                numpeserta = result.getInt(1);
             }
             result.close();
+            System.out.println("dimensi: " + numpeserta);
             matrixpeserta = new float[numpeserta][numpeserta];
+            for (int i = 0; i < matrixpeserta.length; i++) {
+                for (int j = 0; j < matrixpeserta.length; j++) {
+                    matrixpeserta[i][j] = -999;
+                }
+            }
         } catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
@@ -64,7 +65,65 @@ public class T2a {
         return matrixpeserta;
     }
 
+    public static int[] getLelangList() throws IOException {
+        Connection connect = null;
+        Statement statement = null;
+        int[] pesertalist = new int[1];
+        int numpeserta = 0;
+        try {
+            Class.forName(myDriver);
+            Properties props = new Properties();
+            props.put("user", user);
+            props.put("password", pass);
+            props.put("autoReconnect", "true");
+            connect = DriverManager.getConnection(myUrl, props);
+            statement = connect.createStatement();
+
+            String query = "select count(id) from  lelang as numpeserta";
+            ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                //Retrieve by column name
+                numpeserta = result.getInt(1);
+            }
+            result.close();
+            pesertalist = new int[numpeserta];
+            query = "select id from  lelang";
+            result = statement.executeQuery(query);
+            int i = 0;
+            while (result.next()) {
+                //Retrieve by column name
+                pesertalist[i] = result.getInt(1);
+                i++;
+            }
+            result.close();
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (statement != null)
+                    connect.close();
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (connect != null)
+                    connect.close();
+            } catch(SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }
+        return pesertalist;
+    }
+
+    public static Map<Integer,String[]> cachePeserta = new HashMap<>();
     public static String[] getPesertaPerLelang(int kodelelang) throws IOException {
+        if (cachePeserta.containsKey(kodelelang)){
+            return cachePeserta.get(kodelelang);
+        }
         Connection connect = null;
         Statement statement = null;
         String[] pesertalelang = new String[1];
@@ -116,6 +175,7 @@ public class T2a {
                 se.printStackTrace();
             }//end finally try
         }
+        cachePeserta.put(kodelelang,pesertalelang);
         return pesertalelang;
     }
 
@@ -174,9 +234,74 @@ public class T2a {
         return namalelang;
     }
 
-    public static void isiMatrix(float[][] matrix) throws IOException {
+    public static float[] getBaris(int kodelelang, int[] listkodelelang) throws IOException {
+
+        float[] baris = new float[listkodelelang.length];
+        for (int i = 0; i < baris.length; i++) {
+            baris[i] = getSimilarity(kodelelang, listkodelelang[i]);
+        }
+        return baris;
+    }
+
+    public static void isiMatrix(int[] listkodelelang) throws IOException {
+        System.out.println("dimensi " + listkodelelang.length);
+        for (int i = 0; i < listkodelelang.length; i++) {
+            System.out.println(listkodelelang[i]);
+        }
+        for (int i = 0; i <= listkodelelang.length; i++) {
+            float[] baris = getBaris(listkodelelang[i], listkodelelang);
+            dbInsertT2a(listkodelelang[i], listkodelelang, baris);
+            System.out.println("insert");
+        }
+    }
+
+    public static void dbInsertT2a(int kodelelang, int[] listkodelelang, float[] baris) throws IOException {
+        Connection connect = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            Class.forName(myDriver);
+            Properties props = new Properties();
+            props.put("user", user);
+            props.put("password", pass);
+            props.put("autoReconnect", "true");
+            connect = DriverManager.getConnection(myUrl, props);
+
+            preparedStatement = connect.prepareStatement("insert into  t2a values (?, ?, ?)");
+            for (int i = 0; i < listkodelelang.length; i++) {
+                preparedStatement.setInt(1, kodelelang);
+                preparedStatement.setFloat(2, listkodelelang[i]);
+                preparedStatement.setFloat(3, baris[i]);
+                preparedStatement.addBatch();
+            }
+            preparedStatement.executeBatch();
+        }
+        catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (preparedStatement != null)
+                    connect.close();
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (connect != null)
+                    connect.close();
+            } catch(SQLException se) {
+                se.printStackTrace();
+            }//end finally try
+        }
+    }
+
+    public static float getSimilarity(int i, int j) throws IOException {
         Connection connect = null;
         Statement statement = null;
+        float x= 0;
+        float simx = 0;
         try {
             Class.forName(myDriver);
             Properties props = new Properties();
@@ -186,39 +311,48 @@ public class T2a {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query;
-            ResultSet result;
+            String query = "select count(*) from (select p1.nama, p2.nama al1 from  peserta p1,  peserta p2 where p1.nama = p2.nama and p1.lelangnum = " + i + " and p2.lelangnum = " + j + ") al2";
+            ResultSet result = statement.executeQuery(query);
 
-            int lelang = 0;
-
-            for (int i = 0; i < matrix.length; i++) {
-                int a = i + 1;
-                query = "select distinct  lelangnum from  peserta limit " + a;
-                result = statement.executeQuery(query);
-                result.last();
-                lelang = result.getInt(1);
-                System.out.println(lelang);
-                result.close();
-                String[] listpeserta1 = getPesertaPerLelang(lelang);
-                for (int j = 0; j < matrix.length; j++) {
-                    int b = j + 1;
-                    query = "select distinct  lelangnum from  peserta limit " + b;
-                    result = statement.executeQuery(query);
-                    result.last();
-                    lelang = result.getInt(1);
-                    System.out.println(lelang);
-                    result.close();
-                    String[] listpeserta2 = getPesertaPerLelang(lelang);
-                    matrix[i][j] = getSimilarity(listpeserta1, listpeserta2);
-                }
+            int jum = 0;
+            while (result.next()) {
+                //Retrieve by column name
+                jum = result.getInt(1);
             }
 
-            for (int k = 0; k < matrix.length; k++) {
-                for (int l = 0; l < matrix.length; l++) {
-                    System.out.printf(matrix[k][l] + " ");
-                }
-                System.out.printf("\n");
+            result.close();
+
+            int p1 = 0;
+            int p2 = 0;
+            query = "select count(*) from peserta as p1 where lelangnum = " + i;
+            result = statement.executeQuery(query);
+
+            while (result.next()) {
+                p1 = result.getInt(1);
             }
+            result.close();
+
+            query = "select count(*) from peserta as p2 where lelangnum = " + j;
+            result = statement.executeQuery(query);
+
+            while (result.next()) {
+                p2 = result.getInt(1);
+            }
+            result.close();
+
+            float fjum = (float)jum;
+            float fp1 = (float)p1;
+            float fp2 = (float)p2;
+
+            if (fp1 > fp2) {
+                x = fjum / fp1;
+            }
+            else {
+                x = fjum / fp2;
+            }
+            simx = 1 - x;
+            System.out.println(i + "," + j + " " + simx);
+
         } catch(SQLException se){
             //Handle errors for JDBC
             se.printStackTrace();
@@ -239,31 +373,6 @@ public class T2a {
                 se.printStackTrace();
             }//end finally try
         }
-    }
-
-    public static float getSimilarity(String[] listpeserta1, String[] listpeserta2) throws IOException {
-        float sim = 0;
-        float simx = 0;
-        float max = 0;
-        float same = 0;
-        for (int i = 0; i < listpeserta1.length; i++) {
-            loop:
-            for (int j = 0; j < listpeserta2.length; j++) {
-                if (listpeserta1[i].equals(listpeserta2[j])) {
-                    same += 1;
-                    break loop;
-                }
-            }
-        }
-        if (listpeserta1.length >= listpeserta2.length) {
-            max = listpeserta1.length;
-        }
-        else {
-            max = listpeserta2.length;
-        }
-        sim = same / max;
-        simx = 1 - sim;
-        System.out.println("simx: " + simx);
         return simx;
     }
 
@@ -322,57 +431,23 @@ public class T2a {
     }
 
     public static int[] getLelangList2() throws IOException {
-        int[] arrlelang = new int[45];
-        int[] pesertaall = new int[250];
-        arrlelang[0] = 209011;
-        arrlelang[1] = 816011;
-        arrlelang[2] = 1024011;
-        arrlelang[3] = 1079011;
-        arrlelang[4] = 2830011;
-        arrlelang[5] = 2831011;
-        arrlelang[6] = 3188011;
-        arrlelang[7] = 6943011;
-        arrlelang[8] = 6917011;
-        arrlelang[9] = 7140011;
-        arrlelang[10] = 11124011;
-        arrlelang[11] = 7624011;
-        arrlelang[12] = 10847011;
-        arrlelang[13] = 10878011;
-        arrlelang[14] = 10940011;
-        arrlelang[15] = 11110011;
-        arrlelang[16] = 11243011;
-        arrlelang[17] = 13263011;
-        arrlelang[18] = 13279011;
-        arrlelang[19] = 16327011;
-        arrlelang[20] = 16414011;
-        arrlelang[21] = 16429011;
-        arrlelang[22] = 16643011;
-        arrlelang[23] = 16642011;
-        arrlelang[24] = 16646011;
-        arrlelang[25] = 15011;
-        arrlelang[26] = 48011;
-        arrlelang[27] = 73011;
-        arrlelang[28] = 759025;
-        arrlelang[29] = 757025;
-        arrlelang[30] = 758025;
-        arrlelang[31] = 4809025;
-        arrlelang[32] = 158025;
-        arrlelang[33] = 157025;
-        arrlelang[34] = 1221025;
-        arrlelang[35] = 156025;
-        arrlelang[36] = 3829025;
-        arrlelang[37] = 3928025;
-        arrlelang[38] = 3894025;
-        arrlelang[39] = 38025;
-        arrlelang[40] = 438025;
-        arrlelang[41] = 1239025;
-        arrlelang[42] = 1468025;
-        arrlelang[43] = 1717025;
-        arrlelang[44] = 3964025;
+
+        int[] arrlelang = new int[496];
+        int[] pesertaall = new int[5000];
+
+        FileInputStream fstream = new FileInputStream("case");
+        BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
+        String strLine;
+
+        int i = 0;
+        while ((strLine = br.readLine()) != null) {
+            arrlelang[i] = Integer.parseInt(strLine);
+            i++;
+        }
 
         Connection connect = null;
         Statement statement = null;
-        int[] lelang = new int[250];
+        int[] lelang = new int[5000];
         int numpeserta = 0;
         try {
             Class.forName(myDriver);
@@ -383,23 +458,29 @@ public class T2a {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select distinct  lelangnum from  peserta order by rand() limit 250";
+            String query = "select distinct  lelangnum from  peserta order by rand() limit 5000";
             ResultSet result = statement.executeQuery(query);
-            for (int l = 0; l < lelang.length; l++) {
-                pesertaall[l] = arrlelang[l];
+            for (int l = 0; l < pesertaall.length; l++) {
+                if (l < 496) {
+                    pesertaall[l] = arrlelang[l];
+                }
+                else {
+                    pesertaall[l] = -999;
+                }
             }
 
-            int[] pesertatemp = new int[250];
+            int[] pesertatemp = new int[5000];
             int p = 0;
             while (result.next()) {
                 pesertatemp[p] = result.getInt(1);
                 p++;
             }
             result.close();
+            int x = 0;
             for (int m = 0; m < pesertatemp.length; m++) {
                 boolean found = false;
                 loop:
-                for (int n = 0; n < 45; n++) {
+                for (int n = 0; n < 496; n++) {
                     if (pesertatemp[m] == pesertaall[n]) {
                         found = true;
                         break loop;
@@ -408,14 +489,15 @@ public class T2a {
 
                     }
                 }
-                if (found == false && m < 206) {
+                if (found == false && x < 4504) {
                     System.out.println(m);
-                    pesertaall[44 + m] = pesertatemp[m];
+                    pesertaall[496 + x] = pesertatemp[m];
+                    x++;
                 }
             }
 
-            for (int i = 0; i < pesertaall.length; i++) {
-                System.out.println(pesertaall[i]);
+            for (int j = 0; j < pesertaall.length; j++) {
+                System.out.println(pesertaall[j]);
             }
         } catch(SQLException se){
             //Handle errors for JDBC
@@ -485,11 +567,19 @@ public class T2a {
 
             jsonstring += "],";
             jsonstring += "\"jumlahpeserta\":" + peserta.length + ",";
-            System.out.println(peserta[i] + " " + peserta.length);
+            int label = 0;
+            if (i <= 496) {
+                label = 1;
+            }
+            else {
+                label = 0;
+            }
+            jsonstring += "\"label\":" + label + ",";
             jsonstring += "}";
-            if (i < peserta.length - 1) {
+            if (i < kodelelang.length - 1) {
                 jsonstring += ",";
             }
+            System.out.println(kodelelang[i]);
         }
         jsonstring += "]}";
 
@@ -594,24 +684,19 @@ public class T2a {
                 matrix[i][j] = -999;
             }
         }
-
-        String namapeserta = "";
-
         for (int i = 0; i < matrix.length; i++) {
-            String[] listpeserta1 = getPesertaPerLelang(kodelelang[i]);
             for (int j = 0; j < matrix.length; j++) {
                 if (i == j) {
                     matrix[i][j] = 0;
                 } else {
                     if (matrix[i][j] == -999) {
-                        String[] listpeserta2 = getPesertaPerLelang(kodelelang[j]);
-                        matrix[i][j] = getSimilarity(listpeserta1, listpeserta2);
-                        matrix[j][i] = matrix[i][j];
+                       matrix[i][j] = getSimilarity(kodelelang[i], kodelelang[j]);
+                       matrix[j][i] = matrix[i][j];
                     }
                 }
                 System.out.println(i + "," + j);
             }
         }
-    return matrix;
+        return matrix;
     }
 }

@@ -2,23 +2,13 @@
  * Created by Rosiana on 5/3/2016.
  */
 
-import java.io.*;
-import java.math.BigInteger;
-import java.util.*;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
+import java.io.IOException;
 import java.sql.*;
-import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Properties;
 
 public class Main {
     static Crawler crawler = new Crawler();
-    static T2a t2a = new T2a();
+    static T1 t1 = new T1();
 
 
     static final String myDriver = "org.gjt.mm.mysql.Driver";
@@ -27,8 +17,8 @@ public class Main {
     static final String pass = "";
 
     public static void main (String args[]) throws IOException {
-        /*
-        int[] kodelelang = new int[1];
+
+        int[] kodelelang = new int[27255];
         Connection connect = null;
         Statement statement = null;
         try {
@@ -40,17 +30,21 @@ public class Main {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
+            /*
             int numlelang = 0;
 
-            String query = "select count(id) from  lelang as numlelang";
+            String query = "select count(*) from  lelang as numlelang";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 numlelang = result.getInt(1);
             }
             result.close();
+
             kodelelang = new int[numlelang];
-            query = "select id from  lelang";
-            result = statement.executeQuery(query);
+            */
+
+            String query = "select id from  lelang limit 27255 offset 5000";
+            ResultSet result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {
                 kodelelang[i] = result.getInt(1);
@@ -77,11 +71,7 @@ public class Main {
                 se.printStackTrace();
             }//end finally try
         }
-        */
-        String url = "lpse.kemenag.go.id";
-        String lpse = "Kementerian Agama";
-        int[] jumlahtahap = crawler.getAllJumlahTahapS();
-        crawler.getAllTahapLelangS(url);
+        t1.dbInsertT1(kodelelang);
     }
 
 }

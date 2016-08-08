@@ -37,7 +37,7 @@ public class T2b {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select count(id) from  kemenkeu_lelang as  numlelang where  penawaranmenang > 0 and penawaranmenang <= hps";
+            String query = "select count(id) from  lelang as  numlelang";
             ResultSet result = statement.executeQuery(query);
             int numlelang = 0;
             while (result.next()) {
@@ -46,7 +46,7 @@ public class T2b {
             result.close();
             hps = new String[numlelang][2];
 
-            query = "select  id,  hps from  kemenkeu_lelang where  penawaranmenang > 0 and penawaranmenang <= hps";
+            query = "select  id,  hps from  lelang";
             result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {
@@ -93,7 +93,7 @@ public class T2b {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select count(id) from  kemenkeu_lelang as  numlelang where  penawaranmenang > 0 and penawaranmenang <= hps";
+            String query = "select count(id) from  lelang as  numlelang";
             ResultSet result = statement.executeQuery(query);
             int numlelang = 0;
             while (result.next()) {
@@ -102,7 +102,7 @@ public class T2b {
             result.close();
             hargamenang = new float[numlelang];
 
-            query = "select  penawaranmenang from  kemenkeu_lelang where  penawaranmenang > 0 and penawaranmenang <= hps";
+            query = "select  penawaranmenang from  lelang";
             result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {
@@ -274,7 +274,6 @@ public class T2b {
         String[][] hps = getAllHPS();
         float[] mph = menangPerHPS(hps, menang);
         float[] mphtemp = mph;
-        float[] outlier = getOutlierMPH(mph);
 
         Connection connect = null;
         PreparedStatement preparedStatement = null;
@@ -286,21 +285,13 @@ public class T2b {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("insert into  kemenkeu_t2b values (?, ?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  t2b values (?, ?)");
             for (int i = 0; i < mph.length; i++) {
                 int lelangnum = Integer.parseInt(hps[i][0]);
                 preparedStatement.setInt(1, lelangnum);
-                preparedStatement.setFloat(2, menang[i]);
                 float hpsf = Float.parseFloat(hps[i][1]);
-                preparedStatement.setFloat(3, hpsf);
                 float mphx = menang[i] / hpsf;
-                preparedStatement.setFloat(4, mphx);
-                if (outlier[i] == 0) {
-                    preparedStatement.setObject(5, null);
-                }
-                else {
-                    preparedStatement.setFloat(5, outlier[i]);
-                }
+                preparedStatement.setFloat(2, mphx);
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
@@ -327,9 +318,8 @@ public class T2b {
         }
     }
 
-    public static void getJSONT2b(float[] mph) throws IOException{
+    public static void getJSONT2b() throws IOException{
 
-        float ufence = getUpperFence(mph);
         JSONObject obj = new JSONObject();
         String jsonstring = "";
         Connection connect = null;
@@ -343,37 +333,42 @@ public class T2b {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select  lelang.id,  lelang.nama,  lelang.status,  lelang.agency,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t2b.menangperhps,  t2b.outlierhps from  kemenkeu_lelang join  kemenkeu_t2b on kemenkeu_lelang.id = kemenkeu_t2b.lelangnum";
+            String query = "select  lelang.id,  lelang.nama, lelang.lpse, lelang.tahun,  lelang.status,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t2b.menangperhps from  lelang join  t2b on lelang.id = t2b.lelangnum where lelang.id <= 326042";
             ResultSet result = statement.executeQuery(query);
-            FileWriter writer = new FileWriter("web/json/t2b.json");
+            FileWriter writer = new FileWriter("web/json/new/v1_t2b.json");
             jsonstring += "[";
             int i = 0;
             while (result.next()) {
                 //Retrieve by column name
                 jsonstring += "{";
                 jsonstring += "\"id\":" + result.getInt(1) + ",";
-                jsonstring += "\"namalelang\":\"" + result.getString(2) + "\",";
-                int status = result.getInt(3);
+                jsonstring += "\"namalelang\":\"" + (result.getString(2)).replace("\"","") + "\",";
+                jsonstring += "\"lpse\":\"" + result.getString(3) + "\",";
+                jsonstring += "\"tahun\":" + result.getInt(4) + ",";
+                int status = result.getInt(5);
                 if (status == 0) {
                     jsonstring += "\"status\":\"Lelang sudah selesai\",";
                 }
                 else {
                     jsonstring += "\"status\":\"Lelang belum selesai\",";
                 }
-                jsonstring += "\"agency\":\"" + result.getString(4) + "\",";
-                jsonstring += "\"pagu\":" + result.getString(5) + ",";
-                jsonstring += "\"hps\":" + result.getString(6) + ",";
-                jsonstring += "\"penawaranmenang\":" + result.getString(7) + ",";
-                jsonstring += "\"namapemenang\":\"" + result.getString(8) + "\",";
-                jsonstring += "\"menangperhps\":" + result.getFloat(9) + ",";
-                int outlier = result.getInt(10);
-                if (outlier == 1) {
-                    jsonstring += "\"keterangan\":\"Perbandingan harga penawaran dan HPS melampaui batas normal\",";
+                jsonstring += "\"pagu\":" + result.getString(6) + ",";
+                jsonstring += "\"hps\":" + result.getString(7) + ",";
+                String penawaranmenang = result.getString(8);
+                if (penawaranmenang == "null") {
+                    jsonstring += "\"penawaranmenang\":\"-\",";
                 }
                 else {
-                    jsonstring += "\"keterangan\":\"Perbandingan harga penawaran dan HPS pada batas aman\",";
+                    jsonstring += "\"penawaranmenang\":" + penawaranmenang + ",";
                 }
-                jsonstring += "\"outlier\":" + ufence;
+                String namapemenang = result.getString(9);
+                if (penawaranmenang == "null") {
+                    jsonstring += "\"namapemenang\":\"-\",";
+                }
+                else {
+                    jsonstring += "\"namapemenang\":\"" + namapemenang + "\",";
+                }
+                jsonstring += "\"menangperhps\":" + result.getFloat(10);
                 jsonstring += "},";
                 i++;
             }

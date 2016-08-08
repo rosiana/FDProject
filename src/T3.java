@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.Properties;
@@ -37,7 +38,7 @@ public class T3 {
 
             Timestamp mulai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  mulai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " order by  id asc limit 1";
+            String query = "select  mulai from  tahap where  lelangnum = " + kodelelang + " order by  lelangnum asc limit 1";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -83,7 +84,7 @@ public class T3 {
 
             Timestamp sampai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  sampai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " order by  id asc limit 1";
+            String query = "select  sampai from  tahap where  lelangnum = " + kodelelang + " order by  lelangnum asc limit 1";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -114,13 +115,61 @@ public class T3 {
         return stringsampai;
     }
 
-    public static float[] getAllPeriodePengumumanPasca(String[] kodelelang) throws IOException {
+    public static float[] getAllPeriodePengumumanPasca(int[] kodelelang) throws IOException {
         float[] periode = new float[kodelelang.length];
         for (int i = 0; i < kodelelang.length; i++) {
-            int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
+            int lelangnum = kodelelang[i];
             String mulai = getMulaiLelang(lelangnum);
             String sampai = getSampaiPengumumanPasca(lelangnum);
-            periode[i] = getPeriode(mulai,sampai);
+            periode[i] = getPeriode2(mulai,sampai);
+        }
+        return periode;
+    }
+
+    public static float[] getAllPeriodePengumumanPasca2(int[] kodelelang) throws IOException {
+        float[] periode = new float[kodelelang.length];
+        float periodetemp = 0;
+        Connection connect = null;
+        Statement statement = null;
+        try {
+            Class.forName(myDriver);
+            Properties props = new Properties();
+            props.put("user", user);
+            props.put("password", pass);
+            props.put("autoReconnect", "true");
+            connect = DriverManager.getConnection(myUrl, props);
+            statement = connect.createStatement();
+
+            for (int i = 0; i < kodelelang.length; i++) {
+                String query = "SELECT TIMESTAMPDIFF(SECOND, mulai, sampai) from tahap where lelangnum = " + kodelelang[i] + " limit 1";
+                ResultSet result = statement.executeQuery(query);
+                while (result.next()) {
+                    //Retrieve by column name
+                    periodetemp = result.getFloat(1);
+                    periode[i] = periodetemp / (24*60*60);
+                }
+                result.close();
+            }
+
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (statement != null)
+                    connect.close();
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (connect != null)
+                    connect.close();
+            } catch(SQLException se) {
+                se.printStackTrace();
+            }//end finally try
         }
         return periode;
     }
@@ -140,7 +189,7 @@ public class T3 {
 
             Timestamp sampai = new Timestamp(0000,00,00,00,00,00,000000000);
 
-            String query = "select  sampai from  kemenkeu_tahap where  lelangnum = " + kodelelang + " and  tahap = \"Pengumuman Pemenang\"";
+            String query = "select  sampai from  tahap where  lelangnum = " + kodelelang + " and  tahap = \"Pengumuman Pemenang\" limit 1";
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -171,13 +220,77 @@ public class T3 {
         return stringsampai;
     }
 
-    public static float[] getAllPeriodePengumumanPemenang(String[] kodelelang) throws IOException {
+    public static float[] getAllPeriodePengumumanPemenang(int[] kodelelang) throws IOException {
         float[] periode = new float[kodelelang.length];
         for (int i = 0; i < kodelelang.length; i++) {
-            int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
+            int lelangnum = kodelelang[i];
             String mulai = getMulaiLelang(lelangnum);
             String sampai = getSampaiPengumumanPemenang(lelangnum);
-            periode[i] = getPeriode(mulai,sampai);
+            periode[i] = getPeriode2(mulai,sampai);
+        }
+        return periode;
+    }
+
+    public static float[] getAllPeriodePengumumanPemenang2(int[] kodelelang) throws IOException {
+        float[] periode = new float[kodelelang.length];
+        float periodetemp = 0;
+        Connection connect = null;
+        Statement statement = null;
+        try {
+            Class.forName(myDriver);
+            Properties props = new Properties();
+            props.put("user", user);
+            props.put("password", pass);
+            props.put("autoReconnect", "true");
+            connect = DriverManager.getConnection(myUrl, props);
+            statement = connect.createStatement();
+
+            String mulai = "";
+            String sampai = "";
+            for (int i = 0; i < kodelelang.length; i++) {
+                String query = "select  mulai from tahap where lelangnum = " + kodelelang[i] + " limit 1";
+                ResultSet result = statement.executeQuery(query);
+                while (result.next()) {
+                    //Retrieve by column name
+                    mulai = result.getString(1);
+                }
+                result.close();
+                query = "select  mulai from tahap where lelangnum = " + kodelelang[i] + " and tahap = \"Pengumuman Pemenang\"";
+                result = statement.executeQuery(query);
+                while (result.next()) {
+                    //Retrieve by column name
+                    sampai = result.getString(1);
+                }
+                result.close();
+                query = "SELECT TIMESTAMPDIFF(SECOND, \"" + mulai + "\" , \"" + sampai + "\" )";
+                result = statement.executeQuery(query);
+                while (result.next()) {
+                    //Retrieve by column name
+                    periodetemp = result.getFloat(1);
+                    periode[i] = periodetemp / (24*60*60);
+                }
+                result.close();
+            }
+
+        } catch(SQLException se){
+            //Handle errors for JDBC
+            se.printStackTrace();
+        } catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        } finally {
+            //finally block used to close resources
+            try {
+                if (statement != null)
+                    connect.close();
+            } catch (SQLException se) {
+            }// do nothing
+            try {
+                if (connect != null)
+                    connect.close();
+            } catch(SQLException se) {
+                se.printStackTrace();
+            }//end finally try
         }
         return periode;
     }
@@ -323,52 +436,35 @@ public class T3 {
         return periode;
     }
 
-    public static int[] getOutlierPeriodePengumumanPasca (String[] kodelelang) throws IOException {
-        int[] outlierp = new int[kodelelang.length];
-        for (int i = 0; i < outlierp.length; i++) {
-            outlierp[i] = 0;
+    public static float getPeriode2(String mulai, String sampai) throws IOException {
+        SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+        Date d1 = null;
+        Date d2 = null;
+
+        float diffDays = 0;
+
+        try {
+            d1 = format.parse(mulai);
+            d2 = format.parse(sampai);
+
+            //in milliseconds
+            float diff = d2.getTime() - d1.getTime();
+
+            diffDays = diff / (24 * 60 * 60 * 1000);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        float[] data = new float[kodelelang.length];
-        data = getAllPeriodePengumumanPasca(kodelelang);
-        float lfence = getLowerFence(kodelelang, "periodepasca");
-        for (int j = 0; j < data.length; j++) {
-            if (data[j] < lfence) {
-                outlierp[j] = 1;
-            }
-            else {
-                outlierp[j] = 0;
-            }
-        }
-        return outlierp;
+
+        return diffDays;
     }
 
-    public static int[] getOutlierPeriodePengumumanPemenang (String[] kodelelang) throws IOException {
-        int[] outlierm = new int[kodelelang.length];
-        for (int i = 0; i < outlierm.length; i++) {
-            outlierm[i] = 0;
-        }
-        float[] data = new float[kodelelang.length];
-        data = getAllPeriodePengumumanPemenang(kodelelang);
-        float lfence = getLowerFence(kodelelang, "periodepemenang");
-        for (int j = 0; j < data.length; j++) {
-            if (data[j] < lfence) {
-                outlierm[j] = 1;
-            }
-            else {
-                outlierm[j] = 0;
-            }
-        }
-        return outlierm;
-    }
-
-    public static void dbInsertT3(String[] kodelelang) throws IOException {
+    public static void dbInsertT3(int[] kodelelang) throws IOException {
         //mysql
-        float[] periodepasca = getAllPeriodePengumumanPasca(kodelelang);
-        float[] periodepemenang = getAllPeriodePengumumanPemenang(kodelelang);
+        float[] periodepasca = getAllPeriodePengumumanPasca2(kodelelang);
+        float[] periodepemenang = getAllPeriodePengumumanPemenang2(kodelelang);
         float[] temppasca = periodepasca;
         float[] temppemenang = periodepemenang;
-        int[] outlierp = getOutlierPeriodePengumumanPasca(kodelelang);
-        int[] outlierm = getOutlierPeriodePengumumanPemenang(kodelelang);
         Connection connect = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -379,24 +475,12 @@ public class T3 {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("insert into  kemenkeu_t3 values (?, ?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  t3 values (?, ?, ?)");
             for (int i = 0; i < kodelelang.length; i++) {
-                int lelangnum = Integer.parseInt(kodelelang[i].substring(2));
+                int lelangnum = kodelelang[i];
                 preparedStatement.setInt(1, lelangnum);
                 preparedStatement.setFloat(2, temppasca[i]);
                 preparedStatement.setFloat(3, temppemenang[i]);
-                if (outlierp[i] == 0) {
-                    preparedStatement.setObject(4, null);
-                }
-                else {
-                    preparedStatement.setInt(4, outlierp[i]);
-                }
-                if (outlierm[i] == 0) {
-                    preparedStatement.setObject(5, null);
-                }
-                else {
-                    preparedStatement.setInt(5, outlierm[i]);
-                }
                 preparedStatement.addBatch();
             }
             preparedStatement.executeBatch();
@@ -460,50 +544,7 @@ public class T3 {
         }
     }
 
-    public static float getLowerFence(String[] kodelelang, String by) throws IOException {
-        float lfence = 0;
-        float[] sorted = sort(kodelelang, by);
-        float q1 = 0;
-        float q3 = 0;
-        float iqr = 0;
-        int x = sorted.length;
-        int y = sorted.length % 4;
-        switch (y) {
-            case 0:
-                q1 = (sorted[x/4] + sorted[x/4 + 1]) / 2;
-                q3 = (sorted[3*x/4] + sorted[3*x/4 + 1]) / 2;
-                break;
-            case 1:
-                q1 = (sorted[x/4] + sorted[x/4 + 1]) / 2;
-                q3 = (sorted[3*x/4 + 1] + sorted[3*x/4 + 2]) / 2;
-                break;
-            case 2:
-                q1 = sorted[x/4 + 1];
-                q3 = sorted[3*x/4 + 1];
-                break;
-            case 3:
-                q1 = sorted[x/4 + 1];
-                q3 = sorted[3*x/4 + 1];
-                break;
-            default:
-                q1 = 0;
-                q3 = 0;
-        }
-        iqr = q3 - q1;
-        lfence = q1 - 3/2*iqr;
-        System.out.println("lfence " + by);
-        System.out.println("jum " + sorted.length);
-        for (int i = 0; i < sorted.length; i++) {
-            System.out.println(sorted[i]);
-        }
-        System.out.println("q1 " + q1);
-        System.out.println("q3 " + q3);
-        System.out.println("iqr " + iqr);
-        System.out.println("lw " + lfence);
-        return lfence;
-    }
-
-    public static float[] sort(String[] kodelelang, String by) throws IOException {
+    public static float[] sort(int[] kodelelang, String by) throws IOException {
         float[] sort = new float[kodelelang.length];
         if (by == "periodepasca") {
             sort = getAllPeriodePengumumanPasca(kodelelang);
@@ -530,9 +571,8 @@ public class T3 {
         return sort;
     }
 
-    public static void getJSONT3bPasca(String[] kodelelang) throws IOException{
+    public static void getJSONT3bPasca() throws IOException{
 
-        float lfence = getLowerFence(kodelelang, "periodepasca");
         JSONObject obj = new JSONObject();
         String jsonstring = "";
         Connection connect = null;
@@ -546,37 +586,42 @@ public class T3 {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select  lelang.id,  lelang.nama,  lelang.status,  lelang.agency,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t3.periodepengumumanpasca,  t3.outlierpasca from  lelang join  t3 on lelang.id = t3.lelangnum";
+            String query = "select  lelang.id,  lelang.nama,  lelang.lpse,  lelang.tahun,  lelang.status,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t3.periodepengumumanpasca from  lelang join  t3 on lelang.id = t3.lelangnum";
             ResultSet result = statement.executeQuery(query);
-            FileWriter writer = new FileWriter("web/json/t3periodepasca.json");
+            FileWriter writer = new FileWriter("web/json/new/v1_t3periodepasca.json");
             jsonstring += "[";
             int i = 0;
             while (result.next()) {
                 //Retrieve by column name
                 jsonstring += "{";
                 jsonstring += "\"id\":" + result.getInt(1) + ",";
-                jsonstring += "\"namalelang\":\"" + result.getString(2) + "\",";
-                int status = result.getInt(3);
+                jsonstring += "\"namalelang\":\"" + (result.getString(2)).replace("\"","") + "\",";
+                jsonstring += "\"lpse\":\"" + result.getString(3) + "\",";
+                jsonstring += "\"tahun\":" + result.getInt(4) + ",";
+                int status = result.getInt(5);
                 if (status == 0) {
                     jsonstring += "\"status\":\"Lelang sudah selesai\",";
                 }
                 else {
                     jsonstring += "\"status\":\"Lelang belum selesai\",";
                 }
-                jsonstring += "\"agency\":\"" + result.getString(4) + "\",";
-                jsonstring += "\"pagu\":" + result.getString(5) + ",";
-                jsonstring += "\"hps\":" + result.getString(6) + ",";
-                jsonstring += "\"penawaranmenang\":" + result.getString(7) + ",";
-                jsonstring += "\"namapemenang\":\"" + result.getString(8) + "\",";
-                jsonstring += "\"periodepengumumanpasca\":" + result.getFloat(9) + ",";
-                int outlier = result.getInt(10);
-                if (outlier == 1) {
-                    jsonstring += "\"keterangan\":\"Periode pengumuman pascakualifikasi lebih singkat dari batas normal\",";
+                jsonstring += "\"pagu\":" + result.getString(6) + ",";
+                jsonstring += "\"hps\":" + result.getString(7) + ",";
+                String penawaranmenang = result.getString(8);
+                if (penawaranmenang == "null") {
+                    jsonstring += "\"penawaranmenang\":\"-\",";
                 }
                 else {
-                    jsonstring += "\"keterangan\":\"Periode pengumuman pascakualifikasi pada batas aman\",";
+                    jsonstring += "\"penawaranmenang\":" + penawaranmenang + ",";
                 }
-                jsonstring += "\"outlier\":" + lfence;
+                String namapemenang = result.getString(9);
+                if (penawaranmenang == "null") {
+                    jsonstring += "\"namapemenang\":\"-\",";
+                }
+                else {
+                    jsonstring += "\"namapemenang\":\"" + namapemenang + "\",";
+                }
+                jsonstring += "\"periodepengumumanpasca\":" + result.getFloat(10);
                 jsonstring += "},";
                 i++;
             }
@@ -610,9 +655,8 @@ public class T3 {
         }
     }
 
-    public static void getJSONT3bPemenang(String[] kodelelang) throws IOException{
+    public static void getJSONT3bPemenang() throws IOException{
 
-        float lfence = getLowerFence(kodelelang, "periodepemenang");
         JSONObject obj = new JSONObject();
         String jsonstring = "";
         Connection connect = null;
@@ -626,37 +670,42 @@ public class T3 {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select  lelang.id,  lelang.nama,  lelang.status,  lelang.agency,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t3.periodepengumumanpemenang,  t3.outlierpemenang from  kemenkeu_lelang join  kemenkeu_t3 on kemenkeu_lelang.id = kemenkeu_t3.lelangnum";
+            String query = "select  lelang.id,  lelang.nama,  lelang.lpse,  lelang.tahun,  lelang.status,  lelang.pagu,  lelang.hps,  lelang.penawaranmenang,  lelang.pemenang,  t3.periodepengumumanpemenang from  lelang join  t3 on lelang.id = t3.lelangnum";
             ResultSet result = statement.executeQuery(query);
-            FileWriter writer = new FileWriter("web/json/t3periodepemenang.json");
+            FileWriter writer = new FileWriter("web/json/new/v1_t3periodepemenang.json");
             jsonstring += "[";
             int i = 0;
             while (result.next()) {
                 //Retrieve by column name
                 jsonstring += "{";
                 jsonstring += "\"id\":" + result.getInt(1) + ",";
-                jsonstring += "\"namalelang\":\"" + result.getString(2) + "\",";
-                int status = result.getInt(3);
+                jsonstring += "\"namalelang\":\"" + (result.getString(2)).replace("\"","") + "\",";
+                jsonstring += "\"lpse\":\"" + result.getString(3) + "\",";
+                jsonstring += "\"tahun\":" + result.getInt(4) + ",";
+                int status = result.getInt(5);
                 if (status == 0) {
                     jsonstring += "\"status\":\"Lelang sudah selesai\",";
                 }
                 else {
                     jsonstring += "\"status\":\"Lelang belum selesai\",";
                 }
-                jsonstring += "\"agency\":\"" + result.getString(4) + "\",";
-                jsonstring += "\"pagu\":" + result.getString(5) + ",";
-                jsonstring += "\"hps\":" + result.getString(6) + ",";
-                jsonstring += "\"penawaranmenang\":" + result.getString(7) + ",";
-                jsonstring += "\"namapemenang\":\"" + result.getString(8) + "\",";
-                jsonstring += "\"periodepengumumanpemenang\":" + result.getFloat(9) + ",";
-                int outlier = result.getInt(10);
-                if (outlier == 1) {
-                    jsonstring += "\"keterangan\":\"Jangka waktu mulai lelang hingga penetapan pemenang lebih singkat dari batas normal\",";
+                jsonstring += "\"pagu\":" + result.getString(6) + ",";
+                jsonstring += "\"hps\":" + result.getString(7) + ",";
+                String penawaranmenang = result.getString(8);
+                if (penawaranmenang == "null") {
+                    jsonstring += "\"penawaranmenang\":\"-\",";
                 }
                 else {
-                    jsonstring += "\"keterangan\":\"Jangka waktu mulai lelang hingga penetapan pemenang pada batas aman\",";
+                    jsonstring += "\"penawaranmenang\":" + penawaranmenang + ",";
                 }
-                jsonstring += "\"outlier\":" + lfence;
+                String namapemenang = result.getString(9);
+                if (penawaranmenang == "null") {
+                    jsonstring += "\"namapemenang\":\"-\",";
+                }
+                else {
+                    jsonstring += "\"namapemenang\":\"" + namapemenang + "\",";
+                }
+                jsonstring += "\"periodepengumumanpemenang\":" + result.getFloat(10);
                 jsonstring += "},";
                 i++;
             }

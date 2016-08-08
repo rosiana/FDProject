@@ -30,120 +30,68 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Crawler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Crawler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.642857">
-              <caret line="920" column="23" selection-start-line="920" selection-start-column="23" selection-end-line="920" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1470184013406" expanded="true" signature="14571:14625" placeholder="insert into ..lelang..." />
-                <marker date="1470184013406" expanded="true" signature="29427:29461" placeholder="insert into ..peserta..." />
-                <marker date="1470184013406" expanded="true" signature="32896:32934" placeholder="insert into ..tahap..." />
-                <marker date="1470184013406" expanded="true" signature="37986:38005" placeholder="delete from ..." />
-                <marker date="1470184013406" expanded="true" signature="39149:39169" placeholder="delete from ..." />
-                <marker date="1470184013406" expanded="true" signature="40311:40329" placeholder="delete from ..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Main3.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main3.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="68" column="35" selection-start-line="68" selection-start-column="35" selection-end-line="68" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main2.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main2.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="69" column="30" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="T2a.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/T2a.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.827586">
-              <caret line="267" column="5" selection-start-line="243" selection-start-column="4" selection-end-line="267" selection-end-column="5" />
+              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1470193333163" expanded="true" signature="1072:1116" placeholder="select disti..peserta..." />
-                <marker date="1470193333163" expanded="true" signature="2687:2772" placeholder="select lelan..jabarprov_peserta..." />
-                <marker date="1470193333163" expanded="true" signature="3072:3140" placeholder="select lelan..jabarprov_peserta..." />
-                <marker date="1470193333163" expanded="true" signature="4704:4837" placeholder="select jabar..jabarprov_lelang..." />
-                <marker date="1470193333163" expanded="true" signature="5121:5254" placeholder="select jabar..jabarprov_lelang..." />
-                <marker date="1470193333163" expanded="true" signature="6899:6906" placeholder="select id fr..lelang..." />
-                <marker date="1470193333163" expanded="true" signature="6899:6946" placeholder="select disti..peserta..." />
-                <marker date="1470193333163" expanded="true" signature="7349:7402" placeholder="select id fr..lelang..." />
-                <marker date="1470193333163" expanded="true" signature="7350:7397" placeholder="select disti..peserta..." />
-                <marker date="1470193333163" expanded="true" signature="10094:10139" placeholder="select disti..jabarprov_peserta..." />
-                <marker date="1470193333163" expanded="true" signature="10421:10466" placeholder="select disti..jabarprov_peserta..." />
-                <marker date="1470193333163" expanded="true" signature="13545:13608" placeholder="select disti..peserta..." />
-                <marker date="1470193333163" expanded="true" signature="13545:13611" placeholder="select disti..peserta..." />
-                <marker date="1470193333163" expanded="true" signature="18074:18141" placeholder="select count..peserta..." />
-                <marker date="1470193333163" expanded="true" signature="18074:18158" placeholder="select count..jabarprov_peserta..." />
-                <marker date="1470193333163" expanded="true" signature="19671:19716" placeholder="select count..peserta..." />
+                <marker date="1470593802795" expanded="true" signature="1021:1062" placeholder="select count..lelang..." />
+                <marker date="1470593802795" expanded="true" signature="1341:1370" placeholder="select id fr..lelang..." />
+                <marker date="1470593802795" expanded="true" signature="1341:1387" placeholder="select id fr..lelang..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimilarityThread.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/SimilarityThread.java">
+      <file leaf-file-name="index2b.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/index2b.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46059114">
-              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+            <state vertical-scroll-proportion="-5.109091">
+              <caret line="63" column="33" selection-start-line="49" selection-start-column="16" selection-end-line="63" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mdsx.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/js/mdsx.js">
+      <file leaf-file-name="index4.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/index4.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="130" column="4" selection-start-line="130" selection-start-column="4" selection-end-line="132" selection-end-column="7" />
+            <state vertical-scroll-proportion="-9.961538">
+              <caret line="19" column="39" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <file leaf-file-name="Main5.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main5.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="81" column="40" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
+              <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
               <folding>
-                <marker date="1470179913766" expanded="true" signature="1235:1277" placeholder="select count..lelang..." />
-                <marker date="1470179913766" expanded="true" signature="1532:1554" placeholder="select count..lelang..." />
+                <marker date="1470523667975" expanded="true" signature="1322:1355" placeholder="select id fr..lelang..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index1new.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/index1new.jsp">
+      <file leaf-file-name="index3.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/index3.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="30" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
+            <state vertical-scroll-proportion="-8.0">
+              <caret line="47" column="14" selection-start-line="27" selection-start-column="12" selection-end-line="47" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kemenkeu_all_t1periode.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web/json/new/kemenkeu_all_t1periode.json">
+      <file leaf-file-name="index5.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/index5.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="2512" selection-start-line="0" selection-start-column="2512" selection-end-line="0" selection-end-column="2512" />
+            <state vertical-scroll-proportion="-4.730769">
+              <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -152,9 +100,72 @@
       <file leaf-file-name="index1.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/index1.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="288" column="28" selection-start-line="288" selection-start-column="28" selection-end-line="288" selection-end-column="28" />
+            <state vertical-scroll-proportion="-26.807692">
+              <caret line="41" column="30" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="T2a.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/T2a.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3313783">
+              <caret line="460" column="79" selection-start-line="460" selection-start-column="78" selection-end-line="460" selection-end-column="79" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1470424256271" expanded="true" signature="970:993" placeholder="select disti..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="970:1013" placeholder="select count..lelang..." />
+                <marker date="1470424256271" expanded="true" signature="2795:2838" placeholder="select disti..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="3138:3160" placeholder="select disti..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="4903:4988" placeholder="select lelan..jabarprov_peserta..." />
+                <marker date="1470424256271" expanded="true" signature="5288:5356" placeholder="select lelan..jabarprov_peserta..." />
+                <marker date="1470424256271" expanded="true" signature="6972:7105" placeholder="select jabar..jabarprov_lelang..." />
+                <marker date="1470424256271" expanded="true" signature="7389:7522" placeholder="select jabar..jabarprov_lelang..." />
+                <marker date="1470424256271" expanded="true" signature="9858:9891" placeholder="insert into ..t2a..." />
+                <marker date="1470424256271" expanded="true" signature="11482:11634" placeholder="select count..." />
+                <marker date="1470424256271" expanded="true" signature="11482:11648" placeholder="select count..nama..." />
+                <marker date="1470424256271" expanded="true" signature="11504:11634" placeholder="select p1.na..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="11970:11977" placeholder="select p1.na..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="11970:12022" placeholder="select count..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="11970:12023" placeholder="select count..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="12222:12275" placeholder="select count..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="14048:14093" placeholder="select disti..jabarprov_peserta..." />
+                <marker date="1470424256271" expanded="true" signature="14375:14420" placeholder="select disti..jabarprov_peserta..." />
+                <marker date="1470424256271" expanded="true" signature="16352:16415" placeholder="select disti..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="16352:16419" placeholder="select disti..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="21267:21334" placeholder="select count..peserta..." />
+                <marker date="1470424256271" expanded="true" signature="21267:21351" placeholder="select count..jabarprov_peserta..." />
+                <marker date="1470424256271" expanded="true" signature="22864:22909" placeholder="select count..peserta..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index2a.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/index2a.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.730769">
+              <caret line="45" column="25" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="T2b.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/T2b.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="273" column="32" selection-start-line="273" selection-start-column="32" selection-end-line="273" selection-end-column="32" />
+              <folding>
+                <marker date="1470526486449" expanded="true" signature="1104:1147" placeholder="select count..lelang..." />
+                <marker date="1470526486449" expanded="true" signature="1433:1462" placeholder="select id, h..lelang..." />
+                <marker date="1470526486449" expanded="true" signature="3017:3060" placeholder="select count..lelang..." />
+                <marker date="1470526486449" expanded="true" signature="3350:3386" placeholder="select penaw..lelang..." />
+                <marker date="1470526486449" expanded="true" signature="9206:9236" placeholder="insert into ..t2b..." />
+                <marker date="1470526486449" expanded="true" signature="10926:11141" placeholder="select lelan..kemenkeu_lelang..." />
+                <marker date="1470526486449" expanded="true" signature="10926:11167" placeholder="select lelan..lelang..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -199,29 +210,35 @@
         <option value="$PROJECT_DIR$/web/json/t2b.json" />
         <option value="$PROJECT_DIR$/web/index2.jsp" />
         <option value="$PROJECT_DIR$/web/js/mdsa.js" />
-        <option value="$PROJECT_DIR$/src/T2b.java" />
-        <option value="$PROJECT_DIR$/src/T3.java" />
-        <option value="$PROJECT_DIR$/src/T4.java" />
-        <option value="$PROJECT_DIR$/src/T5.java" />
         <option value="$PROJECT_DIR$/web/js/canvasjs.min.js" />
         <option value="$PROJECT_DIR$/web/index2ax.jsp" />
         <option value="$PROJECT_DIR$/web/js/mds.js" />
         <option value="$PROJECT_DIR$/web/index2a.jsp" />
-        <option value="$PROJECT_DIR$/web/index1.jsp" />
+        <option value="$PROJECT_DIR$/web/js/mdsx.js" />
+        <option value="$PROJECT_DIR$/web/json/new/kemenkeu_all_t1periode.json" />
+        <option value="C:/Program Files/Java/jdk1.7.0_79/src.zip!/java/lang/Thread.java" />
+        <option value="$PROJECT_DIR$/src/SimilarityThread.java" />
+        <option value="$PROJECT_DIR$/src/Crawler.java" />
+        <option value="$PROJECT_DIR$/src/Main4.java" />
+        <option value="$PROJECT_DIR$/web/index1new.jsp" />
+        <option value="$PROJECT_DIR$/src/T2a.java" />
+        <option value="$PROJECT_DIR$/src/T5.java" />
+        <option value="$PROJECT_DIR$/src/T4.java" />
+        <option value="$PROJECT_DIR$/web/json/new/v1_t4.json" />
+        <option value="$PROJECT_DIR$/src/Main1.java" />
+        <option value="$PROJECT_DIR$/src/Main2.java" />
+        <option value="$PROJECT_DIR$/web/json/new/v1_t5.json" />
+        <option value="$PROJECT_DIR$/src/T3.java" />
+        <option value="$PROJECT_DIR$/src/Main5.java" />
+        <option value="$PROJECT_DIR$/src/T1.java" />
+        <option value="$PROJECT_DIR$/src/T2b.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/Main3.java" />
         <option value="$PROJECT_DIR$/web/index2b.jsp" />
         <option value="$PROJECT_DIR$/web/index3.jsp" />
         <option value="$PROJECT_DIR$/web/index4.jsp" />
         <option value="$PROJECT_DIR$/web/index5.jsp" />
-        <option value="$PROJECT_DIR$/web/js/mdsx.js" />
-        <option value="$PROJECT_DIR$/src/T1.java" />
-        <option value="$PROJECT_DIR$/web/json/new/kemenkeu_all_t1periode.json" />
-        <option value="$PROJECT_DIR$/web/index1new.jsp" />
-        <option value="$PROJECT_DIR$/src/Main2.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/Main3.java" />
-        <option value="$PROJECT_DIR$/src/Crawler.java" />
-        <option value="$PROJECT_DIR$/src/T2a.java" />
-        <option value="$PROJECT_DIR$/src/SimilarityThread.java" />
+        <option value="$PROJECT_DIR$/web/index1.jsp" />
       </list>
     </option>
   </component>
@@ -286,6 +303,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -425,8 +444,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -451,7 +468,7 @@
       <recent name="C:\Users\Rosiana\IdeaProjects\FDProject\web" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main3">
+  <component name="RunManager" selected="Tomcat Server.index1.jsp">
     <configuration default="false" name="index2b.jsp (1)" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.0.33" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index2b.jsp" />
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -525,23 +542,8 @@
         </option>
       </method>
     </configuration>
-    <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="FDProject" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="index1new.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.0.33" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index1new.jsp" />
+    <configuration default="false" name="index3.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.0.33" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index3.jsp" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="TA:war exploded">
@@ -613,35 +615,224 @@
         </option>
       </method>
     </configuration>
-    <configuration default="false" name="Main2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="index4.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.0.33" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index4.jsp" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="TA:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="_TA" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="Main2" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="FDProject" />
-      <envs />
-      <method />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="54197" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="TA:war exploded" />
+        </option>
+      </method>
     </configuration>
-    <configuration default="false" name="Main3" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="index5.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.0.33" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index5.jsp" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="TA:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="_TA" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="Main3" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="FDProject" />
-      <envs />
-      <method />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="54197" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="TA:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="false" name="index1.jsp" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" temporary="true" APPLICATION_SERVER_NAME="Tomcat 8.0.33" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/index1.jsp" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="TA:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="_TA" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="54197" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="TA:war exploded" />
+        </option>
+      </method>
     </configuration>
     <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -1287,17 +1478,17 @@
       <item index="0" class="java.lang.String" itemvalue="Remote.Unnamed" />
       <item index="1" class="java.lang.String" itemvalue="Tomcat Server.Tomcat" />
       <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index2b.jsp (1)" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Main" />
-      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index1new.jsp" />
-      <item index="5" class="java.lang.String" itemvalue="Application.Main2" />
-      <item index="6" class="java.lang.String" itemvalue="Application.Main3" />
+      <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index3.jsp" />
+      <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index4.jsp" />
+      <item index="5" class="java.lang.String" itemvalue="Tomcat Server.index5.jsp" />
+      <item index="6" class="java.lang.String" itemvalue="Tomcat Server.index1.jsp" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main3" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Main2" />
-        <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index1new.jsp" />
+        <item index="0" class="java.lang.String" itemvalue="Tomcat Server.index1.jsp" />
+        <item index="1" class="java.lang.String" itemvalue="Tomcat Server.index5.jsp" />
+        <item index="2" class="java.lang.String" itemvalue="Tomcat Server.index4.jsp" />
+        <item index="3" class="java.lang.String" itemvalue="Tomcat Server.index3.jsp" />
         <item index="4" class="java.lang.String" itemvalue="Tomcat Server.index2b.jsp (1)" />
       </list>
     </recent_temporary>
@@ -1388,12 +1579,16 @@
       <workItem from="1470128409032" duration="18357000" />
       <workItem from="1470158182996" duration="969000" />
       <workItem from="1470160346748" duration="595000" />
-      <workItem from="1470163940779" duration="16167000" />
+      <workItem from="1470163940779" duration="62754000" />
+      <workItem from="1470265587936" duration="3734000" />
+      <workItem from="1470273271506" duration="17703000" />
+      <workItem from="1470315420252" duration="31755000" />
+      <workItem from="1470422177923" duration="95854000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="597825000" />
+    <option name="totallyTimeSpent" value="793458000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1406,7 +1601,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1417,10 +1612,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25811967" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31965813" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34285715" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20347957" sideWeight="0.702765" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20347957" sideWeight="0.702765" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20347957" sideWeight="0.297235" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977098" sideWeight="0.4871795" order="1" side_tool="false" content_ui="tabs" />
@@ -1484,35 +1679,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MyServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Crawler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1080" column="31" selection-start-line="1080" selection-start-column="31" selection-end-line="1080" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="10" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/T1.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1542,13 +1708,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="10" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/T1.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1568,13 +1727,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1589,13 +1741,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1670,31 +1815,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/T3.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="381" column="80" selection-start-line="381" selection-start-column="80" selection-end-line="381" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/T4.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="302" column="80" selection-start-line="302" selection-start-column="80" selection-end-line="302" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/js/canvasjs.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.044854883">
           <caret line="1" column="66" selection-start-line="1" selection-start-column="57" selection-end-line="1" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/T2b.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="279" column="44" selection-start-line="279" selection-start-column="44" selection-end-line="279" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -1719,13 +1843,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index2b.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="132" column="20" selection-start-line="132" selection-start-column="20" selection-end-line="134" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/json/t2a.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5267606">
@@ -1733,47 +1850,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index3.jsp">
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_79/src.zip!/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="38" selection-start-line="49" selection-start-column="36" selection-end-line="57" selection-end-column="38" />
+          <caret line="695" column="29" selection-start-line="695" selection-start-column="29" selection-end-line="695" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index4.jsp">
+    <entry file="file://$PROJECT_DIR$/src/SimilarityThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-74.53846">
-          <caret line="114" column="53" selection-start-line="114" selection-start-column="53" selection-end-line="114" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="29" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/T1.java">
+    <entry file="file://$PROJECT_DIR$/jumlahpeserta_kemdikbud_err">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="645" column="196" selection-start-line="645" selection-start-column="196" selection-end-line="645" selection-end-column="196" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/T4.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.827586">
+          <caret line="442" column="35" selection-start-line="442" selection-start-column="35" selection-end-line="442" selection-end-column="35" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <marker date="1470068043957" expanded="true" signature="1168:1213" placeholder="select first..." />
-            <marker date="1470068043957" expanded="true" signature="1168:1227" placeholder="select mulai..kemenkeu_tahap..." />
-            <marker date="1470068043957" expanded="true" signature="1168:1263" placeholder="select mulai..tahap..." />
-            <marker date="1470068043957" expanded="true" signature="2876:2922" placeholder="select last(..." />
-            <marker date="1470068043957" expanded="true" signature="2876:2936" placeholder="select sampa..tahap..." />
-            <marker date="1470068043957" expanded="true" signature="2876:2973" placeholder="select sampa..tahap..." />
-            <marker date="1470068043957" expanded="true" signature="5420:5488" placeholder="select count..tahap..." />
-            <marker date="1470068043957" expanded="true" signature="5848:5918" placeholder="select mulai..tahap..." />
-            <marker date="1470068043957" expanded="true" signature="6464:6545" placeholder="select mulai..tahap..." />
-            <marker date="1470068043957" expanded="true" signature="14915:14947" placeholder="insert into ..t1..." />
-            <marker date="1470068043957" expanded="true" signature="16512:16527" placeholder="delete from ..." />
-            <marker date="1470068043957" expanded="true" signature="21479:21694" placeholder="select lelan..lelang..." />
-            <marker date="1470068043957" expanded="true" signature="24486:24704" placeholder="select lelan..lelang..." />
+            <marker date="1470507053758" expanded="true" signature="1203:1310" placeholder="select mulai..tahap..." />
+            <marker date="1470507053758" expanded="true" signature="2915:3023" placeholder="select sampa..tahap..." />
+            <marker date="1470507053758" expanded="true" signature="5150:5287" placeholder="SELECT TIMES..tahap..." />
+            <marker date="1470507053758" expanded="true" signature="13721:13750" placeholder="insert into ..kemenkeu_t4..." />
+            <marker date="1470507053758" expanded="true" signature="15255:15270" placeholder="delete from ..." />
+            <marker date="1470507053758" expanded="true" signature="16574:16800" placeholder="select lelan..lelang..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index5.jsp">
+    <entry file="file://$PROJECT_DIR$/web/json/new/v1_t4.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="99" column="53" selection-start-line="99" selection-start-column="53" selection-end-line="99" selection-end-column="53" />
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="307060" selection-start-line="0" selection-start-column="307060" selection-end-line="0" selection-end-column="307060" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/json/new/v1_t5.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.053968254">
+          <caret line="0" column="100483" selection-start-line="0" selection-start-column="100483" selection-end-line="0" selection-end-column="100483" />
           <folding />
         </state>
       </provider>
@@ -1781,71 +1905,102 @@
     <entry file="file://$PROJECT_DIR$/src/T5.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="308" column="22" selection-start-line="308" selection-start-column="22" selection-end-line="308" selection-end-column="22" />
+          <caret line="428" column="17" selection-start-line="428" selection-start-column="17" selection-end-line="428" selection-end-column="17" />
           <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <marker date="1469203433337" expanded="true" signature="1165:1280" placeholder="select mulai..tahap..." />
-            <marker date="1469203433337" expanded="true" signature="2891:3007" placeholder="select sampa..tahap..." />
-            <marker date="1469203433337" expanded="true" signature="11909:11950" placeholder="insert into ..t5..." />
-            <marker date="1469203433337" expanded="true" signature="13712:13727" placeholder="delete from ..." />
-            <marker date="1469203433337" expanded="true" signature="17158:17425" placeholder="select lelan..kemenkeu_lelang..." />
+            <marker date="1470506739526" expanded="true" signature="1165:1271" placeholder="select mulai..tahap..." />
+            <marker date="1470506739526" expanded="true" signature="1165:1279" placeholder="select mulai..tahap..." />
+            <marker date="1470506739526" expanded="true" signature="2890:2997" placeholder="select sampa..kemenkeu_tahap..." />
+            <marker date="1470506739526" expanded="true" signature="2890:3005" placeholder="select sampa..kemenkeu_tahap..." />
+            <marker date="1470506739526" expanded="true" signature="5120:5234" placeholder="SELECT TIMES..tahap..." />
+            <marker date="1470506739526" expanded="true" signature="5120:5235" placeholder="SELECT TIMES..tahap..." />
+            <marker date="1470506739526" expanded="true" signature="5120:5264" placeholder="SELECT TIMES..tahap..." />
+            <marker date="1470506739526" expanded="true" signature="13014:13043" placeholder="insert into ..kemenkeu_t5..." />
+            <marker date="1470506739526" expanded="true" signature="14606:14621" placeholder="delete from ..." />
+            <marker date="1470506739526" expanded="true" signature="15926:16146" placeholder="select lelan..lelang..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index2a.jsp">
+    <entry file="file://$PROJECT_DIR$/src/Main4.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="23" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="23" />
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding>
+            <marker date="1470507625195" expanded="true" signature="1019:1060" placeholder="select count..lelang..." />
+            <marker date="1470507625195" expanded="true" signature="1339:1355" placeholder="select id fr..lelang..." />
+            <marker date="1470507625195" expanded="true" signature="1339:1372" placeholder="select id fr..lelang..." />
+            <marker date="1470507625195" expanded="true" signature="1339:1384" placeholder="select id fr..lelang..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="17" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1470507679040" expanded="true" signature="1019:1060" placeholder="select count..lelang..." />
+            <marker date="1470507679040" expanded="true" signature="1340:1373" placeholder="select id fr..lelang..." />
+            <marker date="1470507679040" expanded="true" signature="1340:1385" placeholder="select id fr..lelang..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Crawler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="37.37931">
+          <caret line="427" column="27" selection-start-line="427" selection-start-column="23" selection-end-line="427" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1470269274174" expanded="true" signature="17175:17229" placeholder="insert into ..lelang..." />
+            <marker date="1470269274174" expanded="true" signature="32031:32065" placeholder="insert into ..peserta..." />
+            <marker date="1470269274174" expanded="true" signature="35506:35544" placeholder="insert into ..tahap..." />
+            <marker date="1470269274174" expanded="true" signature="40606:40625" placeholder="delete from ..." />
+            <marker date="1470269274174" expanded="true" signature="41769:41789" placeholder="delete from ..." />
+            <marker date="1470269274174" expanded="true" signature="42931:42949" placeholder="delete from ..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/js/mdsx.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="130" column="4" selection-start-line="130" selection-start-column="4" selection-end-line="132" selection-end-column="7" />
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/index1.jsp">
+    <entry file="file://$PROJECT_DIR$/src/T1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="288" column="28" selection-start-line="288" selection-start-column="28" selection-end-line="288" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/json/new/kemenkeu_all_t1periode.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="2512" selection-start-line="0" selection-start-column="2512" selection-end-line="0" selection-end-column="2512" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/index1new.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="30" selection-start-line="33" selection-start-column="30" selection-end-line="33" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Crawler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.642857">
-          <caret line="920" column="23" selection-start-line="920" selection-start-column="23" selection-end-line="920" selection-end-column="23" />
+        <state vertical-scroll-proportion="-10.586206">
+          <caret line="604" column="31" selection-start-line="604" selection-start-column="31" selection-end-line="604" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1470184013406" expanded="true" signature="14571:14625" placeholder="insert into ..lelang..." />
-            <marker date="1470184013406" expanded="true" signature="29427:29461" placeholder="insert into ..peserta..." />
-            <marker date="1470184013406" expanded="true" signature="32896:32934" placeholder="insert into ..tahap..." />
-            <marker date="1470184013406" expanded="true" signature="37986:38005" placeholder="delete from ..." />
-            <marker date="1470184013406" expanded="true" signature="39149:39169" placeholder="delete from ..." />
-            <marker date="1470184013406" expanded="true" signature="40311:40329" placeholder="delete from ..." />
+            <marker date="1470525154244" expanded="true" signature="1203:1248" placeholder="select first..." />
+            <marker date="1470525154244" expanded="true" signature="1203:1262" placeholder="select mulai..kemenkeu_tahap..." />
+            <marker date="1470525154244" expanded="true" signature="1203:1274" placeholder="select mulai..tahap..." />
+            <marker date="1470525154244" expanded="true" signature="2938:2984" placeholder="select last(..." />
+            <marker date="1470525154244" expanded="true" signature="2938:2998" placeholder="select sampa..tahap..." />
+            <marker date="1470525154244" expanded="true" signature="2938:3003" placeholder="select sampa..tahap..." />
+            <marker date="1470525154244" expanded="true" signature="2938:3006" placeholder="select sampa..tahap..." />
+            <marker date="1470525154244" expanded="true" signature="2938:3014" placeholder="select sampa..tahap..." />
+            <marker date="1470525154244" expanded="true" signature="2938:3042" placeholder="select sampa..tahap..." />
+            <marker date="1470525154244" expanded="true" signature="5675:5752" placeholder="select count..tahap..." />
+            <marker date="1470525154244" expanded="true" signature="6112:6182" placeholder="select mulai..tahap..." />
+            <marker date="1470525154244" expanded="true" signature="6668:6763" placeholder="select mulai..tahap..." />
+            <marker date="1470525154244" expanded="true" signature="15495:15527" placeholder="insert into ..t1..." />
+            <marker date="1470525154244" expanded="true" signature="17092:17107" placeholder="delete from ..." />
+            <marker date="1470525154244" expanded="true" signature="22043:22258" placeholder="select lelan..lelang..." />
+            <marker date="1470525154244" expanded="true" signature="25532:25750" placeholder="select lelan..lelang..." />
           </folding>
         </state>
       </provider>
@@ -1853,10 +2008,43 @@
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="81" column="40" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1470179913766" expanded="true" signature="1235:1277" placeholder="select count..lelang..." />
-            <marker date="1470179913766" expanded="true" signature="1532:1554" placeholder="select count..lelang..." />
+            <marker date="1470593765443" expanded="true" signature="1019:1060" placeholder="select count..lelang..." />
+            <marker date="1470593765443" expanded="true" signature="1339:1368" placeholder="select id fr..lelang..." />
+            <marker date="1470593765443" expanded="true" signature="1339:1385" placeholder="select id fr..lelang..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/T3.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="703" column="17" selection-start-line="703" selection-start-column="17" selection-end-line="703" selection-end-column="17" />
+          <folding>
+            <marker date="1470519165386" expanded="true" signature="1196:1291" placeholder="select mulai..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="2906:3002" placeholder="select sampa..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="5125:5186" placeholder="SELECT TIMES..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="5125:5197" placeholder="SELECT TIMES..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="5125:5198" placeholder="SELECT TIMES..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="5125:5227" placeholder="SELECT TIMES..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="6892:7001" placeholder="select sampa..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="9196:9238" placeholder="select mulai..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="9196:9268" placeholder="select mulai..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="9547:9612" placeholder="select mulai..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="9547:9623" placeholder="select mulai..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="9547:9636" placeholder="select mulai..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="9547:9647" placeholder="select mulai..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="9547:9648" placeholder="select mulai..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="9917:9946" placeholder="SELECT TIMES..." />
+            <marker date="1470519165386" expanded="true" signature="9917:9966" placeholder="SELECT TIMES..." />
+            <marker date="1470519165386" expanded="true" signature="9917:9978" placeholder="select mulai..tahap..." />
+            <marker date="1470519165386" expanded="true" signature="9917:9986" placeholder="SELECT TIMES..." />
+            <marker date="1470519165386" expanded="true" signature="18476:18508" placeholder="insert into ..kemenkeu_t3..." />
+            <marker date="1470519165386" expanded="true" signature="20075:20090" placeholder="delete from ..." />
+            <marker date="1470519165386" expanded="true" signature="22212:22436" placeholder="select lelan..lelang..." />
+            <marker date="1470519165386" expanded="true" signature="25720:25761" placeholder="select lelan..lelang..." />
+            <marker date="1470519165386" expanded="true" signature="25720:25947" placeholder="select lelan..lelang..." />
           </folding>
         </state>
       </provider>
@@ -1864,50 +2052,120 @@
     <entry file="file://$PROJECT_DIR$/src/Main3.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="35" selection-start-line="68" selection-start-column="35" selection-end-line="68" selection-end-column="35" />
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1470593802795" expanded="true" signature="1021:1062" placeholder="select count..lelang..." />
+            <marker date="1470593802795" expanded="true" signature="1341:1370" placeholder="select id fr..lelang..." />
+            <marker date="1470593802795" expanded="true" signature="1341:1387" placeholder="select id fr..lelang..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/T2b.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="273" column="32" selection-start-line="273" selection-start-column="32" selection-end-line="273" selection-end-column="32" />
+          <folding>
+            <marker date="1470526486449" expanded="true" signature="1104:1147" placeholder="select count..lelang..." />
+            <marker date="1470526486449" expanded="true" signature="1433:1462" placeholder="select id, h..lelang..." />
+            <marker date="1470526486449" expanded="true" signature="3017:3060" placeholder="select count..lelang..." />
+            <marker date="1470526486449" expanded="true" signature="3350:3386" placeholder="select penaw..lelang..." />
+            <marker date="1470526486449" expanded="true" signature="9206:9236" placeholder="insert into ..t2b..." />
+            <marker date="1470526486449" expanded="true" signature="10926:11141" placeholder="select lelan..kemenkeu_lelang..." />
+            <marker date="1470526486449" expanded="true" signature="10926:11167" placeholder="select lelan..lelang..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index3.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.0">
+          <caret line="47" column="14" selection-start-line="27" selection-start-column="12" selection-end-line="47" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main2.java">
+    <entry file="file://$PROJECT_DIR$/web/index2a.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.730769">
+          <caret line="45" column="25" selection-start-line="45" selection-start-column="25" selection-end-line="45" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index2b.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.109091">
+          <caret line="63" column="33" selection-start-line="49" selection-start-column="16" selection-end-line="63" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index4.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.961538">
+          <caret line="19" column="39" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main5.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="30" selection-start-line="69" selection-start-column="30" selection-end-line="69" selection-end-column="30" />
+          <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
+          <folding>
+            <marker date="1470523667975" expanded="true" signature="1322:1355" placeholder="select id fr..lelang..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index5.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.730769">
+          <caret line="26" column="22" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index1.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-26.807692">
+          <caret line="41" column="30" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/T2a.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.827586">
-          <caret line="267" column="5" selection-start-line="243" selection-start-column="4" selection-end-line="267" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.3313783">
+          <caret line="460" column="79" selection-start-line="460" selection-start-column="78" selection-end-line="460" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1470193333163" expanded="true" signature="1072:1116" placeholder="select disti..peserta..." />
-            <marker date="1470193333163" expanded="true" signature="2687:2772" placeholder="select lelan..jabarprov_peserta..." />
-            <marker date="1470193333163" expanded="true" signature="3072:3140" placeholder="select lelan..jabarprov_peserta..." />
-            <marker date="1470193333163" expanded="true" signature="4704:4837" placeholder="select jabar..jabarprov_lelang..." />
-            <marker date="1470193333163" expanded="true" signature="5121:5254" placeholder="select jabar..jabarprov_lelang..." />
-            <marker date="1470193333163" expanded="true" signature="6899:6906" placeholder="select id fr..lelang..." />
-            <marker date="1470193333163" expanded="true" signature="6899:6946" placeholder="select disti..peserta..." />
-            <marker date="1470193333163" expanded="true" signature="7349:7402" placeholder="select id fr..lelang..." />
-            <marker date="1470193333163" expanded="true" signature="7350:7397" placeholder="select disti..peserta..." />
-            <marker date="1470193333163" expanded="true" signature="10094:10139" placeholder="select disti..jabarprov_peserta..." />
-            <marker date="1470193333163" expanded="true" signature="10421:10466" placeholder="select disti..jabarprov_peserta..." />
-            <marker date="1470193333163" expanded="true" signature="13545:13608" placeholder="select disti..peserta..." />
-            <marker date="1470193333163" expanded="true" signature="13545:13611" placeholder="select disti..peserta..." />
-            <marker date="1470193333163" expanded="true" signature="18074:18141" placeholder="select count..peserta..." />
-            <marker date="1470193333163" expanded="true" signature="18074:18158" placeholder="select count..jabarprov_peserta..." />
-            <marker date="1470193333163" expanded="true" signature="19671:19716" placeholder="select count..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="970:993" placeholder="select disti..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="970:1013" placeholder="select count..lelang..." />
+            <marker date="1470424256271" expanded="true" signature="2795:2838" placeholder="select disti..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="3138:3160" placeholder="select disti..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="4903:4988" placeholder="select lelan..jabarprov_peserta..." />
+            <marker date="1470424256271" expanded="true" signature="5288:5356" placeholder="select lelan..jabarprov_peserta..." />
+            <marker date="1470424256271" expanded="true" signature="6972:7105" placeholder="select jabar..jabarprov_lelang..." />
+            <marker date="1470424256271" expanded="true" signature="7389:7522" placeholder="select jabar..jabarprov_lelang..." />
+            <marker date="1470424256271" expanded="true" signature="9858:9891" placeholder="insert into ..t2a..." />
+            <marker date="1470424256271" expanded="true" signature="11482:11634" placeholder="select count..." />
+            <marker date="1470424256271" expanded="true" signature="11482:11648" placeholder="select count..nama..." />
+            <marker date="1470424256271" expanded="true" signature="11504:11634" placeholder="select p1.na..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="11970:11977" placeholder="select p1.na..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="11970:12022" placeholder="select count..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="11970:12023" placeholder="select count..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="12222:12275" placeholder="select count..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="14048:14093" placeholder="select disti..jabarprov_peserta..." />
+            <marker date="1470424256271" expanded="true" signature="14375:14420" placeholder="select disti..jabarprov_peserta..." />
+            <marker date="1470424256271" expanded="true" signature="16352:16415" placeholder="select disti..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="16352:16419" placeholder="select disti..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="21267:21334" placeholder="select count..peserta..." />
+            <marker date="1470424256271" expanded="true" signature="21267:21351" placeholder="select count..jabarprov_peserta..." />
+            <marker date="1470424256271" expanded="true" signature="22864:22909" placeholder="select count..peserta..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SimilarityThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46059114">
-          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>

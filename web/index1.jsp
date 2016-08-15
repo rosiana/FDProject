@@ -263,7 +263,7 @@
 
         $(document).ready(function () {
 
-            d3.json('http://localhost:8080/php/getJSONT1Periode.php', function(error,data) {
+            d3.json('http://localhost/jing/getJSONT1Periode.php', function(error,data) {
                 if (error) console.log(error);
                 console.log(data);
 

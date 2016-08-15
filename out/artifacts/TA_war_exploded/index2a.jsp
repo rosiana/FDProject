@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <link rel="shortcut icon" href="">
     <meta charset="utf-8">
     <style>
@@ -40,11 +43,9 @@
 </head>
 
 <body>
-<div id="cities"></div>
+<div id="myDiv" style="width : 1366px; height: 1366px;"><!-- Plotly chart will be drawn inside this DIV --></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
 <script src="js/mdsx.js"></script>
 <script type="text/javascript" src="js/jquery.tipsy.js"></script>
 <link href="css/tipsy.css" rel="stylesheet" type="text/css" />

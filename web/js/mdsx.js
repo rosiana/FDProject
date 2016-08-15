@@ -32,7 +32,7 @@
 
     /// draws a scatter plot of points, useful for displaying the output
     /// from mds.classic etc
-    mds.drawD3ScatterPlot = function(element, xPos, yPos, labels, params, radius) {
+    mds.drawD3ScatterPlot = function(element, xPos, yPos, labels, params, radius, test) {
         params = params || {};
         var padding = params.padding || 32,
             w = params.w || Math.min(720, document.documentElement.clientWidth - padding),
@@ -87,28 +87,43 @@
             .enter()
             .append("g");
 
-        var maxRadius = 100;
+        /*
 
+        var list = [];
+        for (var j in radius)
+            list.push({'sRadius': radius[j], 'sXPos': xPos[j], 'sYPos': yPos[j]});
+
+        list.sort(function(a, b) {
+            return ((a.sRadius > b.sRadius) ? -1 : ((a.sRadius == b.sRadius) ? 0 : 1));
+        });
+        for (var k = 0; k < list.length; k++) {
+            radius[k] = list[k].sRadius;
+            xPos[k] = list[k].sXPos;
+            yPos[k] = list[k].sYPos;
+        }
+        */
+
+        /*
         nodes.append("circle")
-            .attr("r", pointRadius)
+            .attr("r", 5)
             .attr("cx", function(d, i) { return xScale(xPos[i]); })
             .attr("cy", function(d, i) { return yScale(yPos[i]); })
             //new
-            .attr("r", function(d, i) {if (radius[i] <= maxRadius) return radius[i]/3; else return maxRadius; })
-            .style("fill", function() {return "hsl(" + Math.random() * 360 + ",100%,50%)" })
-            .style("fill-opacity", 0.5)
-            .style("stroke", function() {return "transparent"; })
-            .on("mouseover", function() {d3.select(this).style("fill-opacity", 1) })
-            .on("mouseout", function() {d3.select(this).style("fill-opacity", 0.5) });
+            .attr("r", function(d, i) { return radius[i]/5; })
+            .style("fill", "#65839b")
+            //.style("fill-opacity", 0.2)
+            .style("stroke", "#3a425c")
+            .style("stroke-opacity", 1)
+            .style("stroke-width", 1);
+            //.on("mouseover", function() {d3.select(this).style("fill-opacity", 1) })
+            //.on("mouseout", function() {d3.select(this).style("fill-opacity", 0.2) });
 
-        /*
         nodes.append("text")
             .attr("text-anchor", "middle")
             .text(function(d) { return d; })
             .attr("x", function(d, i) { return xScale(xPos[i]); })
             .attr("y", function(d, i) { return yScale(yPos[i]) - 2 *pointRadius; })
             .style("visibility", "hidden");
-        */
 
         $('svg circle').tipsy({
             gravity: 's',
@@ -118,29 +133,68 @@
                 return d;
             }
         });
+
+         */
+
+        //plotly
+
+        var plotlyX = [], plotlyY = [];
+
+        for (var i = 0; i < xPos.length; i++) {
+            plotlyX[i] = xScale(xPos[i]);
+            plotlyY[i] = yScale(yPos[i]);
+        }
+
+        var trace = {
+            x: plotlyX,
+            y: plotlyY,
+            mode: 'markers',
+            marker: {
+                color: 'rgb(101, 131, 155)',
+                sizemode: 'area',
+                size: radius,
+                text: labels
+            }
+        };
+
+        var data = [trace];
+
+        var layout = {
+            margin: {t: 20}
+        };
+
+        Plotly.plot('myDiv', data, layout, {showLink: false});
     };
 }(window.mds = window.mds || {}));
 
 var matrix;
 var labels;
 var radius;
+var test;
 
-d3.json("json/t2a.json", function(data) {
+d3.json("json/t2a1.json", function(data) {
+    console.log(data);
     matrix = data.matrix;
 
-    var labelstemp = data.peserta.map(function(d) {
-        return d.nama;
+    var labelstemp = data.lelang.map(function(d) {
+        return d.id;
     });
     labels = labelstemp;
 
-    var radiustemp = data.peserta.map(function(d) {
-        return d.jumlahlelang;
+    var radiustemp = data.lelang.map(function(d) {
+        return d.jumlahpeserta;
     });
     radius = radiustemp;
+
+    var testtemp = data.lelang.map(function(d) {
+        return d.label;
+    });
+    test = testtemp;
 
     var dotPositions = numeric.transpose(mds.classic(matrix));
     var w = Math.min(720, document.documentElement.clientWidth - 20),
         h = w /2;
+
     mds.drawD3ScatterPlot(d3.select("#cities"),
         dotPositions[0],
         dotPositions[1],
@@ -150,9 +204,10 @@ d3.json("json/t2a.json", function(data) {
             h : w,
             padding : 37,
             reverseX : true,
-            reverseY : true,
+            reverseY : true
         },
-        radius
+        radius,
+        test
         );
 });
 

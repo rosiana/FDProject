@@ -18,7 +18,7 @@ public class Main3 {
 
     public static void main (String args[]) throws IOException {
 
-        int[] kodelelang = new int[27255];
+        int[] kodelelang = new int[10000];
         Connection connect = null;
         Statement statement = null;
         try {
@@ -44,7 +44,7 @@ public class Main3 {
             kodelelang = new int[numlelang];
             */
 
-            String query = "select id from  lelang limit 27255 offset 5000";
+            String query = "select id from  lelang limit 10000 offset 22255";
             ResultSet result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {

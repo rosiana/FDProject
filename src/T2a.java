@@ -433,7 +433,7 @@ public class T2a {
     public static int[] getLelangList2() throws IOException {
 
         int[] arrlelang = new int[496];
-        int[] pesertaall = new int[5000];
+        int[] pesertaall = new int[6000];
 
         FileInputStream fstream = new FileInputStream("case");
         BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
@@ -447,7 +447,7 @@ public class T2a {
 
         Connection connect = null;
         Statement statement = null;
-        int[] lelang = new int[5000];
+        int[] lelang = new int[6000];
         int numpeserta = 0;
         try {
             Class.forName(myDriver);
@@ -458,7 +458,7 @@ public class T2a {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select distinct  lelangnum from  peserta order by rand() limit 5000";
+            String query = "select distinct  lelangnum from  peserta order by rand() limit 6000";
             ResultSet result = statement.executeQuery(query);
             for (int l = 0; l < pesertaall.length; l++) {
                 if (l < 496) {
@@ -469,7 +469,7 @@ public class T2a {
                 }
             }
 
-            int[] pesertatemp = new int[5000];
+            int[] pesertatemp = new int[6000];
             int p = 0;
             while (result.next()) {
                 pesertatemp[p] = result.getInt(1);
@@ -489,7 +489,7 @@ public class T2a {
 
                     }
                 }
-                if (found == false && x < 4504) {
+                if (found == false && x < 5504) {
                     System.out.println(m);
                     pesertaall[496 + x] = pesertatemp[m];
                     x++;
@@ -554,7 +554,7 @@ public class T2a {
             jsonstring += "\"id\":" + kodelelang[i] + ",";
             String namalelang = getNamaLelang(kodelelang[i]);
             jsonstring += "\"nama\":\"" + namalelang + "\",";
-            jsonstring += "\"peserta\":";
+            /*jsonstring += "\"peserta\":";
             String[] peserta = getPesertaPerLelang(kodelelang[i]);
             jsonstring += "[";
             for (int j = 0; j < peserta.length; j++) {
@@ -566,7 +566,8 @@ public class T2a {
             }
 
             jsonstring += "],";
-            jsonstring += "\"jumlahpeserta\":" + peserta.length + ",";
+            */
+            jsonstring += "\"jumlahpeserta\":" + jumlahpeserta[i] + ",";
             int label = 0;
             if (i <= 496) {
                 label = 1;
@@ -574,7 +575,7 @@ public class T2a {
             else {
                 label = 0;
             }
-            jsonstring += "\"label\":" + label + ",";
+            jsonstring += "\"label\":" + label;
             jsonstring += "}";
             if (i < kodelelang.length - 1) {
                 jsonstring += ",";
@@ -646,7 +647,7 @@ public class T2a {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select nama from  peserta where  lelangnum = " + kodelelang;
+            String query = "select nama from  lelang where  id = " + kodelelang;
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name

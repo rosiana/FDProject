@@ -100,14 +100,14 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="page-header">
-                            Tipe Indikasi 1 <small><i class="fa fa-question-circle"></i></small>
-                        </h1>
+                        <div class="page-header">
+                            Tipe Indikasi 1 <button id="qm-info"><small><i class="fa fa-question-circle"></i></small></button>
+                        </div>
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-12" id="info-row">
                         <div class="info">
                             Tipe indikasi 1 berdasarkan indikasi tahapan yang tidak dilakukan sebagaimana mestinya; menggunakan data selisih waktu antara masing-masing tahapan lelang dan periode waktu masing-masing tahapan lelang. <br />
                             <small>Selisih waktu atau periode tahapan yang terlalu cepat atau terlalu lambat dapat diambil dua asumsi. Pertama, kegiatan dalam tahapan yang bersangkutan tidak dilakukan sebagaimana mestinya sehingga dilakukan dengan terlalu cepat atau terlalu lambat. Kedua, tahapan tersebut fiktif atau hanya dicatat pada sistem namun tidak benar-benar dilakukan. Kedua asumsi ini bisa jadi merupakan indikasi adanya ‘permainan’ dalam tahapan-tahapan lelang tersebut, yang mengarah pada kemungkinan terjadinya kerjasama antara pegawai Unit Layanan Pengadaan yang melakukan entri tahapan lelang yang bersangkutan dengan calon penyedia.</small>
@@ -263,23 +263,28 @@
 
         $(document).ready(function () {
 
-            Plotly.d3.json("json/new/v1_t1periode.json", function(rows) {
-                console.log(rows);
+            d3.json('http://localhost:8080/php/getJSONT1Periode.php', function(error,data) {
+                if (error) console.log(error);
+                console.log(data);
 
-                function unpack(rows, key) {
-                    return rows.map(function(row) { return row[key]; });
+                /*
+
+                function unpack(data, key) {
+                    return data.map(function(row) { return row[key]; });
                 }
 
-                var allLPSE = unpack(rows, 'lpse').reverse(),
-                        allYear = unpack(rows, 'tahun').reverse(),
-                        allID = unpack(rows, 'id').reverse(),
-                        allVal = unpack(rows, 'periodelelang').reverse(),
-                        allName = unpack(rows, 'nama').reverse(),
-                        allStatus = unpack(rows, 'status').reverse(),
-                        allPagu = unpack(rows, 'pagu').reverse(),
-                        allHPS = unpack(rows, 'hps').reverse(),
-                        allPenawaranMenang = unpack(rows, 'penawaranmenang').reverse(),
-                        allPemenang = unpack(rows, 'pemenang').reverse(),
+                */
+
+                var allLPSE = (data.lpse).reverse(),
+                        allYear = (data.tahun).reverse(),
+                        allID = (data.id).reverse(),
+                        allVal = (data.periodelelang).reverse(),
+                        allName = (data.nama).reverse(),
+                        allStatus = (data.status).reverse(),
+                        allPagu = (data.pagu).reverse(),
+                        allHPS = (data.hps).reverse(),
+                        allPenawaranMenang = (data.penawaranmenang).reverse(),
+                        allPemenang = (data.pemenang).reverse(),
                         listofLPSE = [],
                         currentLPSE,
                         listofYear = [],
@@ -625,6 +630,11 @@
                 myPlot2.on('plotly_click', function(data){
                     $('#myModal').modal('show');
                 });
+            });
+
+
+            $("#qm-info").click(function(){
+                $("#info-row").toggle();
             });
         });
     </script>

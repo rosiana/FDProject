@@ -432,7 +432,7 @@ public class T2a {
 
     public static int[] getLelangList2() throws IOException {
 
-        int[] arrlelang = new int[496];
+        int[] arrlelang = new int[492];
         int[] pesertaall = new int[6000];
 
         FileInputStream fstream = new FileInputStream("case");
@@ -461,7 +461,7 @@ public class T2a {
             String query = "select distinct  lelangnum from  peserta order by rand() limit 6000";
             ResultSet result = statement.executeQuery(query);
             for (int l = 0; l < pesertaall.length; l++) {
-                if (l < 496) {
+                if (l < 492) {
                     pesertaall[l] = arrlelang[l];
                 }
                 else {
@@ -480,7 +480,7 @@ public class T2a {
             for (int m = 0; m < pesertatemp.length; m++) {
                 boolean found = false;
                 loop:
-                for (int n = 0; n < 496; n++) {
+                for (int n = 0; n < 492; n++) {
                     if (pesertatemp[m] == pesertaall[n]) {
                         found = true;
                         break loop;
@@ -489,9 +489,8 @@ public class T2a {
 
                     }
                 }
-                if (found == false && x < 5504) {
-                    System.out.println(m);
-                    pesertaall[496 + x] = pesertatemp[m];
+                if (found == false && x < 5508) {
+                    pesertaall[492 + x] = pesertatemp[m];
                     x++;
                 }
             }
@@ -541,19 +540,37 @@ public class T2a {
                 }
             }
             jsonstring += "]";
+            writer.append(jsonstring);
+            writer.flush();
+            System.out.println(i);
             if (i < matrix.length - 1) {
-                jsonstring += ",";
+                jsonstring = ",";
             }
         }
-        jsonstring += "],"; //end matrix
+        jsonstring = "],"; //end matrix
 
         //start peserta
         jsonstring += "\"lelang\":[";
         for (int i = 0; i < kodelelang.length; i++) {
+            System.out.println(kodelelang[i]);
             jsonstring += "{";
             jsonstring += "\"id\":" + kodelelang[i] + ",";
-            String namalelang = getNamaLelang(kodelelang[i]);
-            jsonstring += "\"nama\":\"" + namalelang + "\",";
+            String namalelang = getLelang(kodelelang[i], "nama");
+            jsonstring += "\"nama\":\"" + (((namalelang.replace(",","")).replace(";","")).replace("\"","")).replace("'","") + "\",";
+            String lpse = getLelang(kodelelang[i], "lpse");
+            jsonstring += "\"lpse\":\"" + lpse + "\",";
+            String tahun = getLelang(kodelelang[i], "tahun");
+            jsonstring += "\"tahun\":" + tahun + ",";
+            String pagu = getLelang(kodelelang[i], "pagu");
+            jsonstring += "\"pagu\":" + pagu + ",";
+            String hps = getLelang(kodelelang[i], "hps");
+            jsonstring += "\"hps\":" + hps + ",";
+            String status = getLelang(kodelelang[i], "status");
+            jsonstring += "\"status\":" + status + ",";
+            String penawaranmenang = getLelang(kodelelang[i], "penawaranmenang");
+            jsonstring += "\"penawaranmenang\":" + penawaranmenang + ",";
+            String pemenang = getLelang(kodelelang[i], "pemenang");
+            jsonstring += "\"pemenang\":\"" + (((pemenang.replace(",","")).replace(";","")).replace("\"","")).replace("'","") + "\",";
             /*jsonstring += "\"peserta\":";
             String[] peserta = getPesertaPerLelang(kodelelang[i]);
             jsonstring += "[";
@@ -577,10 +594,12 @@ public class T2a {
             }
             jsonstring += "\"label\":" + label;
             jsonstring += "}";
+            writer.append(jsonstring);
+            writer.flush();
+            jsonstring = "";
             if (i < kodelelang.length - 1) {
                 jsonstring += ",";
             }
-            System.out.println(kodelelang[i]);
         }
         jsonstring += "]}";
 
@@ -634,7 +653,7 @@ public class T2a {
         return jumlahpeserta;
     }
 
-    public static String getNamaLelang(int kodelelang) throws IOException {
+    public static String getLelang(int kodelelang, String key) throws IOException {
         Connection connect = null;
         Statement statement = null;
         String nama = "";
@@ -647,7 +666,7 @@ public class T2a {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select nama from  lelang where  id = " + kodelelang;
+            String query = "select " + key + " from  lelang where  id = " + kodelelang;
             ResultSet result = statement.executeQuery(query);
             while (result.next()) {
                 //Retrieve by column name
@@ -680,12 +699,18 @@ public class T2a {
     public static float[][] isiMatrix2(int[] kodelelang) throws IOException {
         float[][] matrix = new float[kodelelang.length][kodelelang.length];
 
+        String jsonstring = "";
+
+        FileWriter writer = new FileWriter("web/json/t2ax.json");
+
+        jsonstring += "{\"matrix\":[";
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 matrix[i][j] = -999;
             }
         }
         for (int i = 0; i < matrix.length; i++) {
+            jsonstring += "[";
             for (int j = 0; j < matrix.length; j++) {
                 if (i == j) {
                     matrix[i][j] = 0;
@@ -693,11 +718,26 @@ public class T2a {
                     if (matrix[i][j] == -999) {
                        matrix[i][j] = getSimilarity(kodelelang[i], kodelelang[j]);
                        matrix[j][i] = matrix[i][j];
+                        jsonstring += matrix[i][j];
+                        if (j < matrix.length - 1) {
+                            jsonstring += ",";
+                        }
                     }
                 }
                 System.out.println(i + "," + j);
             }
+            jsonstring += "]";
+            writer.append(jsonstring);
+            writer.flush();
+            System.out.println(i);
+            if (i < matrix.length - 1) {
+                jsonstring = ",";
+            }
         }
+        jsonstring = "]}"; //end matrix
+        writer.append(jsonstring);
+        writer.flush();
+        writer.close();
         return matrix;
     }
 }

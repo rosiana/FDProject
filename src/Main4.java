@@ -8,20 +8,16 @@ import java.util.Properties;
 
 public class Main4 {
     static Crawler crawler = new Crawler();
-    static T2a t2a = new T2a();
+    static Indikasi2d t2d = new Indikasi2d();
 
 
     static final String myDriver = "org.gjt.mm.mysql.Driver";
-    static final String myUrl = "jdbc:mysql://localhost/fdproject";
+    static final String myUrl = "jdbc:mysql://localhost/ta";
     static final String user = "root";
     static final String pass = "";
 
     public static void main (String args[]) throws IOException {
-
-
-        int[] listkodelelang = t2a.getLelangList2();
-        float[][] matrix = t2a.isiMatrix2(listkodelelang);
-        t2a.getJSONT2a(listkodelelang, matrix);
+        t2d.IndikasiIId();
     }
 
 }

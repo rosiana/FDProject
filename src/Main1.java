@@ -8,69 +8,15 @@ import java.util.Properties;
 
 public class Main1 {
     static Crawler crawler = new Crawler();
-    static T5 t5 = new T5();
+    static IndikasiIII t3 = new IndikasiIII();
 
 
     static final String myDriver = "org.gjt.mm.mysql.Driver";
-    static final String myUrl = "jdbc:mysql://localhost/fdproject";
+    static final String myUrl = "jdbc:mysql://localhost/ta";
     static final String user = "root";
     static final String pass = "";
 
-    public static void main (String args[]) throws IOException {
-        int[] kodelelang = new int[10000];
-        Connection connect = null;
-        Statement statement = null;
-        try {
-            Class.forName(myDriver);
-            Properties props = new Properties();
-            props.put("user", user);
-            props.put("password", pass);
-            props.put("autoReconnect", "true");
-            connect = DriverManager.getConnection(myUrl, props);
-            statement = connect.createStatement();
-
-            /*
-
-            int numlelang = 0;
-
-            String query = "select count(*) from  lelang as numlelang";
-            ResultSet result = statement.executeQuery(query);
-            while (result.next()) {
-                numlelang = result.getInt(1);
-            }
-            result.close();
-
-            kodelelang = new int[numlelang];
-            */
-
-            String query = "select id from  lelang limit 10000 offset 22255";
-            ResultSet result = statement.executeQuery(query);
-            int i = 0;
-            while (result.next()) {
-                kodelelang[i] = result.getInt(1);
-                i++;
-            }
-            result.close();
-        } catch(SQLException se){
-            //Handle errors for JDBC
-            se.printStackTrace();
-        } catch(Exception e){
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (statement != null)
-                    connect.close();
-            } catch (SQLException se) {
-            }// do nothing
-            try {
-                if (connect != null)
-                    connect.close();
-            } catch(SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }
-        t5.dbInsertT5(kodelelang);
+    public static void main(String[] args) throws IOException {
+        t3.IndikasiIII();
     }
 }

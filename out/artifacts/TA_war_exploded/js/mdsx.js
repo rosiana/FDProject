@@ -32,7 +32,7 @@
 
     /// draws a scatter plot of points, useful for displaying the output
     /// from mds.classic etc
-    mds.drawD3ScatterPlot = function(element, xPos, yPos, labels, params, radius, test) {
+    mds.drawD3ScatterPlot = function(element, xPos, yPos, labels, params, radius, nama) {
         params = params || {};
         var padding = params.padding || 32,
             w = params.w || Math.min(720, document.documentElement.clientWidth - padding),
@@ -145,6 +145,8 @@
             plotlyY[i] = yScale(yPos[i]);
         }
 
+        console.log(labels);
+
         var trace = {
             x: plotlyX,
             y: plotlyY,
@@ -152,9 +154,9 @@
             marker: {
                 color: 'rgb(101, 131, 155)',
                 sizemode: 'area',
-                size: radius,
-                text: labels
-            }
+                size: radius
+            },
+            text: labels
         };
 
         var data = [trace];
@@ -163,14 +165,14 @@
             margin: {t: 20}
         };
 
-        Plotly.plot('myDiv', data, layout, {showLink: false});
+        Plotly.plot('myDiv', data, layout, {displayModeBar: true, displaylogo: false});
     };
 }(window.mds = window.mds || {}));
 
 var matrix;
 var labels;
 var radius;
-var test;
+var nama;
 
 d3.json("json/t2a1.json", function(data) {
     console.log(data);
@@ -186,10 +188,10 @@ d3.json("json/t2a1.json", function(data) {
     });
     radius = radiustemp;
 
-    var testtemp = data.lelang.map(function(d) {
-        return d.label;
+    var namatemp = data.lelang.map(function(d) {
+        return d.nama;
     });
-    test = testtemp;
+    nama = namatemp;
 
     var dotPositions = numeric.transpose(mds.classic(matrix));
     var w = Math.min(720, document.documentElement.clientWidth - 20),

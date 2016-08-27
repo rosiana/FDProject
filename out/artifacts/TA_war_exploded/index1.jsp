@@ -60,10 +60,10 @@
                         <a href="#"><i class="fa fa-home fa-fw"></i> Halaman Utama</a>
                     </li>
                     <li>
-                        <a class="active-menu" href="index1.jsp"><i class="fa fa-bar-chart fa-fw"></i> Tipe Indikasi 1</a>
+                        <a class="active-menu" href="index1.jsp"><i class="fa fa-bar-chart"></i> Tipe Indikasi 1</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bar-chart fa-fw"></i> Tipe Indikasi 2<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-bar-chart"></i> Tipe Indikasi 2<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="index2a.jsp">Tipe Indikasi 2A</a>
@@ -74,13 +74,13 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="index3.jsp"><i class="fa fa-bar-chart fa-fw"></i> Tipe Indikasi 3</a>
+                        <a href="index3.jsp"><i class="fa fa-bar-chart"></i> Tipe Indikasi 3</a>
                     </li>
                     <li>
-                        <a href="index4.jsp"><i class="fa fa-bar-chart fa-fw"></i> Tipe Indikasi 4</a>
+                        <a href="index4.jsp"><i class="fa fa-bar-chart"></i> Tipe Indikasi 4</a>
                     </li>
                     <li>
-                        <a href="index4.jsp"><i class="fa fa-bar-chart fa-fw"></i> Tipe Indikasi 5</a>
+                        <a href="index5.jsp"><i class="fa fa-bar-chart"></i> Tipe Indikasi 5</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-question-circle fa-fw"></i> Bantuan</a>
@@ -101,7 +101,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="page-header">
-                            Tipe Indikasi 1 <button id="qm-info"><small><i class="fa fa-question-circle"></i></small></button>
+                            <div id="qm-info"><h1>Tipe Indikasi 1 <small><i class="fa fa-question-circle"></i></small></h1></div>
                         </div>
                     </div>
                 </div>
@@ -120,10 +120,10 @@
                         <div class="panel panel-default" data-num="0">
                             <div class="row header-chart">
                                 <div class="col-md-12">
-                                    <div class="col-md-6">
-                                        <h2>Tipe Indikasi 1 - Periode Lelang</h2>
+                                    <div class="col-md-5">
+                                        <h2>Grafik Periode Lelang</h2>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-7">
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -141,14 +141,14 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="row">
-                                                    <div class="col-md-2">
-                                                        <button type="button" class="btn btn-default nextprev" id="prev"><i class="fa fa-angle-left fa-fw"></i></button>
+                                                    <div class="col-md-3">
+                                                        <button type="button" class="btn btn-default nextprev" id="prev"><i class="fa fa-angle-left fa-fw arrowleft"></i></button>
                                                     </div>
-                                                    <div class="col-md-4 col-md-offset-1" id="count" style="text-align: center;">
+                                                    <div class="col-md-6" id="count" style="text-align: center;">
                                                         1 / 20
                                                     </div>
-                                                    <div class="col-md-2">
-                                                        <button type="button" class="btn btn-default nextprev" id="next"><i class="fa fa-angle-right fa-fw"></i></button>
+                                                    <div class="col-md-3">
+                                                        <button type="button" class="btn btn-default nextprev next" id="next"><i class="fa fa-angle-right fa-fw arrowright"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -158,7 +158,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div id="myDiv" style="width : 1000px; height: 500px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+                                    <div id="myDiv" style="width : 1000px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
                                 </div>
                             </div>
                         </div>
@@ -170,23 +170,36 @@
                         <div class="panel panel-default" data-num="1">
                             <div class="row header-chart">
                                 <div class="col-md-12">
-                                    <div class="col-md-8">
-                                        <h2>Tipe Indikasi 1 - Rata-Rata Jeda Tahap Lelang</h2>
+                                    <div class="col-md-5">
+                                        <h2>Grafik Rata-Rata Jeda Tahap Lelang</h2>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-7">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <select class="form-control lpse-data">
                                                         <option>Semua LPSE</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <select class="form-control year-data">
                                                         <option>Semua Tahun</option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <button type="button" class="btn btn-default nextprev" id="prev2"><i class="fa fa-angle-left fa-fw arrowleft"></i></button>
+                                                    </div>
+                                                    <div class="col-md-6" id="count2" style="text-align: center;">
+                                                        1 / 20
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <button type="button" class="btn btn-default nextprev next" id="next2"><i class="fa fa-angle-right fa-fw arrowright"></i></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -195,7 +208,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div id="myDiv2" style= "width : 1000px; height: 500px;"><!-- Plotly chart will be drawn inside this DIV --></div>
+                                    <div id="myDiv2" style="width : 1000px; height: 400px;"><!-- Plotly chart will be drawn inside this DIV --></div>
                                 </div>
                             </div>
                         </div>
@@ -263,28 +276,21 @@
 
         $(document).ready(function () {
 
-            d3.json('http://localhost:8080/php/getJSONT1Periode.php', function(error,data) {
-                if (error) console.log(error);
-                console.log(data);
-
-                /*
-
-                function unpack(data, key) {
-                    return data.map(function(row) { return row[key]; });
+            Plotly.d3.json('http://localhost/jing/getJSONT1Periode.php', function(rows) {
+                function unpack(rows, key) {
+                    return rows.map(function(row) { return row[key]; });
                 }
 
-                */
-
-                var allLPSE = (data.lpse).reverse(),
-                        allYear = (data.tahun).reverse(),
-                        allID = (data.id).reverse(),
-                        allVal = (data.periodelelang).reverse(),
-                        allName = (data.nama).reverse(),
-                        allStatus = (data.status).reverse(),
-                        allPagu = (data.pagu).reverse(),
-                        allHPS = (data.hps).reverse(),
-                        allPenawaranMenang = (data.penawaranmenang).reverse(),
-                        allPemenang = (data.pemenang).reverse(),
+                var allLPSE = unpack(rows, 'lpse').reverse(),
+                        allYear = unpack(rows, 'tahun').reverse(),
+                        allID = unpack(rows, 'id').reverse(),
+                        allVal = unpack(rows, 'periodelelang').reverse(),
+                        allName = unpack(rows, 'nama').reverse(),
+                        allStatus = unpack(rows, 'status').reverse(),
+                        allPagu = unpack(rows, 'pagu').reverse(),
+                        allHPS = unpack(rows, 'hps').reverse(),
+                        allPenawaranMenang = unpack(rows, 'penawaranmenang').reverse(),
+                        allPemenang = unpack(rows, 'pemenang').reverse(),
                         listofLPSE = [],
                         currentLPSE,
                         listofYear = [],
@@ -358,7 +364,7 @@
                         xaxis: {
                             type: 'category',
                             title: 'ID Lelang',
-                            nticks: 20,
+                            nticks: 10,
                             tickwidth: 3,
                             tickcolor: 'rgb(83, 94, 126)',
                             range: [1, 200]
@@ -450,7 +456,7 @@
                 var start = 1;
                 var fin = 200;
                 var lastRange;
-                var step = allID.length / 200;
+                var step = Math.floor(allID.length / 200);
                 if (allID.length % 200 == 0) {
                     lastRange = (step * 200) - 199;
                     $('#count').text("1 / " + step);
@@ -484,7 +490,7 @@
                         xaxis: {
                             type: 'category',
                             title: 'ID Lelang',
-                            nticks: 20,
+                            nticks: 10,
                             tickwidth: 3,
                             tickcolor: 'rgb(83, 94, 126)',
                             range: [start, fin]
@@ -495,16 +501,21 @@
             });
 
 
-            Plotly.d3.json("json/new/v1_t1meanselisih.json", function(rows) {
-
+            Plotly.d3.json('http://localhost/jing/getJSONT1MeanSelisih.php', function(rows) {
                 function unpack(rows, key) {
                     return rows.map(function(row) { return row[key]; });
                 }
 
-                var allLPSE = unpack(rows, 'lpse'),
-                        allYear = unpack(rows, 'tahun'),
-                        allID = unpack(rows, 'id'),
-                        allVal = unpack(rows, 'meanselisihtahap'),
+                var allLPSE = unpack(rows, 'lpse').reverse(),
+                        allYear = unpack(rows, 'tahun').reverse(),
+                        allID = unpack(rows, 'id').reverse(),
+                        allVal = unpack(rows, 'meanselisihtahap').reverse(),
+                        allName = unpack(rows, 'nama').reverse(),
+                        allStatus = unpack(rows, 'status').reverse(),
+                        allPagu = unpack(rows, 'pagu').reverse(),
+                        allHPS = unpack(rows, 'hps').reverse(),
+                        allPenawaranMenang = unpack(rows, 'penawaranmenang').reverse(),
+                        allPemenang = unpack(rows, 'pemenang').reverse(),
                         listofLPSE = [],
                         currentLPSE,
                         listofYear = [],
@@ -555,7 +566,7 @@
                             }
                         }
                     }
-                };
+                }
 
                 setPlot('Semua LPSE', 'Semua Tahun');
 
@@ -578,7 +589,7 @@
                         xaxis: {
                             type: 'category',
                             title: 'ID Lelang',
-                            nticks: 20,
+                            nticks: 10,
                             tickwidth: 3,
                             tickcolor: 'rgb(83, 94, 126)',
                             range: [1, 200]
@@ -600,12 +611,13 @@
                     };
 
                     Plotly.newPlot('myDiv2', data2, layout2, {displayModeBar: true, displaylogo: false});
-                };
+
+                }
 
                 var innerContainer = document.querySelector('[data-num="1"'),
                         plotEl = innerContainer.querySelector('.plot'),
                         lpseSelector = innerContainer.querySelector('.lpse-data'),
-                yearSelector = innerContainer.querySelector('.year-data');
+                        yearSelector = innerContainer.querySelector('.year-data');
 
                 function assignOptions(textArray, selector) {
                     for (var i = 0; i < textArray.length;  i++) {
@@ -615,6 +627,8 @@
                     }
                 }
 
+                listofLPSE.sort(function(a, b){return a-b});
+                listofYear.sort(function(a, b){return b-a});
                 assignOptions(listofLPSE, lpseSelector);
                 assignOptions(listofYear, yearSelector);
 
@@ -627,9 +641,88 @@
 
                 var myPlot2 = document.getElementById('myDiv2');
 
-                myPlot2.on('plotly_click', function(data){
+                Number.prototype.format = function(n, x, s, c) {
+                    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+                            num = this.toFixed(Math.max(0, ~~n));
+
+                    return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+                };
+
+                myPlot2.on('plotly_click', function(data1){
+                    var id, nama, lpse, tahun, pemenang, pagu, hps, penawaran, status = '';
+                    for(var i=0; i < data1.points.length; i++){
+                        var j = data1.points[i].pointNumber;
+                        id = allID[j];
+                        nama = allName[j];
+                        lpse = allLPSE[j];
+                        tahun = allYear[j];
+                        pemenang = allPemenang[j];
+                        pagu = allPagu[j];
+                        hps = allHPS[j];
+                        penawaran = allPenawaranMenang[j];
+                        status = allStatus[j];
+                    }
+                    $('#myModalLabel').text("Lelang " + id);
+
+                    $('#modalName').text(nama);
+                    $('#modalLPSE').text(lpse);
+                    $('#modalYear').text(tahun);
+                    $('#modalPemenang').text(pemenang);
+                    $('#modalPagu').text("Rp " + pagu.format(2, 3, '.', ','));
+                    $('#modalHPS').text("Rp " + hps.format(2, 3, '.', ','));
+                    $('#modalPenawaran').text("Rp " + penawaran.format(2, 3, '.', ','));
+                    $('#modalStatus').text(status);
                     $('#myModal').modal('show');
                 });
+
+                $('#next2').click({param: 0}, relay);
+                $('#prev2').click({param: 1}, relay);
+
+                var start = 1;
+                var fin = 200;
+                var lastRange;
+                var step = Math.floor(allID.length / 200);
+                if (allID.length % 200 == 0) {
+                    lastRange = (step * 200) - 199;
+                    $('#count2').text("1 / " + step);
+                }
+                else {
+                    lastRange = (step * 200) + 1;
+                    step += 1;
+                    $('#count2').text("1 / " + step);
+                }
+                console.log(step);
+                console.log(lastRange);
+
+                var tempstep = 1;
+
+                function relay(event) {
+                    if ((tempstep > 1) && (event.data.param == 1)) {
+                        console.log("prev");
+                        start -= 200;
+                        fin = start+199;
+                        tempstep -= 1;
+                        $('#count2').text(tempstep + " / " + step);
+                    }
+                    if ((tempstep < step) && (event.data.param == 0)) {
+                        console.log("next");
+                        start += 200;
+                        fin = start+199;
+                        tempstep += 1;
+                        $('#count2').text(tempstep + " / " + step);
+                    }
+                    var update = {
+                        xaxis: {
+                            type: 'category',
+                            title: 'ID Lelang',
+                            nticks: 10,
+                            tickwidth: 3,
+                            tickcolor: 'rgb(83, 94, 126)',
+                            range: [start, fin]
+                        }
+                    };
+                    Plotly.relayout(myPlot2, update);
+                }
             });
 
 

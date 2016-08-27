@@ -43,7 +43,9 @@ margin-top: 7px;
 margin-bottom: -5px;
 }
 h1 {
+  margin-top: -10px;
     font-size: 26px;
+    margin-bottom: 15px;
 }
 h2 {
     color: #000;
@@ -645,6 +647,21 @@ font-size: 19px;
 .nextprev {
     height: 34px !important;
     width: 10px !important;
+}
+
+.arrowleft,
+.arrowright {
+  margin-right: 40px !important;
+  margin-left: -10px !important;
+}
+
+#count,
+#count2 {
+  margin-top: 10px !important;
+}
+
+.next {
+  margin-right: 20px !important;
 }
 
 

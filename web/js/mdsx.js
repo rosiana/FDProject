@@ -87,8 +87,6 @@
             .enter()
             .append("g");
 
-        /*
-
         var list = [];
         for (var j in radius)
             list.push({'sRadius': radius[j], 'sXPos': xPos[j], 'sYPos': yPos[j]});
@@ -101,7 +99,6 @@
             xPos[k] = list[k].sXPos;
             yPos[k] = list[k].sYPos;
         }
-        */
 
         /*
         nodes.append("circle")

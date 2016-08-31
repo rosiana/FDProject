@@ -129,7 +129,7 @@ public class Indikasi2d {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("insert into  indikasi2d values (?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  indikasi2dtes values (?, ?, ?, ?)");
             preparedStatement.setInt(1, (int)temp[0]);
             preparedStatement.setFloat(2, temp[1]);
             preparedStatement.setFloat(3, temp[2]);
@@ -174,6 +174,7 @@ public class Indikasi2d {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
+            /*
 
             String query = "select count(id) from lelang as jumkode";
             ResultSet result = statement.executeQuery(query);
@@ -182,9 +183,10 @@ public class Indikasi2d {
                 jumkode = result.getInt(1);
             }
             result.close();
-            jumlahkode = new int[jumkode];
-            query = "select id from lelang";
-            result = statement.executeQuery(query);
+            */
+            jumlahkode = new int[9251];
+            String query = "select id from lelang where lpse = \"Kementerian Keuangan\" and id > 2786011";
+            ResultSet result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {
                 //Retrieve by column name

@@ -35,6 +35,7 @@ public class IndikasiIII {
                 jumpemenang = result.getInt(1);
             }
             result.close();
+
             stringpemenang = new String[jumpemenang][3];
             query = "select distinct lpse, pemenang from lelang where pemenang is not null and lpse = \"Kementerian Keuangan\"";
             result = statement.executeQuery(query);
@@ -48,7 +49,7 @@ public class IndikasiIII {
             }
             result.close();
 
-            for (int j = 0; j < stringpemenang.length; j++) {
+            for (int j = 2002; j < 2500; j++) {
                 query = "SELECT count(*) from (select id from lelang where pemenang = \"" + stringpemenang[j][1] + "\") al";
                 result = statement.executeQuery(query);
                 while (result.next()) {
@@ -82,7 +83,6 @@ public class IndikasiIII {
     }
 
     public static String[] getLinkPerPemenang(String pemenang1, String pemenang2) throws IOException {
-        int offset = 1;
         String[] links = new String[2];
         Connection connect = null;
         Statement statement = null;
@@ -142,7 +142,7 @@ public class IndikasiIII {
     }
 
     public static void getAllLinkPerPemenang(String[][] listpemenang) throws IOException {
-        for (int i = 0; i < listpemenang.length; i++) {
+        for (int i = 2002; i < 2500; i++) {
             boolean ada = false;
             String[] links = new String[6];
             for (int j = i + 1; j < listpemenang.length; j++) {

@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Main3 {
     static Crawler crawler = new Crawler();
-    static Indikasi2c t2c = new Indikasi2c();
+    static Indikasi2d t2d = new Indikasi2d();
 
 
     static final String myDriver = "org.gjt.mm.mysql.Driver";
@@ -16,8 +16,8 @@ public class Main3 {
     static final String user = "root";
     static final String pass = "";
 
-    public static void main (String args[]) throws IOException {
-        t2c.getHPS();
+    public static void main(String[] args) throws IOException {
+        t2d.IndikasiIId();
     }
 
 }

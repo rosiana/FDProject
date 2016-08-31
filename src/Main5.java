@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Main5 {
     static Crawler crawler = new Crawler();
-    static Indikasi2e t2e = new Indikasi2e();
+    static IndikasiI t1 = new IndikasiI();
 
 
     static final String myDriver = "org.gjt.mm.mysql.Driver";
@@ -17,7 +17,7 @@ public class Main5 {
     static final String pass = "";
 
     public static void main (String args[]) throws IOException {
-        t2e.IndikasiIIe();
+        t1.IndikasiI();
     }
 
 }

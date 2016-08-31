@@ -73,7 +73,7 @@ public class Indikasi2e {
             props.put("autoReconnect", "true");
             connect = DriverManager.getConnection(myUrl, props);
 
-            preparedStatement = connect.prepareStatement("insert into  indikasi2e values (?, ?)");
+            preparedStatement = connect.prepareStatement("insert into  indikasi2etes values (?, ?)");
             preparedStatement.setInt(1, (int)temp[0]);
             preparedStatement.setFloat(2, temp[1]);
 
@@ -116,7 +116,7 @@ public class Indikasi2e {
             connect = DriverManager.getConnection(myUrl, props);
             statement = connect.createStatement();
 
-            String query = "select id from lelang";
+            String query = "select id from lelang where lpse = \"Kementerian Keuangan\" and id > 2412011";
             ResultSet result = statement.executeQuery(query);
             int i = 0;
             while (result.next()) {
